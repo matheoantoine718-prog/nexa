@@ -736,7 +736,805 @@ return rule.type;
 return "DISCOVERY";
 }
 /* DECISION ENGINE */
-function generateDecision(type){
+/* ==================================================
+NEXA INTELLIGENCE ENGINE V2
+================================================== */
+/* NORMALISATION */
+function normalizeText(text){
+return text
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.trim();
+}
+/* INTENT ANALYSIS */
+/* ==================================================
+NEXA INTELLIGENCE ENGINE V2
+================================================== */
+/* NORMALISATION */
+function normalizeText(text){
+return text
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.trim();
+}
+/* INTENT ANALYSIS */
+function analyzeIntent(input){
+const text =
+normalizeText(input);
+/* CATEGORY */
+const categories = {
+CAREER:[
+"travail",
+"emploi",
+"job",
+"metier",
+"carriere",
+"cv",
+"candidature",
+"embauche",
+"recrutement",
+"salaire",
+"formation"
+],
+PROJECT:[
+"projet",
+"application",
+"app",
+"business",
+"entreprise",
+"startup",
+"site",
+"logiciel",
+"code",
+"programmation",
+"idee"
+],
+LEARNING:[
+"apprendre",
+"etudier",
+"cours",
+"competence",
+"comprendre",
+"formation",
+"apprentissage"
+],
+MONEY:[
+"argent",
+"revenu",
+"gagner",
+"economiser",
+"budget",
+"finance",
+"investir"
+],
+BLOCKED:[
+"bloque",
+"blocage",
+"procrastine",
+"peur",
+"stress",
+"impossible",
+"n'arrive pas",
+"ne sais pas",
+"perdu",
+"confus"
+],
+GOAL:[
+"objectif",
+"reussir",
+"changer",
+"ameliorer",
+"progresser",
+"developper",
+"atteindre"
+]
+};
+let detectedType="DISCOVERY";
+let highestScore=0;
+for(
+const category in categories
+){
+let score=0;
+categories[category]
+.forEach(word => {
+if(
+text.includes(word)
+){
+score++;
+}
+});
+if(
+score > highestScore
+){
+highestScore=score;
+detectedType=
+category;
+}
+}
+/* URGENCY */
+const urgencyWords=[
+"urgent",
+"maintenant",
+"aujourd'hui",
+"vite",
+"immediatement",
+"rapidement"
+];
+const urgency =
+urgencyWords.some(
+word =>
+text.includes(word)
+)
+?
+"HIGH"
+:
+"NORMAL";
+/* BLOCKED STATE */
+const blockedWords=[
+"je ne sais pas",
+"je sais pas",
+"je suis bloque",
+"je suis perdu",
+"je n'arrive pas",
+"impossible",
+"je comprends pas"
+];
+const blocked =
+blockedWords.some(
+word =>
+text.includes(word)
+);
+/* COMPLEXITY */
+let complexity="LOW";
+if(
+text.length > 120
+){
+complexity="HIGH";
+}
+else if(
+text.length > 50
+){
+complexity="MEDIUM";
+}
+/* RETURN ANALYSIS */
+return {
+type:detectedType,
+urgency:urgency,
+blocked:blocked,
+complexity:complexity,
+length:text.length
+};
+}
+/* DECISION ENGINE */
+function generateDecision(analysis){
+const type =
+analysis.type;
+/* BLOCKED OVERRIDE */
+if(
+analysis.blocked
+){
+return {
+title:"Réduis le problème.",
+text:
+"Ne cherche pas encore la solution complète. Écris maintenant une seule chose : « Quelle est la prochaine action de moins de 5 minutes que je peux faire ? »",
+action:
+"Clarifier",
+priority:
+"IMMEDIATE"
+};
+}
+/* URGENCY OVERRIDE */
+if(
+analysis.urgency === "HIGH"
+){
+return {
+title:"Passe à l'action maintenant.",
+text:
+"Ne planifie pas davantage. Choisis une seule action directement liée à ton objectif et commence-la immédiatement pendant 5 minutes.",
+action:
+"Agir",
+priority:
+"HIGH"
+};
+}
+/* PERSONALIZED PLANS */
+const plans={
+CAREER:[
+[
+"Définis ta cible.",
+"Écris le métier précis que tu veux obtenir."
+],
+[
+"Trouve une opportunité.",
+"Identifie une seule offre réellement accessible pour toi."
+],
+[
+"Passe au contact.",
+"Envoie aujourd'hui une candidature ou un message."
+],
+[
+"Améliore ton profil.",
+"Identifie la compétence qui augmenterait le plus tes chances."
+],
+[
+"Construis ton système.",
+"Organise une routine quotidienne de recherche et de candidature."
+]
+],
+PROJECT:[
+[
+"Clarifie ton idée.",
+"Résume ton projet en une phrase simple."
+],
+[
+"Choisis le cœur.",
+"Définis la seule fonctionnalité indispensable."
+],
+[
+"Construis.",
+"Crée aujourd'hui la version la plus simple possible."
+],
+[
+"Teste.",
+"Montre ton prototype à une vraie personne."
+],
+[
+"Optimise.",
+"Améliore une seule chose à partir du feedback obtenu."
+]
+],
+LEARNING:[
+[
+"Choisis une compétence.",
+"Définis exactement ce que tu veux savoir faire."
+],
+[
+"Commence petit.",
+"Choisis une seule ressource et apprends les bases."
+],
+[
+"Pratique.",
+"Fais immédiatement un exercice concret."
+],
+[
+"Produis.",
+"Crée quelque chose qui démontre ta compétence."
+],
+[
+"Approfondis.",
+"Travaille maintenant sur un problème plus difficile."
+]
+],
+MONEY:[
+[
+"Clarifie ton objectif financier.",
+"Définis le montant que tu veux gagner ou économiser."
+],
+[
+"Observe.",
+"Note aujourd'hui où part ton argent."
+],
+[
+"Réduis une fuite.",
+"Identifie une seule dépense que tu peux réduire."
+],
+[
+"Crée une source.",
+"Explore une manière réaliste d'augmenter tes revenus."
+],
+[
+"Construis un système.",
+"Automatise ton épargne ou ton suivi financier."
+]
+],
+GOAL:[
+[
+"Clarifie ton objectif.",
+"Décris précisément le résultat que tu veux obtenir."
+],
+[
+"Réduis l'objectif.",
+"Choisis le plus petit résultat mesurable."
+],
+[
+"Agis.",
+"Fais aujourd'hui une action qui produit un résultat."
+],
+[
+"Mesure.",
+"Vérifie ce qui a réellement progressé."
+],
+[
+"Structure.",
+"Transforme ton objectif en système régulier."
+]
+],
+DISCOVERY:[
+[
+"Explore.",
+"Écris précisément ce qui t'intéresse."
+],
+[
+"Teste.",
+"Fais une petite expérience concrète."
+],
+[
+"Observe.",
+"Regarde ce qui fonctionne réellement."
+],
+[
+"Approfondis.",
+"Développe la piste qui semble la plus prometteuse."
+],
+[
+"Décide.",
+"Choisis une direction et avance."
+]
+]
+};
+const plan =
+plans[type] ||
+plans.DISCOVERY;
+const index =
+Math.max(
+0,
+Math.min(
+NEXA.level - 1,
+4
+)
+);
+const selected =
+plan[index];
+return {
+title:selected[0],
+text:selected[1],
+action:selected[0],
+priority:"NORMAL"
+};
+}
+/* ==================================================
+NEXA THINK V2
+================================================== */
+function think(){
+const input =
+$("userInput")
+.value
+.trim();
+if(!input){
+alert(
+"Écris d'abord ce que tu veux accomplir."
+);
+return;
+}
+/* ANALYZE */
+const analysis =
+analyzeIntent(input);
+/* DECISION */
+const decision =
+generateDecision(
+analysis
+);
+/* ENTRY */
+const entry={
+id:Date.now(),
+input:input,
+type:analysis.type,
+urgency:analysis.urgency,
+blocked:analysis.blocked,
+complexity:analysis.complexity,
+level:NEXA.level,
+title:decision.title,
+text:decision.text,
+action:decision.action,
+priority:decision.priority,
+feedback:null,
+date:new Date().toISOString()
+};
+/* MEMORY */
+NEXA.memory.push(entry);
+/* SAVE */
+save();
+/* DISPLAY */
+displayResult(entry);
+/* DEBUG */
+console.log(
+"NEXA ANALYSIS",
+analysis
+);
+console.log(
+"NEXA DECISION",
+decision
+);
+}
+const text =
+normalizeText(input);
+/* CATEGORY */
+const categories = {
+CAREER:[
+"travail",
+"emploi",
+"job",
+"metier",
+"carriere",
+"cv",
+"candidature",
+"embauche",
+"recrutement",
+"salaire",
+"formation"
+],
+PROJECT:[
+"projet",
+"application",
+"app",
+"business",
+"entreprise",
+"startup",
+"site",
+"logiciel",
+"code",
+"programmation",
+"idee"
+],
+LEARNING:[
+"apprendre",
+"etudier",
+"cours",
+"competence",
+"comprendre",
+"formation",
+"apprentissage"
+],
+MONEY:[
+"argent",
+"revenu",
+"gagner",
+"economiser",
+"budget",
+"finance",
+"investir"
+],
+BLOCKED:[
+"bloque",
+"blocage",
+"procrastine",
+"peur",
+"stress",
+"impossible",
+"n'arrive pas",
+"ne sais pas",
+"perdu",
+"confus"
+],
+GOAL:[
+"objectif",
+"reussir",
+"changer",
+"ameliorer",
+"progresser",
+"developper",
+"atteindre"
+]
+};
+let detectedType="DISCOVERY";
+let highestScore=0;
+for(
+const category in categories
+){
+let score=0;
+categories[category]
+.forEach(word => {
+if(
+text.includes(word)
+){
+score++;
+}
+});
+if(
+score > highestScore
+){
+highestScore=score;
+detectedType=
+category;
+}
+}
+/* URGENCY */
+const urgencyWords=[
+"urgent",
+"maintenant",
+"aujourd'hui",
+"vite",
+"immediatement",
+"rapidement"
+];
+const urgency =
+urgencyWords.some(
+word =>
+text.includes(word)
+)
+?
+"HIGH"
+:
+"NORMAL";
+/* BLOCKED STATE */
+const blockedWords=[
+"je ne sais pas",
+"je sais pas",
+"je suis bloque",
+"je suis perdu",
+"je n'arrive pas",
+"impossible",
+"je comprends pas"
+];
+const blocked =
+blockedWords.some(
+word =>
+text.includes(word)
+);
+/* COMPLEXITY */
+let complexity="LOW";
+if(
+text.length > 120
+){
+complexity="HIGH";
+}
+else if(
+text.length > 50
+){
+complexity="MEDIUM";
+}
+/* RETURN ANALYSIS */
+return {
+type:detectedType,
+urgency:urgency,
+blocked:blocked,
+complexity:complexity,
+length:text.length
+};
+}
+/* DECISION ENGINE */
+function generateDecision(analysis){
+const type =
+analysis.type;
+/* BLOCKED OVERRIDE */
+if(
+analysis.blocked
+){
+return {
+title:"Réduis le problème.",
+text:
+"Ne cherche pas encore la solution complète. Écris maintenant une seule chose : « Quelle est la prochaine action de moins de 5 minutes que je peux faire ? »",
+action:
+"Clarifier",
+priority:
+"IMMEDIATE"
+};
+}
+/* URGENCY OVERRIDE */
+if(
+analysis.urgency === "HIGH"
+){
+return {
+title:"Passe à l'action maintenant.",
+text:
+"Ne planifie pas davantage. Choisis une seule action directement liée à ton objectif et commence-la immédiatement pendant 5 minutes.",
+action:
+"Agir",
+priority:
+"HIGH"
+};
+}
+/* PERSONALIZED PLANS */
+const plans={
+CAREER:[
+[
+"Définis ta cible.",
+"Écris le métier précis que tu veux obtenir."
+],
+[
+"Trouve une opportunité.",
+"Identifie une seule offre réellement accessible pour toi."
+],
+[
+"Passe au contact.",
+"Envoie aujourd'hui une candidature ou un message."
+],
+[
+"Améliore ton profil.",
+"Identifie la compétence qui augmenterait le plus tes chances."
+],
+[
+"Construis ton système.",
+"Organise une routine quotidienne de recherche et de candidature."
+]
+],
+PROJECT:[
+[
+"Clarifie ton idée.",
+"Résume ton projet en une phrase simple."
+],
+[
+"Choisis le cœur.",
+"Définis la seule fonctionnalité indispensable."
+],
+[
+"Construis.",
+"Crée aujourd'hui la version la plus simple possible."
+],
+[
+"Teste.",
+"Montre ton prototype à une vraie personne."
+],
+[
+"Optimise.",
+"Améliore une seule chose à partir du feedback obtenu."
+]
+],
+LEARNING:[
+[
+"Choisis une compétence.",
+"Définis exactement ce que tu veux savoir faire."
+],
+[
+"Commence petit.",
+"Choisis une seule ressource et apprends les bases."
+],
+[
+"Pratique.",
+"Fais immédiatement un exercice concret."
+],
+[
+"Produis.",
+"Crée quelque chose qui démontre ta compétence."
+],
+[
+"Approfondis.",
+"Travaille maintenant sur un problème plus difficile."
+]
+],
+MONEY:[
+[
+"Clarifie ton objectif financier.",
+"Définis le montant que tu veux gagner ou économiser."
+],
+[
+"Observe.",
+"Note aujourd'hui où part ton argent."
+],
+[
+"Réduis une fuite.",
+"Identifie une seule dépense que tu peux réduire."
+],
+[
+"Crée une source.",
+"Explore une manière réaliste d'augmenter tes revenus."
+],
+[
+"Construis un système.",
+"Automatise ton épargne ou ton suivi financier."
+]
+],
+GOAL:[
+[
+"Clarifie ton objectif.",
+"Décris précisément le résultat que tu veux obtenir."
+],
+[
+"Réduis l'objectif.",
+"Choisis le plus petit résultat mesurable."
+],
+[
+"Agis.",
+"Fais aujourd'hui une action qui produit un résultat."
+],
+[
+"Mesure.",
+"Vérifie ce qui a réellement progressé."
+],
+[
+"Structure.",
+"Transforme ton objectif en système régulier."
+]
+],
+DISCOVERY:[
+[
+"Explore.",
+"Écris précisément ce qui t'intéresse."
+],
+[
+"Teste.",
+"Fais une petite expérience concrète."
+],
+[
+"Observe.",
+"Regarde ce qui fonctionne réellement."
+],
+[
+"Approfondis.",
+"Développe la piste qui semble la plus prometteuse."
+],
+[
+"Décide.",
+"Choisis une direction et avance."
+]
+]
+};
+const plan =
+plans[type] ||
+plans.DISCOVERY;
+const index =
+Math.max(
+0,
+Math.min(
+NEXA.level - 1,
+4
+)
+);
+const selected =
+plan[index];
+return {
+title:selected[0],
+text:selected[1],
+action:selected[0],
+priority:"NORMAL"
+};
+}
+/* ==================================================
+NEXA THINK V2
+================================================== */
+function think(){
+const input =
+$("userInput")
+.value
+.trim();
+if(!input){
+alert(
+"Écris d'abord ce que tu veux accomplir."
+);
+return;
+}
+/* ANALYZE */
+const analysis =
+analyzeIntent(input);
+/* DECISION */
+const decision =
+generateDecision(
+analysis
+);
+/* ENTRY */
+const entry={
+id:Date.now(),
+input:input,
+type:analysis.type,
+urgency:analysis.urgency,
+blocked:analysis.blocked,
+complexity:analysis.complexity,
+level:NEXA.level,
+title:decision.title,
+text:decision.text,
+action:decision.action,
+priority:decision.priority,
+feedback:null,
+date:new Date().toISOString()
+};
+/* MEMORY */
+NEXA.memory.push(entry);
+/* SAVE */
+save();
+/* DISPLAY */
+displayResult(entry);
+/* DEBUG */
+console.log(
+"NEXA ANALYSIS",
+analysis
+);
+console.log(
+"NEXA DECISION",
+decision
+);
+}
 const plans = {
 CAREER:[
 [
