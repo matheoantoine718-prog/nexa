@@ -1,12 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<meta
+    name="theme-color"
+    content="#050507"
+>
+
+<title>NEXA — Your Next Possibility</title>
+
 <style>
 
-/* =========================
-   DESIGN SYSTEM (CLEAN)
-========================= */
+/* =========================================================
+   NEXA V4 — UI EVOLUTION
+   Design System
+========================================================= */
 
 :root {
 
-    /* COLORS */
     --bg: #050507;
     --surface: #101014;
     --surface-2: #0c0c0f;
@@ -15,14 +32,17 @@
     --border-soft: #29292f;
 
     --text: #ffffff;
+    --text-soft: #aaa;
     --text-muted: #777;
     --text-dim: #555;
-    --text-soft: #aaa;
 
     --black: #000;
     --white: #fff;
 
-    /* SPACING (SIMPLIFIED SCALE) */
+    --success: #d9ffd9;
+    --warning: #fff3c4;
+    --danger: #ffd6d6;
+
     --s-1: 10px;
     --s-2: 14px;
     --s-3: 18px;
@@ -32,285 +52,2629 @@
     --s-7: 40px;
     --s-8: 45px;
 
-    /* RADIUS (REDUCED SET) */
     --r-sm: 14px;
     --r-lg: 22px;
     --r-full: 50%;
 
-    /* SHADOW (MERGED) */
-    --shadow: 0 0 30px rgba(255,255,255,0.15),
-              0 0 100px rgba(255,255,255,0.05);
+    --shadow:
+        0 0 30px rgba(255,255,255,0.15),
+        0 0 100px rgba(255,255,255,0.05);
 
-    /* TYPO */
-    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    --font:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        sans-serif;
+
+    --transition:
+        220ms cubic-bezier(.2,.8,.2,1);
+
 }
 
-/* =========================
-   BASE
-========================= */
+
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: transparent;
 }
+
+
+html {
+    min-height: 100%;
+    background: var(--bg);
+}
+
 
 body {
+
     font-family: var(--font);
-    background: var(--bg);
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(255,255,255,.035),
+            transparent 35%
+        ),
+        var(--bg);
+
     color: var(--text);
+
     min-height: 100vh;
+
     overflow-x: hidden;
+
+    -webkit-font-smoothing: antialiased;
+
 }
+
+
+button,
+textarea {
+
+    font-family: inherit;
+
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
 
 .container {
+
     width: 100%;
+
     max-width: 600px;
+
     margin: auto;
+
     min-height: 100vh;
-    padding: var(--s-5) var(--s-3) 40px;
+
+    padding:
+        var(--s-5)
+        var(--s-3)
+        40px;
+
     display: flex;
+
     flex-direction: column;
+
 }
 
-/* =========================
+
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 header {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
 }
+
 
 .logo {
+
     font-size: 22px;
+
     font-weight: 700;
+
     letter-spacing: 5px;
+
 }
+
 
 .status {
-    font-size: 11px;
+
+    font-size: 10px;
+
     color: var(--text-muted);
+
     letter-spacing: 2px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
 }
 
-/* =========================
+
+.status-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #777;
+
+    box-shadow:
+        0 0 8px rgba(255,255,255,.2);
+
+}
+
+
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero {
+
     flex: 1;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
-    padding: var(--s-7) 0;
+
+    padding:
+        var(--s-7)
+        0;
+
 }
 
-.orb {
-    width: 90px;
-    height: 90px;
-    margin: 0 auto var(--s-8);
+
+/* =========================================================
+   ORB
+========================================================= */
+
+.orb-wrapper {
+
+    position: relative;
+
+    width: 120px;
+
+    height: 120px;
+
+    margin:
+        0 auto
+        var(--s-8);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.orb-glow {
+
+    position: absolute;
+
+    width: 110px;
+
+    height: 110px;
+
     border-radius: var(--r-full);
 
-    background: radial-gradient(
-        circle at 35% 30%,
-        #ffffff,
-        #777 20%,
-        #222 50%,
-        #080808 70%
-    );
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.08),
+            transparent 70%
+        );
+
+    filter: blur(10px);
+
+    animation:
+        glow 4s infinite ease-in-out;
+
+}
+
+
+.orb {
+
+    position: relative;
+
+    width: 82px;
+
+    height: 82px;
+
+    border-radius: var(--r-full);
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ffffff,
+            #999 18%,
+            #444 42%,
+            #151515 68%,
+            #070707 100%
+        );
 
     box-shadow: var(--shadow);
 
-    animation: breathe 4s infinite ease-in-out;
+    animation:
+        breathe 4s infinite ease-in-out;
+
+    transition:
+        transform .5s ease,
+        filter .5s ease;
+
 }
+
+
+.orb::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 2px;
+
+    border-radius: inherit;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+}
+
 
 @keyframes breathe {
-    0%,100% { transform: scale(1); opacity: .8; }
-    50% { transform: scale(1.08); opacity: 1; }
+
+    0%,
+    100% {
+
+        transform: scale(1);
+
+        opacity: .82;
+
+    }
+
+    50% {
+
+        transform: scale(1.08);
+
+        opacity: 1;
+
+    }
+
 }
+
+
+@keyframes glow {
+
+    0%,
+    100% {
+
+        transform: scale(.9);
+
+        opacity: .35;
+
+    }
+
+    50% {
+
+        transform: scale(1.15);
+
+        opacity: .7;
+
+    }
+
+}
+
+
+/* =========================================================
+   ORB STATES
+========================================================= */
+
+body.state-like .orb {
+
+    transform: scale(1.12);
+
+    filter:
+        brightness(1.15);
+
+}
+
+
+body.state-like .orb-glow {
+
+    animation:
+        pulseLike .8s ease;
+
+}
+
+
+body.state-later .orb {
+
+    transform: scale(.95);
+
+    filter:
+        brightness(.8);
+
+}
+
+
+body.state-no .orb {
+
+    transform: scale(.88);
+
+    filter:
+        brightness(.65);
+
+}
+
+
+@keyframes pulseLike {
+
+    0% {
+
+        transform: scale(1);
+
+        opacity: .3;
+
+    }
+
+    50% {
+
+        transform: scale(1.4);
+
+        opacity: .9;
+
+    }
+
+    100% {
+
+        transform: scale(1);
+
+        opacity: .3;
+
+    }
+
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
 
 .title {
+
     text-align: center;
-    font-size: 32px;
+
+    font-size: clamp(
+        29px,
+        8vw,
+        36px
+    );
+
     font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: var(--s-2);
+
+    line-height: 1.15;
+
+    letter-spacing: -.7px;
+
+    margin-bottom:
+        var(--s-2);
+
 }
+
 
 .subtitle {
+
     text-align: center;
+
     color: var(--text-muted);
+
     font-size: 15px;
-    margin-bottom: var(--s-6);
+
+    line-height: 1.5;
+
+    margin-bottom:
+        var(--s-6);
+
 }
 
-/* =========================
+
+/* =========================================================
    INPUT
-========================= */
+========================================================= */
 
 .input-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--r-lg);
-    padding: var(--s-3);
+
+    background:
+        rgba(16,16,20,.92);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--r-lg);
+
+    padding:
+        var(--s-3);
+
+    transition:
+        border var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition);
+
 }
+
+
+.input-box:focus-within {
+
+    border-color:
+        #444;
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.025),
+        0 20px 60px rgba(0,0,0,.25);
+
+}
+
 
 textarea {
+
     width: 100%;
+
     height: 110px;
+
     resize: none;
+
     border: none;
-    background: transparent;
-    color: var(--text);
-    font-size: 17px;
-    font-family: inherit;
+
+    outline: none;
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    font-size:
+        17px;
+
+    line-height:
+        1.5;
+
 }
+
 
 textarea::placeholder {
-    color: var(--text-dim);
+
+    color:
+        var(--text-dim);
+
 }
 
-/* =========================
-   BUTTONS
-========================= */
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
 
 .discover {
+
     width: 100%;
-    margin-top: var(--s-2);
-    padding: var(--s-3);
+
+    margin-top:
+        var(--s-2);
+
+    padding:
+        var(--s-3);
+
     border: none;
-    border-radius: var(--r-sm);
-    background: var(--white);
-    color: var(--black);
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
+
+    border-radius:
+        var(--r-sm);
+
+    background:
+        var(--white);
+
+    color:
+        var(--black);
+
+    font-size:
+        16px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    transition:
+        transform var(--transition),
+        opacity var(--transition);
+
 }
+
+
+.discover:active {
+
+    transform:
+        scale(.97);
+
+    opacity:
+        .85;
+
+}
+
+
+/* =========================================================
+   PROGRESS BUTTON
+========================================================= */
 
 .progress-button {
+
     width: 100%;
-    margin-top: var(--s-2);
-    padding: var(--s-2);
-    border-radius: var(--r-sm);
-    border: 1px solid var(--border-soft);
-    background: var(--surface-2);
-    color: var(--text-soft);
-    font-size: 14px;
+
+    margin-top:
+        var(--s-2);
+
+    padding:
+        var(--s-2);
+
+    border-radius:
+        var(--r-sm);
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-2);
+
+    color:
+        var(--text-soft);
+
+    font-size:
+        14px;
+
+    cursor:
+        pointer;
+
+    transition:
+        background var(--transition),
+        border var(--transition);
+
 }
 
-/* =========================
+
+.progress-button:active {
+
+    background:
+        var(--surface);
+
+}
+
+
+/* =========================================================
    RESULT
-========================= */
+========================================================= */
 
 .result,
 .progress-view {
-    display: none;
-    animation: appear .5s ease;
+
+    display:
+        none;
+
+    animation:
+        appear .45s ease;
+
 }
+
 
 @keyframes appear {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(18px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
 }
+
 
 .result-label {
-    color: var(--text-muted);
-    font-size: 11px;
-    letter-spacing: 3px;
-    margin-bottom: var(--s-2);
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        3px;
+
+    margin-bottom:
+        var(--s-2);
+
 }
+
+
+.result h2 {
+
+    font-size:
+        28px;
+
+    line-height:
+        1.2;
+
+    letter-spacing:
+        -.4px;
+
+    margin-bottom:
+        var(--s-4);
+
+}
+
+
+/* =========================================================
+   RESULT CARD
+========================================================= */
 
 .result-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--r-lg);
-    padding: var(--s-4);
-    margin-bottom: var(--s-4);
+
+    position:
+        relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,16,20,.98),
+            rgba(10,10,13,.98)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--r-lg);
+
+    padding:
+        var(--s-4);
+
+    margin-bottom:
+        var(--s-4);
+
+    overflow:
+        hidden;
+
 }
+
+
+.result-card::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        0;
+
+    width:
+        100%;
+
+    height:
+        1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.15),
+            transparent
+        );
+
+}
+
 
 .result-card p {
-    color: var(--text-soft);
-    line-height: 1.6;
-    font-size: 15px;
+
+    color:
+        var(--text-soft);
+
+    line-height:
+        1.65;
+
+    font-size:
+        16px;
+
 }
 
-/* =========================
+
+/* =========================================================
    ACTIONS
-========================= */
+========================================================= */
 
 .actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--s-1);
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        var(--s-1);
+
 }
+
 
 .action {
-    padding: var(--s-2);
-    border-radius: var(--r-sm);
-    border: 1px solid var(--border-soft);
-    background: var(--surface-2);
-    color: var(--text);
-    font-size: 14px;
-    cursor: pointer;
+
+    min-height:
+        54px;
+
+    padding:
+        var(--s-2);
+
+    border-radius:
+        var(--r-sm);
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-2);
+
+    color:
+        var(--text);
+
+    font-size:
+        14px;
+
+    cursor:
+        pointer;
+
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        border var(--transition);
+
 }
+
+
+.action:active {
+
+    transform:
+        scale(.96);
+
+}
+
 
 .action.full {
-    grid-column: span 2;
+
+    grid-column:
+        span 2;
+
 }
 
-/* =========================
-   PROGRESS
-========================= */
+
+/* =========================================================
+   META
+========================================================= */
 
 .progress {
-    margin-top: var(--s-4);
-    text-align: center;
-    color: var(--text-dim);
-    font-size: 11px;
+
+    margin-top:
+        var(--s-4);
+
+    text-align:
+        center;
+
+    color:
+        var(--text-dim);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        1.5px;
+
 }
+
+
+.feedback-message {
+
+    text-align:
+        center;
+
+    min-height:
+        20px;
+
+    margin-top:
+        var(--s-2);
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        12px;
+
+}
+
+
+/* =========================================================
+   PROGRESS VIEW
+========================================================= */
+
+.progress-view h2 {
+
+    font-size:
+        30px;
+
+    margin-bottom:
+        var(--s-4);
+
+}
+
+
+.progress-card {
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--r-lg);
+
+    padding:
+        var(--s-3);
+
+    margin-bottom:
+        var(--s-4);
+
+}
+
 
 .stat {
-    padding: var(--s-2) 0;
-    border-bottom: 1px solid var(--border);
+
+    padding:
+        var(--s-3)
+        0;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
 }
+
+
+.stat:first-child {
+
+    padding-top:
+        var(--s-2);
+
+}
+
+
+.stat:last-child {
+
+    border-bottom:
+        none;
+
+}
+
 
 .stat-label {
-    color: var(--text-muted);
-    font-size: 11px;
-    letter-spacing: 2px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        2px;
+
 }
+
 
 .stat-value {
-    margin-top: 6px;
-    font-size: 18px;
+
+    margin-top:
+        6px;
+
+    font-size:
+        17px;
+
+    line-height:
+        1.4;
+
 }
 
-/* =========================
-   BACK
-========================= */
+
+/* =========================================================
+   LEVEL BAR
+========================================================= */
+
+.level-bar {
+
+    height:
+        5px;
+
+    width:
+        100%;
+
+    margin-top:
+        10px;
+
+    border-radius:
+        10px;
+
+    background:
+        #202025;
+
+    overflow:
+        hidden;
+
+}
+
+
+.level-fill {
+
+    height:
+        100%;
+
+    width:
+        20%;
+
+    background:
+        #fff;
+
+    border-radius:
+        inherit;
+
+    transition:
+        width .5s ease;
+
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
 
 .back-button {
-    width: 100%;
-    padding: var(--s-2);
-    border-radius: var(--r-sm);
-    border: 1px solid var(--border-soft);
-    background: var(--white);
-    color: var(--black);
-    font-size: 15px;
+
+    width:
+        100%;
+
+    padding:
+        var(--s-2);
+
+    border-radius:
+        var(--r-sm);
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--white);
+
+    color:
+        var(--black);
+
+    font-size:
+        15px;
+
+    cursor:
+        pointer;
+
 }
 
-/* =========================
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 footer {
-    text-align: center;
-    color: #444;
-    font-size: 11px;
-    letter-spacing: 1px;
-    padding-top: var(--s-4);
+
+    text-align:
+        center;
+
+    color:
+        #444;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        1px;
+
+    padding-top:
+        var(--s-4);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width: 380px
+) {
+
+    .container {
+
+        padding:
+            20px
+            14px
+            30px;
+
+    }
+
+    .hero {
+
+        padding:
+            30px
+            0;
+
+    }
+
+    .title {
+
+        font-size:
+            28px;
+
+    }
+
+    .result h2 {
+
+        font-size:
+            25px;
+
+    }
+
 }
 
 </style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<header>
+
+<div class="logo">
+NEXA
+</div>
+
+<div class="status">
+
+<span class="status-dot"></span>
+
+FOR NOW
+
+</div>
+
+</header>
+
+
+<main class="hero">
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<div id="home">
+
+
+<div class="orb-wrapper">
+
+<div class="orb-glow"></div>
+
+<div class="orb"></div>
+
+</div>
+
+
+<h1 class="title">
+
+Qu'est-ce qui pourrait<br>
+être intéressant pour toi ?
+
+</h1>
+
+
+<p class="subtitle">
+
+Dis-moi simplement ce que tu as en tête.
+
+</p>
+
+
+<div class="input-box">
+
+
+<textarea
+id="userInput"
+placeholder="Je veux apprendre quelque chose...
+Je cherche une idée...
+Je ne sais pas quoi faire..."
+></textarea>
+
+
+<button
+class="discover"
+onclick="discover()"
+>
+
+Découvrir
+
+</button>
+
+
+</div>
+
+
+<button
+class="progress-button"
+onclick="showProgress()"
+>
+
+📊 Ma progression
+
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     RESULT
+===================================================== -->
+
+<div
+id="result"
+class="result"
+>
+
+
+<div class="result-label">
+
+NEXA A TROUVÉ ÇA POUR TOI
+
+</div>
+
+
+<h2
+id="resultTitle"
+></h2>
+
+
+<div class="result-card">
+
+<p
+id="resultText"
+></p>
+
+</div>
+
+
+<div class="actions">
+
+
+<button
+class="action"
+onclick="feedback('like')"
+>
+
+❤️ Ça m'intéresse
+
+</button>
+
+
+<button
+class="action"
+onclick="feedback('later')"
+>
+
+🤔 Pas maintenant
+
+</button>
+
+
+<button
+class="action full"
+onclick="feedback('no')"
+>
+
+❌ Pas pour moi
+
+</button>
+
+
+</div>
+
+
+<div
+class="progress"
+id="progressText"
+></div>
+
+
+<div
+class="feedback-message"
+id="feedbackMessage"
+></div>
+
+
+</div>
+
+
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+<div
+id="progressView"
+class="progress-view"
+>
+
+
+<div class="result-label">
+
+TON PARCOURS NEXA
+
+</div>
+
+
+<h2>
+
+Ta progression
+
+</h2>
+
+
+<div class="progress-card">
+
+
+<div class="stat">
+
+<div class="stat-label">
+DIRECTION
+</div>
+
+<div
+class="stat-value"
+id="statCategory"
+>
+Aucune
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+NIVEAU
+</div>
+
+<div
+class="stat-value"
+id="statLevel"
+>
+Niveau 1
+</div>
+
+<div class="level-bar">
+
+<div
+class="level-fill"
+id="levelFill"
+></div>
+
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+❤️ INTÉRÊTS
+</div>
+
+<div
+class="stat-value"
+id="statLikes"
+>
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+🔥 ACTIONS POSITIVES
+</div>
+
+<div
+class="stat-value"
+id="statActions"
+>
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+DERNIÈRE PISTE
+</div>
+
+<div
+class="stat-value"
+id="statLast"
+>
+Aucune
+</div>
+
+</div>
+
+
+</div>
+
+
+<button
+class="back-button"
+onclick="goHome()"
+>
+
+Retour
+
+</button>
+
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+NEXA — YOUR NEXT POSSIBILITY
+
+</footer>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   NEXA V4 — ENGINE
+========================================================= */
+
+
+/* =========================================================
+   MEMORY
+========================================================= */
+
+let memory =
+JSON.parse(
+localStorage.getItem("nexaMemory")
+) || [];
+
+
+/* =========================================================
+   SESSION
+========================================================= */
+
+let session =
+JSON.parse(
+localStorage.getItem("nexaSession")
+) || {
+
+    category: null,
+
+    level: 1,
+
+    likes: 0,
+
+    later: 0,
+
+    no: 0,
+
+    positiveActions: 0,
+
+    lastAction: "",
+
+    nextMode: "normal"
+
+};
+
+
+/* =========================================================
+   KEYWORDS
+========================================================= */
+
+const keywords = {
+
+
+emploi: [
+
+"emploi",
+"travail",
+"job",
+"métier",
+"carrière",
+"embauche",
+"recrutement",
+"salarié",
+"poste"
+
+],
+
+
+argent: [
+
+"argent",
+"revenu",
+"gagner",
+"riche",
+"salaire",
+"finance",
+"économiser",
+"épargne"
+
+],
+
+
+business: [
+
+"business",
+"entreprise",
+"entreprendre",
+"commerce",
+"client",
+"vendre",
+"vente",
+"entrepreneur"
+
+],
+
+
+projet: [
+
+"projet",
+"application",
+"app",
+"site",
+"créer",
+"construire",
+"développer",
+"programmation",
+"coder"
+
+],
+
+
+apprentissage: [
+
+"apprendre",
+"étudier",
+"formation",
+"compétence",
+"connaître",
+"comprendre",
+"cours"
+
+],
+
+
+blocage: [
+
+"bloqué",
+"blocage",
+"procrastination",
+"procrastiner",
+"peur",
+"stress",
+"difficile",
+"perdu",
+"hésite",
+"hésitation"
+
+]
+
+};
+
+
+/* =========================================================
+   DETECT CATEGORY
+========================================================= */
+
+function detectCategory(input) {
+
+
+const lower =
+input.toLowerCase();
+
+
+let scores = {
+
+
+emploi: 0,
+
+argent: 0,
+
+business: 0,
+
+projet: 0,
+
+apprentissage: 0,
+
+blocage: 0
+
+};
+
+
+for (
+const category in keywords
+) {
+
+
+keywords[category]
+.forEach(word => {
+
+
+if (
+lower.includes(word)
+) {
+
+scores[category]++;
+
+}
+
+
+});
+
+
+}
+
+
+let best =
+"general";
+
+
+let score =
+0;
+
+
+for (
+const category in scores
+) {
+
+
+if (
+scores[category] > score
+) {
+
+
+score =
+scores[category];
+
+
+best =
+category;
+
+
+}
+
+}
+
+
+return best;
+
+}
+
+
+/* =========================================================
+   ACTION LIBRARY
+========================================================= */
+
+const actions = {
+
+
+emploi: {
+
+normal: [
+
+"Trouve aujourd'hui une seule offre qui correspond réellement à ton profil.",
+
+"Choisis une compétence demandée dans cette offre et découvre comment commencer à l'apprendre gratuitement.",
+
+"Identifie une personne qui exerce ce métier et découvre comment elle a commencé.",
+
+"Prépare une première démarche concrète pour te rapprocher de ce métier.",
+
+"Fais aujourd'hui une action réelle liée à cette possibilité."
+
+],
+
+light: [
+
+"Regarde simplement une seule offre d'emploi intéressante, sans obligation de postuler.",
+
+"Découvre pendant cinq minutes une compétence demandée dans un métier qui t'intéresse.",
+
+"Lis simplement le parcours d'une personne qui exerce un métier qui t'attire."
+
+],
+
+alternative: [
+
+"Au lieu de chercher un emploi, explore une compétence qui pourrait améliorer ta situation.",
+
+"Découvre un métier différent qui pourrait correspondre à tes capacités actuelles.",
+
+"Parle à une personne de ton entourage pour découvrir une possibilité professionnelle que tu n'avais pas envisagée."
+
+]
+
+},
+
+
+argent: {
+
+normal: [
+
+"Identifie une seule façon réaliste d'améliorer tes revenus avec ce que tu sais déjà faire.",
+
+"Trouve une compétence simple qui pourrait augmenter ta valeur sur le marché du travail.",
+
+"Explore une seule possibilité de revenu et vérifie si elle correspond à ta situation.",
+
+"Choisis une idée et cherche une première personne qui pourrait être intéressée.",
+
+"Fais une première action réelle pour tester cette possibilité."
+
+],
+
+light: [
+
+"Note simplement une seule idée qui pourrait améliorer tes revenus.",
+
+"Regarde pendant cinq minutes une possibilité de revenu qui t'intrigue.",
+
+"Découvre une compétence qui pourrait un jour améliorer ta situation financière."
+
+],
+
+alternative: [
+
+"Au lieu de chercher à gagner plus immédiatement, explore une compétence qui pourrait augmenter ta valeur.",
+
+"Découvre une autre manière d'améliorer ta situation financière sans partir de ton idée actuelle.",
+
+"Identifie une dépense que tu pourrais réduire cette semaine."
+
+]
+
+},
+
+
+business: {
+
+normal: [
+
+"Décris ton idée de business en une seule phrase simple.",
+
+"Trouve une seule personne qui pourrait avoir besoin de ce que tu veux proposer.",
+
+"Pose-lui une question simple pour comprendre son vrai problème.",
+
+"Utilise sa réponse pour améliorer ton idée.",
+
+"Teste ton idée auprès d'une deuxième personne avant de construire davantage."
+
+],
+
+light: [
+
+"Écris simplement ton idée de business en une phrase, sans chercher à la rendre parfaite.",
+
+"Imagine une seule personne qui pourrait être intéressée par ton idée.",
+
+"Observe un problème autour de toi qui pourrait devenir une opportunité."
+
+],
+
+alternative: [
+
+"Au lieu de construire ton idée, cherche d'abord un problème réel que quelqu'un aimerait résoudre.",
+
+"Parle à une personne et demande-lui quel problème lui fait perdre le plus de temps.",
+
+"Explore une autre façon de transformer ton idée en quelque chose d'utile."
+
+]
+
+},
+
+
+projet: {
+
+normal: [
+
+"Définis en une seule phrase ce que ton projet doit permettre de faire.",
+
+"Choisis une seule fonctionnalité essentielle et imagine comment elle fonctionnerait.",
+
+"Montre ton idée à une personne et demande-lui ce qu'elle en pense.",
+
+"Utilise son retour pour améliorer une seule partie de ton projet.",
+
+"Construis une première version très simple de cette fonctionnalité."
+
+],
+
+light: [
+
+"Écris simplement en une phrase ce que ton projet pourrait apporter à quelqu'un.",
+
+"Imagine une seule personne qui pourrait utiliser ton projet.",
+
+"Regarde pendant quelques minutes un projet similaire au tien pour découvrir une idée."
+
+],
+
+alternative: [
+
+"Au lieu de construire ton projet, découvre d'abord si quelqu'un a réellement besoin de cette solution.",
+
+"Pose une question à une personne qui pourrait être concernée par ton projet.",
+
+"Explore une autre manière de résoudre le même problème."
+
+]
+
+},
+
+
+apprentissage: {
+
+normal: [
+
+"Choisis une seule notion liée à ce que tu veux apprendre et découvre-la pendant dix minutes.",
+
+"Trouve une explication simple de cette notion et reformule-la avec tes propres mots.",
+
+"Applique cette connaissance à un petit exemple concret.",
+
+"Teste ce que tu as appris dans une situation réelle.",
+
+"Explique cette notion à quelqu'un d'autre pour vérifier que tu la maîtrises."
+
+],
+
+light: [
+
+"Découvre simplement une information nouvelle sur le sujet qui t'intéresse.",
+
+"Regarde une courte explication sur ce sujet, sans chercher à tout comprendre.",
+
+"Lis une seule page ou regarde une courte vidéo sur ce sujet."
+
+],
+
+alternative: [
+
+"Explore une autre compétence qui pourrait t'intéresser davantage.",
+
+"Découvre une compétence proche mais différente de celle que tu avais choisie.",
+
+"Essaie d'apprendre quelque chose uniquement par curiosité."
+
+]
+
+},
+
+
+blocage: {
+
+normal: [
+
+"Identifie la seule chose qui te bloque le plus aujourd'hui.",
+
+"Transforme ce blocage en une action tellement petite que tu peux la faire en moins de cinq minutes.",
+
+"Fais cette action maintenant, sans chercher à la perfectionner.",
+
+"Observe ce qui t'a empêché d'avancer et réduis encore la difficulté.",
+
+"Répète cette petite action une fois de plus aujourd'hui."
+
+],
+
+light: [
+
+"Écris simplement ce qui te bloque, sans chercher immédiatement une solution.",
+
+"Choisis une action qui prend moins d'une minute.",
+
+"Respire, puis identifie une seule chose que tu pourrais rendre légèrement plus facile."
+
+],
+
+alternative: [
+
+"Au lieu de résoudre le problème maintenant, cherche ce qui pourrait rendre la situation légèrement plus facile.",
+
+"Demande à quelqu'un de confiance comment il verrait ton problème.",
+
+"Change complètement d'approche et commence par une autre petite action."
+
+]
+
+},
+
+
+general: {
+
+normal: [
+
+"Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau à son sujet.",
+
+"Trouve une seule possibilité concrète qui pourrait être intéressante pour toi.",
+
+"Choisis celle qui te donne le plus envie d'en savoir plus.",
+
+"Fais une petite action pour vérifier si cette possibilité te correspond réellement.",
+
+"Décide si cette piste mérite d'être poursuivie ou abandonnée."
+
+],
+
+light: [
+
+"Découvre simplement une petite chose nouvelle liée à ce que tu viens d'écrire.",
+
+"Prends cinq minutes pour explorer une possibilité qui t'intrigue.",
+
+"Note une seule chose que tu aimerais comprendre davantage."
+
+],
+
+alternative: [
+
+"Explore une autre direction liée à ce que tu viens d'écrire.",
+
+"Choisis une possibilité complètement différente et découvre si elle pourrait t'intéresser.",
+
+"Demande à quelqu'un comment il interpréterait ta situation."
+
+]
+
+}
+
+};
+
+
+/* =========================================================
+   TITLES
+========================================================= */
+
+function getTitle(category, mode) {
+
+
+if (
+mode === "light"
+) {
+
+return "On peut commencer plus simplement.";
+
+}
+
+
+if (
+mode === "alternative"
+) {
+
+return "Essayons une autre direction.";
+
+}
+
+
+const titles = {
+
+
+emploi:
+"Explore une possibilité qui pourrait améliorer ta situation.",
+
+argent:
+"Trouve une possibilité concrète d'améliorer tes revenus.",
+
+business:
+"Ton idée mérite un premier test.",
+
+projet:
+"Transforme ton idée en une première étape concrète.",
+
+apprentissage:
+"Découvre une nouvelle compétence.",
+
+blocage:
+"Réduis ton blocage à une seule petite action.",
+
+general:
+"Commence par une petite découverte."
+
+};
+
+
+return (
+titles[category]
+||
+titles.general
+);
+
+}
+
+
+/* =========================================================
+   DISCOVER
+========================================================= */
+
+function discover() {
+
+
+const input =
+document
+.getElementById("userInput")
+.value
+.trim();
+
+
+if (!input) {
+
+
+alert(
+"Dis-moi simplement ce que tu as en tête."
+);
+
+
+return;
+
+}
+
+
+/* Detect */
+
+let category =
+detectCategory(input);
+
+
+/* New direction */
+
+if (
+session.category !== category
+) {
+
+
+session.category =
+category;
+
+
+session.level =
+1;
+
+
+session.likes =
+0;
+
+
+session.later =
+0;
+
+
+session.no =
+0;
+
+
+session.positiveActions =
+0;
+
+
+session.nextMode =
+"normal";
+
+
+}
+
+
+/* Mode */
+
+let mode =
+session.nextMode
+||
+"normal";
+
+
+/* Actions */
+
+let list =
+actions[category]
+||
+actions.general;
+
+
+let actionList =
+list[mode]
+||
+list.normal;
+
+
+/* Level */
+
+let index =
+Math.min(
+session.level - 1,
+actionList.length - 1
+);
+
+
+let action =
+actionList[index];
+
+
+/* Save current */
+
+session.lastAction =
+action;
+
+
+memory.push({
+
+
+text:
+input,
+
+
+category:
+category,
+
+
+level:
+session.level,
+
+
+mode:
+mode,
+
+
+action:
+action,
+
+
+feedback:
+null,
+
+
+date:
+new Date()
+.toISOString()
+
+
+});
+
+
+localStorage.setItem(
+
+"nexaMemory",
+
+JSON.stringify(memory)
+
+);
+
+
+localStorage.setItem(
+
+"nexaSession",
+
+JSON.stringify(session)
+
+);
+
+
+/* UI */
+
+document
+.getElementById("resultTitle")
+.innerText =
+getTitle(
+category,
+mode
+);
+
+
+document
+.getElementById("resultText")
+.innerText =
+action;
+
+
+document
+.getElementById("progressText")
+.innerText =
+
+"NIVEAU " +
+session.level +
+" • " +
+category.toUpperCase();
+
+
+document
+.getElementById("feedbackMessage")
+.innerText =
+"";
+
+
+document
+.getElementById("home")
+.style
+.display =
+"none";
+
+
+document
+.getElementById("progressView")
+.style
+.display =
+"none";
+
+
+document
+.getElementById("result")
+.style
+.display =
+"block";
+
+
+window.scrollTo({
+
+top: 0,
+
+behavior:
+"smooth"
+
+});
+
+
+}
+
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+
+function feedback(type) {
+
+
+const last =
+memory[
+memory.length - 1
+];
+
+
+if (!last) {
+
+return;
+
+}
+
+
+last.feedback =
+type;
+
+
+/* =========================================
+   LIKE
+========================================= */
+
+if (
+type === "like"
+) {
+
+
+session.likes++;
+
+
+session.positiveActions++;
+
+
+session.level =
+Math.min(
+session.level + 1,
+5
+);
+
+
+session.nextMode =
+"normal";
+
+
+document.body
+.className =
+"state-like";
+
+
+document
+.getElementById("feedbackMessage")
+.innerText =
+"Très bien. On avance.";
+
+
+}
+
+
+/* =========================================
+   LATER
+========================================= */
+
+if (
+type === "later"
+) {
+
+
+session.later++;
+
+
+session.nextMode =
+"light";
+
+
+document.body
+.className =
+"state-later";
+
+
+document
+.getElementById("feedbackMessage")
+.innerText =
+"On peut avancer plus doucement.";
+
+
+}
+
+
+/* =========================================
+   NO
+========================================= */
+
+if (
+type === "no"
+) {
+
+
+session.no++;
+
+
+session.nextMode =
+"alternative";
+
+
+document.body
+.className =
+"state-no";
+
+
+document
+.getElementById("feedbackMessage")
+.innerText =
+"Compris. Essayons une autre direction.";
+
+
+}
+
+
+/* Save */
+
+last.nextLevel =
+session.level;
+
+
+last.nextMode =
+session.nextMode;
+
+
+localStorage.setItem(
+
+"nexaMemory",
+
+JSON.stringify(memory)
+
+);
+
+
+localStorage.setItem(
+
+"nexaSession",
+
+JSON.stringify(session)
+
+);
+
+
+/* Return home */
+
+setTimeout(
+function() {
+
+
+document
+.getElementById("result")
+.style
+.display =
+"none";
+
+
+document
+.getElementById("home")
+.style
+.display =
+"block";
+
+
+document
+.getElementById("userInput")
+.value =
+"";
+
+
+document.body
+.className =
+"";
+
+
+window.scrollTo({
+
+top: 0,
+
+behavior:
+"smooth"
+
+});
+
+
+},
+350
+);
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function showProgress() {
+
+
+document
+.getElementById("home")
+.style
+.display =
+"none";
+
+
+document
+.getElementById("result")
+.style
+.display =
+"none";
+
+
+document
+.getElementById("progressView")
+.style
+.display =
+"block";
+
+
+document
+.getElementById("statCategory")
+.innerText =
+
+session.category
+?
+session.category.toUpperCase()
+:
+"Aucune";
+
+
+document
+.getElementById("statLevel")
+.innerText =
+
+"Niveau " +
+session.level;
+
+
+document
+.getElementById("statLikes")
+.innerText =
+
+session.likes;
+
+
+document
+.getElementById("statActions")
+.innerText =
+
+session.positiveActions;
+
+
+document
+.getElementById("statLast")
+.innerText =
+
+session.lastAction
+?
+session.lastAction
+:
+"Aucune";
+
+
+let percentage =
+
+(
+session.level /
+5
+)
+*
+100;
+
+
+document
+.getElementById("levelFill")
+.style
+.width =
+
+percentage +
+"%";
+
+
+window.scrollTo({
+
+top: 0,
+
+behavior:
+"smooth"
+
+);
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function goHome() {
+
+
+document
+.getElementById("progressView")
+.style
+.display =
+"none";
+
+
+document
+.getElementById("result")
+.style
+.display =
+"none";
+
+
+document
+.getElementById("home")
+.style
+.display =
+"block";
+
+
+window.scrollTo({
+
+top: 0,
+
+behavior:
+"smooth"
+
+);
+
+}
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+document
+.getElementById("userInput")
+.addEventListener(
+"keydown",
+function(event) {
+
+
+if (
+event.key === "Enter"
+&&
+!event.shiftKey
+) {
+
+
+event.preventDefault();
+
+
+discover();
+
+
+}
+
+}
+);
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+document.body
+.className =
+"";
+
+
+</script>
+
+</body>
+</html>
