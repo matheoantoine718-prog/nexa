@@ -1,3706 +1,1788 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
+<title>NEXA V7 — AGENT CORE</title>
 
-<meta name="theme-color" content="#030305">
-
-<title>NEXA V6.1.5 — IDENTITY CONSTRUCT</title>
-
-
-<!-- Face API -->
-
-<script
-src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"
-></script>
-
+<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 
 <style>
 
-/* =====================================================
-   NEXA V6.1.5
-   BRAIN CORE + IDENTITY CONSTRUCT
-===================================================== */
+/* =========================================================
+NEXA V7 — AGENT CORE
+========================================================= */
 
-:root {
-
+:root{
 --bg:#030305;
-
---panel:#0c0c12;
-
---panel2:#111118;
-
---line:rgba(255,255,255,.11);
-
---text:#ffffff;
-
+--panel:#0b0b11;
+--panel2:#11111a;
+--line:rgba(255,255,255,.1);
+--text:#fff;
 --muted:#777;
-
 --cyan:#9fe8ff;
-
---violet:#b69cff;
-
+--violet:#a88cff;
+--green:#8fffc5;
 }
 
-* {
-
+*{
 box-sizing:border-box;
-
 margin:0;
-
 padding:0;
-
 -webkit-tap-highlight-color:transparent;
-
 }
 
-html {
-
-background:var(--bg);
-
-}
-
-body {
-
-font-family:
--apple-system,
-BlinkMacSystemFont,
-"SF Pro Display",
-sans-serif;
-
+body{
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
 background:
-
-radial-gradient(
-circle at 50% 10%,
-rgba(100,120,255,.12),
-transparent 35%
-),
-
-radial-gradient(
-circle at 10% 90%,
-rgba(0,200,255,.05),
-transparent 35%
-),
-
+radial-gradient(circle at 50% 0%,rgba(100,100,255,.12),transparent 35%),
 var(--bg);
-
 color:var(--text);
-
 min-height:100vh;
-
 overflow-x:hidden;
-
 }
 
-button,
-textarea,
-input {
-
+button,textarea,input{
 font-family:inherit;
-
 }
 
-
-/* =====================================================
-   BACKGROUND
-===================================================== */
-
-.background {
-
-position:fixed;
-
-inset:0;
-
-overflow:hidden;
-
-pointer-events:none;
-
-z-index:0;
-
-}
-
-.grid {
-
-position:absolute;
-
-inset:-50%;
-
-background-image:
-
-linear-gradient(
-rgba(255,255,255,.025) 1px,
-transparent 1px
-),
-
-linear-gradient(
-90deg,
-rgba(255,255,255,.025) 1px,
-transparent 1px
-);
-
-background-size:40px 40px;
-
-transform:
-perspective(500px)
-rotateX(55deg);
-
-animation:gridMove 20s linear infinite;
-
-}
-
-@keyframes gridMove {
-
-from {
-
-transform:
-perspective(500px)
-rotateX(55deg)
-translateY(0);
-
-}
-
-to {
-
-transform:
-perspective(500px)
-rotateX(55deg)
-translateY(40px);
-
-}
-
-}
-
-
-/* =====================================================
-   APP
-===================================================== */
-
-.app {
-
+.app{
 position:relative;
-
 z-index:2;
-
 width:100%;
-
-max-width:620px;
-
+max-width:650px;
 margin:auto;
-
 min-height:100vh;
-
 padding:22px 18px 35px;
-
-display:flex;
-
-flex-direction:column;
-
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-header {
-
+header{
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 }
 
-.logo {
-
+.logo{
 font-size:22px;
-
 font-weight:700;
-
 letter-spacing:6px;
-
 }
 
-.status {
-
+.agent-status{
 font-size:9px;
-
 letter-spacing:2px;
-
-color:var(--muted);
-
+color:var(--green);
 display:flex;
-
-align-items:center;
-
 gap:7px;
-
+align-items:center;
 }
 
-.status-light {
-
+.status-dot{
 width:6px;
-
 height:6px;
-
 border-radius:50%;
-
-background:var(--cyan);
-
-box-shadow:
-
-0 0 8px var(--cyan),
-
-0 0 20px var(--cyan);
-
-animation:pulse 2s infinite;
-
+background:var(--green);
+box-shadow:0 0 15px var(--green);
 }
 
-@keyframes pulse {
-
-0%,100% {
-
-opacity:.4;
-
-}
-
-50% {
-
-opacity:1;
-
-}
-
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-main {
-
-flex:1;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-}
-
-
-/* =====================================================
-   CORE
-===================================================== */
-
-.core-area {
-
-position:relative;
-
-height:220px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-}
-
-.core {
-
-position:relative;
-
-width:115px;
-
-height:115px;
-
-border-radius:50%;
-
-background:
-
-radial-gradient(
-circle at 35% 30%,
-#ffffff,
-#c4d1ff 10%,
-#7777ff 25%,
-#18182d 55%,
-#050507 75%
-);
-
-box-shadow:
-
-0 0 30px rgba(120,130,255,.6),
-
-0 0 80px rgba(100,100,255,.2),
-
-inset 0 0 30px rgba(255,255,255,.2);
-
-animation:breath 4s ease-in-out infinite;
-
-z-index:3;
-
-}
-
-.core::before {
-
-content:"";
-
-position:absolute;
-
-inset:-22px;
-
-border-radius:50%;
-
-border:
-1px solid
-rgba(150,210,255,.4);
-
-animation:rotate 8s linear infinite;
-
-}
-
-.core::after {
-
-content:"";
-
-position:absolute;
-
-inset:-45px;
-
-border-radius:50%;
-
-border:
-1px solid
-rgba(180,120,255,.15);
-
-animation:rotateReverse 12s linear infinite;
-
-}
-
-@keyframes breath {
-
-0%,100% {
-
-transform:scale(1);
-
-}
-
-50% {
-
-transform:scale(1.08);
-
-}
-
-}
-
-@keyframes rotate {
-
-to {
-
-transform:rotate(360deg);
-
-}
-
-}
-
-@keyframes rotateReverse {
-
-to {
-
-transform:rotate(-360deg);
-
-}
-
-}
-
-
-/* =====================================================
-   AVATAR BUTTON
-===================================================== */
-
-.avatar-button {
-
-position:absolute;
-
-right:0;
-
-top:10px;
-
-width:64px;
-
-height:64px;
-
-border-radius:50%;
-
-overflow:hidden;
-
-border:
-1px solid
-var(--line);
-
-background:#111118;
-
-cursor:pointer;
-
-}
-
-.avatar-button img {
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
+.screen{
 display:none;
-
-}
-
-.avatar-placeholder {
-
-width:100%;
-
-height:100%;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:22px;
-
-}
-
-.avatar-button.has-avatar {
-
-border-color:
-rgba(150,220,255,.6);
-
-box-shadow:
-
-0 0 15px
-rgba(100,200,255,.3),
-
-0 0 35px
-rgba(120,100,255,.15);
-
-}
-
-.avatar-button.has-avatar
-.avatar-placeholder {
-
-display:none;
-
-}
-
-
-/* =====================================================
-   TITRE
-===================================================== */
-
-.title {
-
-text-align:center;
-
-font-size:
-clamp(28px,8vw,36px);
-
-font-weight:600;
-
-line-height:1.15;
-
-margin-bottom:12px;
-
-}
-
-.subtitle {
-
-text-align:center;
-
-color:var(--muted);
-
-font-size:15px;
-
-line-height:1.5;
-
-margin-bottom:28px;
-
-}
-
-
-/* =====================================================
-   INPUT
-===================================================== */
-
-.input-panel {
-
-background:
-
-linear-gradient(
-145deg,
-rgba(20,20,28,.85),
-rgba(8,8,12,.95)
-);
-
-border:
-1px solid
-var(--line);
-
-border-radius:24px;
-
-padding:16px;
-
-}
-
-textarea {
-
-width:100%;
-
-height:105px;
-
-resize:none;
-
-border:none;
-
-outline:none;
-
-background:transparent;
-
-color:white;
-
-font-size:17px;
-
-line-height:1.5;
-
-}
-
-textarea::placeholder {
-
-color:#555;
-
-}
-
-
-/* =====================================================
-   BUTTON
-===================================================== */
-
-.primary {
-
-width:100%;
-
-margin-top:12px;
-
-padding:17px;
-
-border:none;
-
-border-radius:16px;
-
-background:white;
-
-color:black;
-
-font-size:16px;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-.primary:active {
-
-transform:scale(.97);
-
-}
-
-
-/* =====================================================
-   RESULT
-===================================================== */
-
-.result {
-
-display:none;
-
-animation:appear .4s ease;
-
-}
-
-@keyframes appear {
-
-from {
-
-opacity:0;
-
-transform:translateY(20px);
-
-}
-
-to {
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
-
-.result-label {
-
-font-size:10px;
-
-letter-spacing:3px;
-
-color:#777;
-
-margin-bottom:12px;
-
-}
-
-.result h2 {
-
-font-size:28px;
-
-line-height:1.2;
-
-margin-bottom:18px;
-
-}
-
-
-/* =====================================================
-   BRAIN ANALYSIS
-===================================================== */
-
-.analysis {
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:10px;
-
-margin-bottom:18px;
-
-}
-
-.analysis-card {
-
-background:
-
-rgba(15,15,22,.8);
-
-border:
-1px solid
-var(--line);
-
-border-radius:16px;
-
-padding:14px;
-
-}
-
-.analysis-label {
-
-font-size:8px;
-
-letter-spacing:2px;
-
-color:#666;
-
-margin-bottom:7px;
-
-}
-
-.analysis-value {
-
-font-size:14px;
-
-color:white;
-
-line-height:1.3;
-
-}
-
-
-/* =====================================================
-   RESULT CARD
-===================================================== */
-
-.result-card {
-
-padding:22px;
-
-border-radius:24px;
-
-border:
-1px solid
-var(--line);
-
-background:
-rgba(15,15,22,.8);
-
-margin-bottom:18px;
-
-}
-
-.result-card p {
-
-font-size:16px;
-
-line-height:1.65;
-
-color:#aaa;
-
-}
-
-
-/* =====================================================
-   ACTIONS
-===================================================== */
-
-.actions {
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:10px;
-
-}
-
-.action {
-
-padding:16px 10px;
-
-border-radius:15px;
-
-border:
-1px solid
-var(--line);
-
-background:#0d0d12;
-
-color:white;
-
-cursor:pointer;
-
-}
-
-.action.full {
-
-grid-column:span 2;
-
-}
-
-.action:active {
-
-transform:scale(.97);
-
-}
-
-
-/* =====================================================
-   MENU
-===================================================== */
-
-.menu {
-
-display:flex;
-
-justify-content:center;
-
-gap:25px;
-
-margin-top:22px;
-
-}
-
-.menu button {
-
-background:none;
-
-border:none;
-
-color:#555;
-
-font-size:10px;
-
-letter-spacing:1px;
-
-cursor:pointer;
-
-}
-
-
-/* =====================================================
-   PROGRESS
-===================================================== */
-
-.progress {
-
-display:none;
-
-animation:appear .4s ease;
-
-}
-
-.progress-card {
-
-padding:22px;
-
-border-radius:24px;
-
-border:
-1px solid
-var(--line);
-
-background:var(--panel);
-
-}
-
-.stat {
-
-padding:16px 0;
-
-border-bottom:
-1px solid
-var(--line);
-
-}
-
-.stat:last-child {
-
-border-bottom:none;
-
-}
-
-.stat-label {
-
-font-size:9px;
-
-letter-spacing:2px;
-
-color:#666;
-
-}
-
-.stat-value {
-
-margin-top:7px;
-
-font-size:16px;
-
-}
-
-.bar {
-
-height:5px;
-
-background:#222;
-
-border-radius:5px;
-
-margin-top:10px;
-
-overflow:hidden;
-
-}
-
-.fill {
-
-height:100%;
-
-background:
-linear-gradient(
-90deg,
-var(--cyan),
-var(--violet)
-);
-
-transition:.5s;
-
-}
-
-.back {
-
-width:100%;
-
-margin-top:15px;
-
-padding:15px;
-
-border:none;
-
-border-radius:15px;
-
-background:white;
-
-color:black;
-
-}
-
-
-/* =====================================================
-   IDENTITY CONSTRUCT
-===================================================== */
-
-.identity {
-
-display:none;
-
 animation:appear .5s ease;
-
 }
 
-.identity-header {
-
-text-align:center;
-
-margin-bottom:25px;
-
+.screen.active{
+display:block;
 }
 
-.identity-label {
-
-font-size:10px;
-
-letter-spacing:4px;
-
-color:var(--cyan);
-
-margin-bottom:10px;
-
-}
-
-.identity-header h2 {
-
-font-size:30px;
-
-letter-spacing:2px;
-
-margin-bottom:10px;
-
-}
-
-.identity-header p {
-
-font-size:13px;
-
-line-height:1.6;
-
-color:#777;
-
-}
-
-
-/* =====================================================
-   SCANNER
-===================================================== */
-
-.scanner {
-
-position:relative;
-
-width:100%;
-
-aspect-ratio:1/1;
-
-max-width:350px;
-
-margin:0 auto 22px;
-
-border-radius:30px;
-
-overflow:hidden;
-
-background:
-
-radial-gradient(
-circle,
-rgba(100,120,255,.12),
-#050507 70%
-);
-
-border:
-1px solid
-rgba(150,200,255,.18);
-
-}
-
-#video {
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-display:none;
-
-transform:scaleX(-1);
-
-}
-
-#scanCanvas {
-
-position:absolute;
-
-inset:0;
-
-width:100%;
-
-height:100%;
-
-display:none;
-
-}
-
-.scanner-overlay {
-
-position:absolute;
-
-inset:0;
-
-pointer-events:none;
-
-}
-
-.scan-corners {
-
-position:absolute;
-
-inset:25px;
-
-border:
-1px solid
-rgba(150,220,255,.2);
-
-border-radius:20px;
-
-}
-
-.scan-line {
-
-position:absolute;
-
-left:15%;
-
-right:15%;
-
-height:1px;
-
-background:
-
-linear-gradient(
-90deg,
-transparent,
-var(--cyan),
-transparent
-);
-
-box-shadow:
-
-0 0 15px var(--cyan);
-
-top:20%;
-
-display:none;
-
-animation:scanMove 2.5s linear infinite;
-
-}
-
-@keyframes scanMove {
-
-0% {
-
-top:20%;
-
+@keyframes appear{
+from{
 opacity:0;
-
+transform:translateY(15px);
 }
-
-10% {
-
+to{
 opacity:1;
-
+transform:translateY(0);
+}
 }
 
-90% {
 
-opacity:1;
+/* CORE */
 
-}
-
-100% {
-
-top:80%;
-
-opacity:0;
-
-}
-
-}
-
-.scan-status {
-
-position:absolute;
-
-bottom:20px;
-
-left:0;
-
-right:0;
-
-text-align:center;
-
-font-size:9px;
-
-letter-spacing:3px;
-
-color:#777;
-
-}
-
-.scanner-placeholder {
-
-position:absolute;
-
-inset:0;
-
+.core-zone{
+height:230px;
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
-flex-direction:column;
-
-gap:15px;
-
-}
-
-.scanner-icon {
-
-font-size:45px;
-
-opacity:.5;
-
-}
-
-.scanner-placeholder span {
-
-font-size:9px;
-
-letter-spacing:3px;
-
-color:#555;
-
-}
-
-
-/* =====================================================
-   IDENTITY ACTIONS
-===================================================== */
-
-.identity-actions {
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:10px;
-
-}
-
-.identity-action {
-
-padding:16px 8px;
-
-border-radius:15px;
-
-border:
-1px solid
-var(--line);
-
-background:#0d0d12;
-
-color:white;
-
-font-size:12px;
-
-cursor:pointer;
-
-}
-
-.identity-action.primary-id {
-
-grid-column:span 2;
-
-background:white;
-
-color:black;
-
-font-weight:600;
-
-}
-
-.identity-action:active {
-
-transform:scale(.97);
-
-}
-
-
-/* =====================================================
-   IDENTITY RESULT
-===================================================== */
-
-.construct-result {
-
-display:none;
-
-text-align:center;
-
-animation:constructAppear .8s ease;
-
-}
-
-@keyframes constructAppear {
-
-from {
-
-opacity:0;
-
-transform:scale(.8);
-
-}
-
-to {
-
-opacity:1;
-
-transform:scale(1);
-
-}
-
-}
-
-.construct-avatar {
-
 position:relative;
+}
 
-width:190px;
-
-height:190px;
-
-margin:0 auto 25px;
-
+.core{
+width:120px;
+height:120px;
 border-radius:50%;
-
-padding:5px;
-
 background:
+radial-gradient(circle at 35% 30%,
+#fff,
+#c8d4ff 12%,
+#7777ff 30%,
+#17172b 60%,
+#050507 78%);
+box-shadow:
+0 0 35px rgba(130,130,255,.6),
+0 0 100px rgba(100,100,255,.2);
+animation:breathe 4s infinite ease-in-out;
+}
 
-conic-gradient(
-from 0deg,
+@keyframes breathe{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.08)}
+}
+
+.avatar-mini{
+position:absolute;
+right:0;
+top:15px;
+width:65px;
+height:65px;
+border-radius:50%;
+border:1px solid var(--line);
+background:#111;
+overflow:hidden;
+cursor:pointer;
+}
+
+.avatar-mini img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:none;
+}
+
+.avatar-mini.has-avatar img{
+display:block;
+}
+
+.avatar-mini.has-avatar .avatar-empty{
+display:none;
+}
+
+.avatar-empty{
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+h1{
+text-align:center;
+font-size:34px;
+line-height:1.15;
+margin-bottom:12px;
+}
+
+.subtitle{
+text-align:center;
+color:var(--muted);
+line-height:1.6;
+font-size:15px;
+margin-bottom:28px;
+}
+
+.input-box{
+background:rgba(15,15,22,.9);
+border:1px solid var(--line);
+border-radius:24px;
+padding:16px;
+}
+
+textarea{
+width:100%;
+height:110px;
+border:none;
+outline:none;
+resize:none;
+background:transparent;
+color:white;
+font-size:17px;
+line-height:1.5;
+}
+
+textarea::placeholder{
+color:#555;
+}
+
+.primary{
+width:100%;
+padding:17px;
+margin-top:12px;
+border:none;
+border-radius:16px;
+background:white;
+color:black;
+font-weight:600;
+font-size:16px;
+}
+
+.nav{
+display:flex;
+justify-content:center;
+gap:24px;
+margin-top:22px;
+}
+
+.nav button{
+background:none;
+border:none;
+color:#666;
+font-size:10px;
+letter-spacing:2px;
+}
+
+
+/* RESULT */
+
+.label{
+font-size:10px;
+letter-spacing:3px;
+color:var(--cyan);
+margin-bottom:12px;
+}
+
+.result-title{
+font-size:29px;
+line-height:1.2;
+margin-bottom:20px;
+}
+
+.card{
+background:rgba(15,15,22,.9);
+border:1px solid var(--line);
+border-radius:22px;
+padding:21px;
+margin-bottom:15px;
+}
+
+.card p{
+color:#aaa;
+line-height:1.65;
+font-size:15px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-bottom:18px;
+}
+
+.small-card{
+background:#0d0d13;
+border:1px solid var(--line);
+border-radius:15px;
+padding:14px;
+}
+
+.small-label{
+font-size:8px;
+letter-spacing:2px;
+color:#666;
+margin-bottom:7px;
+}
+
+.small-value{
+font-size:14px;
+}
+
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.action{
+padding:16px 8px;
+border-radius:15px;
+border:1px solid var(--line);
+background:#0d0d12;
+color:white;
+}
+
+.full{
+grid-column:span 2;
+}
+
+
+/* IDENTITY */
+
+.identity-header{
+text-align:center;
+margin:25px 0;
+}
+
+.identity-header h2{
+font-size:30px;
+letter-spacing:2px;
+margin-bottom:10px;
+}
+
+.identity-header p{
+font-size:13px;
+color:#777;
+line-height:1.6;
+}
+
+.scanner{
+position:relative;
+width:100%;
+max-width:370px;
+aspect-ratio:1;
+margin:auto;
+border-radius:30px;
+overflow:hidden;
+background:#050507;
+border:1px solid rgba(150,200,255,.2);
+}
+
+#video{
+width:100%;
+height:100%;
+object-fit:cover;
+transform:scaleX(-1);
+display:none;
+}
+
+#preview{
+width:100%;
+height:100%;
+object-fit:cover;
+display:none;
+}
+
+.scan-frame{
+position:absolute;
+inset:25px;
+border:1px solid rgba(160,220,255,.4);
+border-radius:25px;
+pointer-events:none;
+}
+
+.scan-line{
+position:absolute;
+left:10%;
+right:10%;
+top:20%;
+height:1px;
+background:var(--cyan);
+box-shadow:0 0 20px var(--cyan);
+display:none;
+animation:scan 2.5s infinite linear;
+}
+
+@keyframes scan{
+0%{top:20%}
+100%{top:80%}
+}
+
+.scan-status{
+position:absolute;
+bottom:18px;
+left:0;
+right:0;
+text-align:center;
+font-size:9px;
+letter-spacing:3px;
+color:#aaa;
+}
+
+.scanner-empty{
+position:absolute;
+inset:0;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color:#555;
+gap:12px;
+}
+
+.scanner-empty div{
+font-size:45px;
+}
+
+.identity-buttons{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:18px;
+}
+
+.identity-buttons button{
+padding:16px 8px;
+border-radius:15px;
+border:1px solid var(--line);
+background:#0d0d12;
+color:white;
+}
+
+.identity-buttons .wide{
+grid-column:span 2;
+background:white;
+color:black;
+font-weight:600;
+}
+
+.privacy{
+text-align:center;
+font-size:9px;
+letter-spacing:2px;
+color:#444;
+margin:20px 0;
+}
+
+
+/* DIGITAL DNA */
+
+.dna{
+display:none;
+margin-top:22px;
+}
+
+.dna-title{
+font-size:11px;
+letter-spacing:4px;
+color:var(--cyan);
+margin-bottom:15px;
+}
+
+.dna-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.dna-item{
+background:#0c0c12;
+border:1px solid var(--line);
+border-radius:14px;
+padding:13px;
+}
+
+.dna-item span{
+display:block;
+font-size:8px;
+letter-spacing:2px;
+color:#666;
+margin-bottom:6px;
+}
+
+.dna-item strong{
+font-size:13px;
+}
+
+
+/* AVATAR LAB */
+
+.avatar-lab{
+display:none;
+margin-top:25px;
+}
+
+.lab-title{
+font-size:11px;
+letter-spacing:4px;
+color:var(--violet);
+margin-bottom:15px;
+}
+
+.option-group{
+margin-bottom:18px;
+}
+
+.option-label{
+font-size:9px;
+letter-spacing:2px;
+color:#666;
+margin-bottom:10px;
+}
+
+.options{
+display:flex;
+gap:8px;
+overflow-x:auto;
+padding-bottom:5px;
+}
+
+.option{
+flex:0 0 auto;
+padding:11px 14px;
+border-radius:12px;
+border:1px solid var(--line);
+background:#0c0c12;
+color:white;
+font-size:12px;
+}
+
+.option.selected{
+border-color:var(--cyan);
+box-shadow:0 0 15px rgba(100,220,255,.15);
+}
+
+
+/* CONSTRUCT */
+
+.construct{
+display:none;
+text-align:center;
+margin-top:25px;
+}
+
+.construct-avatar{
+width:190px;
+height:190px;
+margin:auto;
+border-radius:50%;
+padding:4px;
+background:conic-gradient(
 var(--cyan),
 var(--violet),
-transparent,
+var(--green),
 var(--cyan)
 );
-
-animation:avatarRotate 8s linear infinite;
-
+animation:spin 8s linear infinite;
 }
 
-.construct-avatar img {
-
+.construct-avatar img{
 width:100%;
-
 height:100%;
-
-object-fit:cover;
-
 border-radius:50%;
-
+object-fit:cover;
 border:5px solid #050507;
-
-animation:avatarRotateReverse 8s linear infinite;
-
+animation:spinReverse 8s linear infinite;
 }
 
-@keyframes avatarRotate {
-
-to {
-
-transform:rotate(360deg);
-
+@keyframes spin{
+to{transform:rotate(360deg)}
 }
 
+@keyframes spinReverse{
+to{transform:rotate(-360deg)}
 }
 
-@keyframes avatarRotateReverse {
-
-to {
-
-transform:rotate(-360deg);
-
-}
-
-}
-
-.construct-title {
-
-font-size:11px;
-
-letter-spacing:4px;
-
-color:var(--cyan);
-
-margin-bottom:10px;
-
-}
-
-.construct-subtitle {
-
-font-size:23px;
-
-font-weight:600;
-
-margin-bottom:12px;
-
-}
-
-.construct-info {
-
-font-size:13px;
-
-color:#777;
-
-line-height:1.6;
-
-margin-bottom:20px;
-
-}
-
-
-/* =====================================================
-   IDENTITY FOOTER
-===================================================== */
-
-.privacy {
-
-text-align:center;
-
+.construct h3{
 margin-top:20px;
-
-font-size:9px;
-
-letter-spacing:2px;
-
-color:#444;
-
+font-size:12px;
+letter-spacing:4px;
+color:var(--cyan);
 }
 
-.offline {
-
+.construct p{
+margin-top:10px;
+font-size:13px;
 color:#777;
-
-margin-bottom:7px;
-
 }
 
 
-/* =====================================================
-   BACK BUTTON
-===================================================== */
+/* AGENT LAB */
 
-.back-dark {
+.agent-panel{
+background:#08080d;
+border:1px solid var(--line);
+border-radius:22px;
+padding:20px;
+margin-top:20px;
+}
 
+.agent-line{
+display:flex;
+justify-content:space-between;
+padding:13px 0;
+border-bottom:1px solid var(--line);
+font-size:12px;
+}
+
+.agent-line:last-child{
+border:none;
+}
+
+.agent-line span{
+color:#666;
+}
+
+.back{
 width:100%;
-
-margin-top:15px;
-
 padding:15px;
-
-border:
-1px solid
-var(--line);
-
+margin-top:20px;
 border-radius:15px;
-
 background:#0d0d12;
-
+border:1px solid var(--line);
 color:white;
-
 }
 
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer {
-
+footer{
 text-align:center;
-
-font-size:9px;
-
-letter-spacing:2px;
-
 color:#333;
-
-padding-top:20px;
-
+font-size:9px;
+letter-spacing:2px;
+padding-top:25px;
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
-<div class="background">
-
-<div class="grid"></div>
-
-</div>
-
-
 <div class="app">
-
 
 <header>
 
-<div class="logo">
+<div class="logo">NEXA</div>
 
-NEXA
-
-</div>
-
-<div class="status">
-
-<span class="status-light"></span>
-
-BRAIN ONLINE
-
+<div class="agent-status">
+<span class="status-dot"></span>
+AGENT CORE ONLINE
 </div>
 
 </header>
 
 
-<main>
-
-
-<!-- =================================================
+<!-- =====================================================
 HOME
-================================================= -->
+===================================================== -->
 
-<div id="home">
+<section id="home" class="screen active">
 
-
-<div class="core-area">
-
+<div class="core-zone">
 
 <div class="core"></div>
 
-
 <button
-class="avatar-button"
-id="avatarButton"
-onclick="showIdentity()"
+class="avatar-mini"
+onclick="openIdentity()"
 >
 
+<div class="avatar-empty">◎</div>
 
-<div class="avatar-placeholder">
-
-👤
-
-</div>
-
-
-<img
-id="avatarImage"
-alt="Avatar"
->
-
+<img id="miniAvatar">
 
 </button>
 
+</div>
+
+<h1>
+Qu'est-ce qui pourrait<br>
+être intéressant pour toi ?
+</h1>
+
+<p class="subtitle">
+Dis-moi simplement ce que tu as en tête.<br>
+NEXA analyse ton intention et cherche ta prochaine étape.
+</p>
+
+<div class="input-box">
+
+<textarea
+id="input"
+placeholder="Je veux créer quelque chose...
+Je cherche un travail...
+Je veux apprendre...
+Je suis bloqué..."
+></textarea>
+
+<button
+class="primary"
+onclick="runAgent()"
+>
+✦ LANCER NEXA
+</button>
+
+</div>
+
+<div class="nav">
+
+<button onclick="openIdentity()">IDENTITY</button>
+
+<button onclick="openAgentLab()">AGENT LAB</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+RESULT
+===================================================== -->
+
+<section id="result" class="screen">
+
+<div class="label">
+AGENT CORE // DECISION
+</div>
+
+<div class="result-title">
+NEXA A TROUVÉ TA PROCHAINE ÉTAPE
+</div>
+
+<div class="grid">
+
+<div class="small-card">
+<div class="small-label">INTENTION</div>
+<div id="intent" class="small-value">—</div>
+</div>
+
+<div class="small-card">
+<div class="small-label">CONTEXTE</div>
+<div id="category" class="small-value">—</div>
+</div>
+
+<div class="small-card">
+<div class="small-label">NIVEAU</div>
+<div id="level" class="small-value">—</div>
+</div>
+
+<div class="small-card">
+<div class="small-label">BLOCAGE</div>
+<div id="block" class="small-value">—</div>
+</div>
+
+</div>
+
+<div class="card">
+<p id="decision"></p>
+</div>
+
+<div class="actions">
+
+<button class="action" onclick="feedback('like')">
+❤️ Ça m'intéresse
+</button>
+
+<button class="action" onclick="feedback('later')">
+🤔 Pas maintenant
+</button>
+
+<button class="action full" onclick="feedback('no')">
+❌ Pas pour moi
+</button>
+
+</div>
+
+<button class="back" onclick="goHome()">
+Retour
+</button>
+
+</section>
+
+
+<!-- =====================================================
+IDENTITY
+===================================================== -->
+
+<section id="identity" class="screen">
+
+<div class="identity-header">
+
+<div class="label">IDENTITY ENGINE</div>
+
+<h2>IDENTITY CONSTRUCT</h2>
+
+<p>
+SCAN // DIGITAL DNA // AVATAR LAB
+<br><br>
+Crée ton identité numérique personnalisée.
+</p>
 
 </div>
 
 
-<h1 class="title">
+<div class="scanner">
 
-Qu'est-ce qui pourrait<br>
+<video id="video" autoplay playsinline muted></video>
 
-être intéressant pour toi ?
+<img id="preview">
 
-</h1>
+<div class="scanner-empty" id="scannerEmpty">
+
+<div>◎</div>
+
+<span>IDENTITY SYSTEM READY</span>
+
+</div>
+
+<div class="scan-frame"></div>
+
+<div id="scanLine" class="scan-line"></div>
+
+<div id="scanStatus" class="scan-status">
+WAITING FOR INPUT
+</div>
+
+</div>
 
 
-<p class="subtitle">
+<div class="identity-buttons">
 
-Dis-moi simplement ce que tu as en tête.<br>
+<button
+class="wide"
+onclick="startCamera()"
+>
+📷 ACTIVER LE SCAN
+</button>
 
-NEXA va essayer de comprendre.
+<button onclick="choosePhoto()">
+🖼️ GALERIE
+</button>
 
-</p>
+<button onclick="captureFace()">
+◎ CAPTURER
+</button>
+
+</div>
 
 
-<div class="input-panel">
+<input
+type="file"
+id="photoInput"
+accept="image/*"
+style="display:none"
+onchange="loadPhoto(event)"
+>
 
 
-<textarea
-id="userInput"
-placeholder="Je veux apprendre...
-Je cherche un travail...
-Je veux créer un projet...
-Je suis bloqué..."
-></textarea>
+<div id="dna" class="dna">
+
+<div class="dna-title">
+DIGITAL DNA // ANALYSIS
+</div>
+
+<div class="dna-grid">
+
+<div class="dna-item">
+<span>FACE GEOMETRY</span>
+<strong id="dnaFace">Detected</strong>
+</div>
+
+<div class="dna-item">
+<span>SCAN QUALITY</span>
+<strong id="dnaQuality">High</strong>
+</div>
+
+<div class="dna-item">
+<span>IDENTITY CORE</span>
+<strong id="dnaCore">Unique</strong>
+</div>
+
+<div class="dna-item">
+<span>PROCESSING</span>
+<strong>LOCAL</strong>
+</div>
+
+</div>
+
+
+<div class="avatar-lab" id="avatarLab">
+
+<div class="lab-title">
+AVATAR LAB // PERSONALIZATION
+</div>
+
+
+<div class="option-group">
+
+<div class="option-label">STYLE</div>
+
+<div class="options">
+
+<button class="option selected" onclick="selectOption(this)">
+REALISTIC
+</button>
+
+<button class="option" onclick="selectOption(this)">
+3D
+</button>
+
+<button class="option" onclick="selectOption(this)">
+ANIME
+</button>
+
+<button class="option" onclick="selectOption(this)">
+CYBERPUNK
+</button>
+
+<button class="option" onclick="selectOption(this)">
+SCI-FI
+</button>
+
+</div>
+
+</div>
+
+
+<div class="option-group">
+
+<div class="option-label">IDENTITY</div>
+
+<div class="options">
+
+<button class="option selected" onclick="selectOption(this)">
+EXPLORER
+</button>
+
+<button class="option" onclick="selectOption(this)">
+CREATOR
+</button>
+
+<button class="option" onclick="selectOption(this)">
+BUILDER
+</button>
+
+<button class="option" onclick="selectOption(this)">
+VISIONARY
+</button>
+
+</div>
+
+</div>
+
+
+<div class="option-group">
+
+<div class="option-label">ENVIRONMENT</div>
+
+<div class="options">
+
+<button class="option selected" onclick="selectOption(this)">
+MINIMAL
+</button>
+
+<button class="option" onclick="selectOption(this)">
+NEON CITY
+</button>
+
+<button class="option" onclick="selectOption(this)">
+SPACE
+</button>
+
+<button class="option" onclick="selectOption(this)">
+FUTURE
+</button>
+
+</div>
+
+</div>
 
 
 <button
 class="primary"
-onclick="discover()"
+onclick="generateConstruct()"
 >
-
-✦ DÉCOUVRIR
-
+✦ GENERATE DIGITAL CONSTRUCT
 </button>
 
-
 </div>
 
 
-<div class="menu">
-
-
-<button onclick="showProgress()">
-
-PROGRESSION
-
-</button>
-
-
-<button onclick="showIdentity()">
-
-IDENTITY
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-<!-- =================================================
-RESULT
-================================================= -->
-
-<div
-id="result"
-class="result"
->
-
-
-<div class="result-label">
-
-NEXA BRAIN — ANALYSE TERMINÉE
-
-</div>
-
-
-<h2>
-
-Transforme ton intention en prochaine étape.
-
-</h2>
-
-
-<div class="analysis">
-
-
-<div class="analysis-card">
-
-<div class="analysis-label">
-
-INTENTION
-
-</div>
-
-<div
-class="analysis-value"
-id="analysisIntent"
->
-
-—
-
-</div>
-
-</div>
-
-
-<div class="analysis-card">
-
-<div class="analysis-label">
-
-CONTEXTE
-
-</div>
-
-<div
-class="analysis-value"
-id="analysisContext"
->
-
-—
-
-</div>
-
-</div>
-
-
-<div class="analysis-card">
-
-<div class="analysis-label">
-
-NIVEAU
-
-</div>
-
-<div
-class="analysis-value"
-id="analysisLevel"
->
-
-—
-
-</div>
-
-</div>
-
-
-<div class="analysis-card">
-
-<div class="analysis-label">
-
-BLOCAGE
-
-</div>
-
-<div
-class="analysis-value"
-id="analysisBlock"
->
-
-—
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="result-card">
-
-<p id="resultText"></p>
-
-</div>
-
-
-<div class="actions">
-
-
-<button
-class="action"
-onclick="feedback('like')"
->
-
-❤️ Ça m'intéresse
-
-</button>
-
-
-<button
-class="action"
-onclick="feedback('later')"
->
-
-🤔 Pas maintenant
-
-</button>
-
-
-<button
-class="action full"
-onclick="feedback('no')"
->
-
-❌ Pas pour moi
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-<!-- =================================================
-PROGRESS
-================================================= -->
-
-<div
-id="progress"
-class="progress"
->
-
-
-<div class="result-label">
-
-NEXA BRAIN — PROFIL
-
-</div>
-
-
-<h2>
-
-Ta progression
-
-</h2>
-
-
-<div class="progress-card">
-
-
-<div class="stat">
-
-<div class="stat-label">
-
-DIRECTION ACTUELLE
-
-</div>
-
-<div
-class="stat-value"
-id="statCategory"
->
-
-Aucune
-
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-label">
-
-NIVEAU
-
-</div>
-
-<div
-class="stat-value"
-id="statLevel"
->
-
-Niveau 1
-
-</div>
-
-
-<div class="bar">
-
-<div
-class="fill"
-id="levelFill"
-></div>
-
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-label">
-
-INTÉRÊTS POSITIFS
-
-</div>
-
-<div
-class="stat-value"
-id="statLikes"
->
-
-0
-
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-label">
-
-ACTIONS POSITIVES
-
-</div>
-
-<div
-class="stat-value"
-id="statActions"
->
-
-0
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<button
-class="back"
-onclick="goHome()"
->
-
-Retour au NEXA CORE
-
-</button>
-
-
-</div>
-
-
-<!-- =================================================
-IDENTITY CONSTRUCT
-================================================= -->
-
-<div
-id="identity"
-class="identity"
->
-
-
-<div class="identity-header">
-
-
-<div class="identity-label">
-
-IDENTITY CONSTRUCT
-
-</div>
-
-
-<h2>
-
-SCAN // AVATAR GENERATOR
-
-</h2>
-
-
-<p>
-
-Scan facial geometry → derive a one-of-a-kind digital construct.
-
-<br>
-
-Nothing leaves this browser tab.
-
-</p>
-
-
-</div>
-
-
-<!-- SCANNER -->
-
-
-<div
-class="scanner"
-id="scanner"
->
-
-
-<video
-id="video"
-autoplay
-playsinline
-muted
-></video>
-
-
-<canvas
-id="scanCanvas"
-></canvas>
-
-
-<div
-class="scanner-placeholder"
-id="scannerPlaceholder"
->
-
-
-<div class="scanner-icon">
-
-◎
-
-</div>
-
-
-<span>
-
-CAMERA SYSTEM READY
-
-</span>
-
-
-</div>
-
-
-<div class="scanner-overlay">
-
-
-<div class="scan-corners"></div>
-
-
-<div
-class="scan-line"
-id="scanLine"
-></div>
-
-
-<div
-class="scan-status"
-id="scanStatus"
->
-
-SYSTEM READY
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-<!-- CONSTRUCT RESULT -->
-
-
-<div
-class="construct-result"
-id="constructResult"
->
-
+<div class="construct" id="construct">
 
 <div class="construct-avatar">
 
-
-<img
-id="constructAvatar"
-alt="Digital Construct"
->
-
+<img id="constructImage">
 
 </div>
 
+<h3>IDENTITY CONSTRUCT ONLINE</h3>
 
-<div class="construct-title">
-
-DIGITAL CONSTRUCT CREATED
-
-</div>
-
-
-<div class="construct-subtitle">
-
-IDENTITY ONLINE
+<p>
+Your digital identity is ready.
+</p>
 
 </div>
-
-
-<div class="construct-info">
-
-Your visual identity has been constructed locally.
-
-</div>
-
-
-</div>
-
-
-<!-- ACTIONS -->
-
-
-<div
-class="identity-actions"
-id="identityActions"
->
-
-
-<button
-class="identity-action primary-id"
-onclick="startCamera()"
->
-
-📷 ACTIVER LA CAMÉRA
-
-</button>
-
-
-<button
-class="identity-action"
-onclick="chooseGallery()"
->
-
-🖼️ GALERIE
-
-</button>
-
-
-<button
-class="identity-action"
-onclick="generateAvatar()"
->
-
-✦ GÉNÉRER L'AVATAR
-
-</button>
-
 
 </div>
 
 
 <div class="privacy">
 
-
-<div class="offline">
-
-● OFFLINE / LOCAL PROCESSING
+● LOCAL PROCESSING<br><br>
+FACIAL DATA IS NOT USED FOR IDENTIFICATION
 
 </div>
 
 
-NOTHING LEAVES THIS BROWSER TAB
-
-</div>
-
-
-<button
-class="back-dark"
-onclick="goHome()"
->
-
+<button class="back" onclick="goHome()">
 ← RETOUR À NEXA
-
 </button>
 
+</section>
 
-<input
-type="file"
-id="galleryInput"
-accept="image/*"
-style="display:none"
-onchange="handleGallery(event)"
->
 
+<!-- =====================================================
+AGENT LAB
+===================================================== -->
+
+<section id="agentLab" class="screen">
+
+<div class="label">
+NEXA AGENT CORE
+</div>
+
+<div class="result-title">
+SELF-LEARNING SYSTEM
+</div>
+
+<div class="agent-panel">
+
+<div class="agent-line">
+<span>MEMORY EVENTS</span>
+<strong id="memoryCount">0</strong>
+</div>
+
+<div class="agent-line">
+<span>POSITIVE FEEDBACK</span>
+<strong id="likes">0</strong>
+</div>
+
+<div class="agent-line">
+<span>REJECTED PATHS</span>
+<strong id="rejections">0</strong>
+</div>
+
+<div class="agent-line">
+<span>CURRENT LEVEL</span>
+<strong id="agentLevel">1</strong>
+</div>
+
+<div class="agent-line">
+<span>ACTIVE DOMAIN</span>
+<strong id="agentDomain">EXPLORATION</strong>
+</div>
 
 </div>
 
 
-</main>
+<div class="card">
+
+<p>
+NEXA observe tes interactions, mémorise tes préférences et adapte progressivement ses décisions.
+</p>
+
+</div>
+
+
+<button class="back" onclick="goHome()">
+Retour au NEXA CORE
+</button>
+
+</section>
 
 
 <footer>
-
-NEXA V6.1.5 — IDENTITY CONSTRUCT
-
+NEXA V7 — AGENT CORE
 </footer>
-
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   NEXA V6.1.5 ENGINE
-===================================================== */
-
-
-/* =====================================================
-   MEMORY
-===================================================== */
+/* =========================================================
+NEXA AGENT CORE
+========================================================= */
 
 let memory =
+JSON.parse(localStorage.getItem("nexaMemory")) || [];
 
-JSON.parse(
-localStorage.getItem("nexaMemory")
-) || [];
-
-
-/* =====================================================
-   SESSION
-===================================================== */
-
-let session =
-
-JSON.parse(
-localStorage.getItem("nexaSession")
-) || {
-
-category:null,
+let profile =
+JSON.parse(localStorage.getItem("nexaProfile")) || {
 
 level:1,
-
 likes:0,
-
 later:0,
-
 no:0,
-
-positiveActions:0,
-
-lastAnalysis:null
+domain:"EXPLORATION"
 
 };
 
-
-/* =====================================================
-   AVATAR
-===================================================== */
-
-let savedAvatar =
-
-localStorage.getItem(
-"nexaAvatar"
-);
+let currentImage=null;
+let stream=null;
 
 
-let currentIdentityImage =
+/* =========================================================
+NAVIGATION
+========================================================= */
 
-savedAvatar || null;
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const video =
+function show(id){
 
 document
-.getElementById("video");
-
-
-const canvas =
+.querySelectorAll(".screen")
+.forEach(s=>s.classList.remove("active"));
 
 document
-.getElementById("scanCanvas");
-
-
-const scanner =
-
-document
-.getElementById("scanner");
-
-
-let cameraStream =
-
-null;
-
-
-/* =====================================================
-   RESTORE AVATAR
-===================================================== */
-
-if(savedAvatar){
-
-document
-.getElementById("avatarImage")
-.src =
-savedAvatar;
-
-document
-.getElementById("avatarImage")
-.style
-.display =
-"block";
-
-document
-.getElementById("avatarButton")
-.classList
-.add("has-avatar");
+.getElementById(id)
+.classList.add("active");
 
 }
 
-
-/* =====================================================
-   SHOW IDENTITY
-===================================================== */
-
-function showIdentity(){
-
-hideAll();
-
-document
-.getElementById("identity")
-.style
-.display =
-"block";
-
-}
-
-
-/* =====================================================
-   HIDE ALL
-===================================================== */
-
-function hideAll(){
-
-document
-.getElementById("home")
-.style
-.display =
-"none";
-
-document
-.getElementById("result")
-.style
-.display =
-"none";
-
-document
-.getElementById("progress")
-.style
-.display =
-"none";
-
-document
-.getElementById("identity")
-.style
-.display =
-"none";
-
-}
-
-
-/* =====================================================
-   CAMERA
-===================================================== */
-
-async function startCamera(){
-
-try {
-
-
-if(cameraStream){
+function goHome(){
 
 stopCamera();
 
-}
-
-
-cameraStream =
-
-await navigator
-.mediaDevices
-.getUserMedia({
-
-video:{
-
-facingMode:
-"user",
-
-width:{
-ideal:720
-},
-
-height:{
-ideal:720
+show("home");
 
 }
 
-},
+function openIdentity(){
 
-audio:false
-
-});
-
-
-video.srcObject =
-
-cameraStream;
-
-
-video.style
-.display =
-"block";
-
-
-document
-.getElementById("scannerPlaceholder")
-.style
-.display =
-"none";
-
-
-document
-.getElementById("scanLine")
-.style
-.display =
-"block";
-
-
-document
-.getElementById("scanStatus")
-.innerText =
-
-"CAMERA ACTIVE — READY TO SCAN";
-
-
-currentIdentityImage =
-
-null;
-
+show("identity");
 
 }
 
-catch(error){
+function openAgentLab(){
 
-alert(
+updateAgentLab();
 
-"Impossible d'accéder à la caméra. Vérifie les autorisations de ton navigateur."
-
-);
-
-console.log(error);
-
-}
+show("agentLab");
 
 }
 
 
-/* =====================================================
-   STOP CAMERA
-===================================================== */
+/* =========================================================
+AGENT ANALYSIS
+========================================================= */
 
-function stopCamera(){
+function analyze(text){
 
-if(!cameraStream){
+let category="EXPLORATION";
+let intent="Explorer une nouvelle possibilité";
+let block="Aucun blocage détecté";
 
-return;
+if(/travail|emploi|job|métier|carrière/i.test(text)){
 
-}
-
-
-cameraStream
-.getTracks()
-.forEach(
-
-track =>
-track.stop()
-
-);
-
-
-cameraStream =
-
-null;
+category="EMPLOI";
+intent="Trouver une opportunité professionnelle";
 
 }
 
+else if(/argent|revenu|salaire|financ/i.test(text)){
 
-/* =====================================================
-   GALLERY
-===================================================== */
-
-function chooseGallery(){
-
-document
-.getElementById("galleryInput")
-.click();
+category="ARGENT";
+intent="Améliorer sa situation financière";
 
 }
 
+else if(/projet|application|site|coder|créer/i.test(text)){
 
-function handleGallery(event){
-
-const file =
-
-event.target
-.files[0];
-
-
-if(!file){
-
-return;
+category="PROJET";
+intent="Construire un projet concret";
 
 }
 
+else if(/business|entreprise|commerce/i.test(text)){
 
-const reader =
+category="BUSINESS";
+intent="Explorer une opportunité de business";
 
-new FileReader();
+}
 
+else if(/apprendre|formation|étudier|compétence/i.test(text)){
 
-reader.onload =
+category="APPRENTISSAGE";
+intent="Développer une compétence";
 
-function(e){
+}
 
-currentIdentityImage =
+if(/bloqué|bloquée|peur|doute|ne sais pas/i.test(text)){
 
-e.target.result;
+block="Manque de clarté";
 
+}
 
-showIdentityPreview(
+let decision=getDecision(category);
 
-currentIdentityImage
+return{
 
-);
+category,
+intent,
+block,
+decision
 
 };
 
-
-reader.readAsDataURL(file);
-
 }
 
 
-/* =====================================================
-   SHOW PREVIEW
-===================================================== */
+/* =========================================================
+ADAPTIVE DECISION ENGINE
+========================================================= */
 
-function showIdentityPreview(image){
+function getDecision(category){
 
-stopCamera();
+let rejected =
+memory.filter(
+m=>m.category===category && m.feedback==="no"
+).length;
 
+let liked =
+memory.filter(
+m=>m.category===category && m.feedback==="like"
+).length;
 
-video.style
-.display =
-"none";
+if(rejected>=3){
 
-
-document
-.getElementById("scannerPlaceholder")
-.style
-.display =
-"none";
-
-
-document
-.getElementById("scanLine")
-.style
-.display =
-"block";
-
-
-document
-.getElementById("scanStatus")
-.innerText =
-
-"IMAGE LOADED — READY TO SCAN";
-
-
-const img =
-
-new Image();
-
-
-img.onload =
-
-function(){
-
-canvas.width =
-
-scanner
-.clientWidth;
-
-
-canvas.height =
-
-scanner
-.clientHeight;
-
-
-const ctx =
-
-canvas
-.getContext("2d");
-
-
-const ratio =
-
-Math.max(
-
-canvas.width /
-img.width,
-
-canvas.height /
-img.height
-
-);
-
-
-const width =
-
-img.width *
-ratio;
-
-
-const height =
-
-img.height *
-ratio;
-
-
-const x =
-
-(canvas.width -
-width) / 2;
-
-
-const y =
-
-(canvas.height -
-height) / 2;
-
-
-ctx.drawImage(
-
-img,
-
-x,
-
-y,
-
-width,
-
-height
-
-);
-
-
-canvas.style
-.display =
-"block";
-
-};
-
-
-img.src =
-image;
+return "NEXA a remarqué que cette direction t'intéresse moins. Explore une possibilité différente liée à ton objectif initial.";
 
 }
 
+if(liked>=2){
 
-/* =====================================================
-   GENERATE AVATAR
-===================================================== */
-
-async function generateAvatar(){
-
-if(!currentIdentityImage){
-
-if(cameraStream){
-
-captureCamera();
-
-return;
+return "Cette direction semble correspondre à tes intérêts. Passe maintenant à une étape légèrement plus concrète pour progresser.";
 
 }
 
-alert(
-
-"Active la caméra ou choisis une photo dans ta galerie."
-
-);
-
-return;
-
-}
-
-
-document
-.getElementById("scanStatus")
-.innerText =
-
-"ANALYZING FACIAL GEOMETRY...";
-
-
-document
-.getElementById("scanLine")
-.style
-.display =
-"block";
-
-
-try {
-
-
-await loadFaceModels();
-
-
-const img =
-
-await faceapi
-.fetchImage(
-currentIdentityImage
-);
-
-
-const detection =
-
-await faceapi
-.detectSingleFace(
-
-img,
-
-new faceapi
-.TinyFaceDetectorOptions()
-
-);
-
-
-if(!detection){
-
-document
-.getElementById("scanStatus")
-.innerText =
-
-"NO FACE DETECTED";
-
-
-alert(
-
-"NEXA n'a pas détecté de visage clairement visible. Essaie avec une photo plus nette et de face."
-
-);
-
-return;
-
-}
-
-
-/* SUCCESS */
-
-
-document
-.getElementById("scanStatus")
-.innerText =
-
-"FACIAL GEOMETRY ANALYZED";
-
-
-setTimeout(
-
-function(){
-
-createConstruct(
-currentIdentityImage
-);
-
-},
-
-800
-
-);
-
-
-}
-
-catch(error){
-
-console.log(error);
-
-
-/*
-Fallback :
-si le modèle ne se charge pas,
-on permet quand même de créer
-le Digital Construct.
-*/
-
-
-document
-.getElementById("scanStatus")
-.innerText =
-
-"LOCAL CONSTRUCT MODE";
-
-
-setTimeout(
-
-function(){
-
-createConstruct(
-currentIdentityImage
-);
-
-},
-
-700
-
-);
-
-}
-
-}
-
-
-/* =====================================================
-   CAMERA CAPTURE
-===================================================== */
-
-function captureCamera(){
-
-if(!cameraStream){
-
-return;
-
-}
-
-
-const captureCanvas =
-
-document
-.createElement("canvas");
-
-
-captureCanvas.width =
-
-video
-.videoWidth;
-
-
-captureCanvas.height =
-
-video
-.videoHeight;
-
-
-const ctx =
-
-captureCanvas
-.getContext("2d");
-
-
-ctx.translate(
-
-captureCanvas.width,
-
-0
-
-);
-
-
-ctx.scale(-1,1);
-
-
-ctx.drawImage(
-
-video,
-
-0,
-
-0,
-
-captureCanvas.width,
-
-captureCanvas.height
-
-);
-
-
-currentIdentityImage =
-
-captureCanvas
-.toDataURL(
-"image/jpeg",
-0.9
-);
-
-
-showIdentityPreview(
-
-currentIdentityImage
-
-);
-
-
-}
-
-
-/* =====================================================
-   FACE MODELS
-===================================================== */
-
-let modelsLoaded =
-
-false;
-
-
-async function loadFaceModels(){
-
-if(modelsLoaded){
-
-return;
-
-}
-
-
-const MODEL_URL =
-
-"https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@master/weights";
-
-
-await Promise.all([
-
-faceapi
-.nets
-.tinyFaceDetector
-.loadFromUri(
-MODEL_URL
-)
-
-]);
-
-
-modelsLoaded =
-
-true;
-
-}
-
-
-/* =====================================================
-   CREATE DIGITAL CONSTRUCT
-===================================================== */
-
-function createConstruct(image){
-
-stopCamera();
-
-
-savedAvatar =
-
-image;
-
-
-localStorage.setItem(
-
-"nexaAvatar",
-
-savedAvatar
-
-);
-
-
-currentIdentityImage =
-
-image;
-
-
-/* MAIN AVATAR */
-
-
-document
-.getElementById("avatarImage")
-.src =
-image;
-
-
-document
-.getElementById("avatarImage")
-.style
-.display =
-"block";
-
-
-document
-.getElementById("avatarButton")
-.classList
-.add("has-avatar");
-
-
-/* CONSTRUCT */
-
-
-document
-.getElementById("constructAvatar")
-.src =
-image;
-
-
-document
-.getElementById("constructResult")
-.style
-.display =
-"block";
-
-
-document
-.getElementById("identityActions")
-.style
-.display =
-"none";
-
-
-document
-.getElementById("scanStatus")
-.innerText =
-
-"IDENTITY CONSTRUCT COMPLETE";
-
-
-}
-
-
-/* =====================================================
-   BRAIN — INTENTION
-===================================================== */
-
-function detectIntent(text){
-
-if(
-
-/travail|emploi|job|métier|carrière|embauche/i
-.test(text)
-
-){
-
-return "Trouver une opportunité professionnelle";
-
-}
-
-
-if(
-
-/argent|revenu|salaire|gagner|économ|financ/i
-.test(text)
-
-){
-
-return "Améliorer sa situation financière";
-
-}
-
-
-if(
-
-/apprendre|formation|étudier|compétence|cours/i
-.test(text)
-
-){
-
-return "Développer une compétence";
-
-}
-
-
-if(
-
-/créer|construire|développer|application|site|projet|coder/i
-.test(text)
-
-){
-
-return "Créer ou construire quelque chose";
-
-}
-
-
-if(
-
-/business|entreprise|commerce|vendre|client/i
-.test(text)
-
-){
-
-return "Explorer une opportunité de business";
-
-}
-
-
-if(
-
-/bloqué|bloquée|procrastin|peur|stress|doute|difficile/i
-.test(text)
-
-){
-
-return "Sortir d'un blocage";
-
-}
-
-
-return "Explorer une nouvelle possibilité";
-
-}
-
-
-/* =====================================================
-   CATEGORY
-===================================================== */
-
-function detectCategory(text){
-
-if(
-
-/travail|emploi|job|métier|carrière/i
-.test(text)
-
-){
-
-return "EMPLOI";
-
-}
-
-
-if(
-
-/argent|revenu|salaire|gagner|financ/i
-.test(text)
-
-){
-
-return "ARGENT";
-
-}
-
-
-if(
-
-/business|entreprise|commerce|client|vendre/i
-.test(text)
-
-){
-
-return "BUSINESS";
-
-}
-
-
-if(
-
-/application|site|coder|projet|développer/i
-.test(text)
-
-){
-
-return "PROJET";
-
-}
-
-
-if(
-
-/apprendre|formation|étudier|compétence|cours/i
-.test(text)
-
-){
-
-return "APPRENTISSAGE";
-
-}
-
-
-if(
-
-/bloqué|bloquée|procrastin|peur|stress|doute/i
-.test(text)
-
-){
-
-return "BLOCAGE";
-
-}
-
-
-return "EXPLORATION";
-
-}
-
-
-/* =====================================================
-   LEVEL
-===================================================== */
-
-function detectLevel(text){
-
-if(
-
-/je ne sais pas|aucune idée|débutant|commencer|comment commencer/i
-.test(text)
-
-){
-
-return "DÉCOUVERTE";
-
-}
-
-
-if(
-
-/je veux|j'aimerais|je cherche|je voudrais/i
-.test(text)
-
-){
-
-return "DÉBUTANT";
-
-}
-
-
-if(
-
-/j'ai déjà|je travaille|j'ai commencé|je connais/i
-.test(text)
-
-){
-
-return "EN COURS";
-
-}
-
-
-if(
-
-/avancé|expert|professionnel|expérimenté/i
-.test(text)
-
-){
-
-return "AVANCÉ";
-
-}
-
-
-return "DÉBUTANT";
-
-}
-
-
-/* =====================================================
-   BLOCK
-===================================================== */
-
-function detectBlock(text){
-
-if(
-
-/ne sais pas|sais pas comment|bloqué|bloquée|peur|doute/i
-.test(text)
-
-){
-
-return "Manque de clarté";
-
-}
-
-
-if(
-
-/temps|occupé|fatigué|fatigue/i
-.test(text)
-
-){
-
-return "Manque de disponibilité";
-
-}
-
-
-if(
-
-/argent|budget|cher/i
-.test(text)
-
-){
-
-return "Contrainte financière";
-
-}
-
-
-if(
-
-/compétence|ne connais pas|je ne sais/i
-.test(text)
-
-){
-
-return "Compétence à développer";
-
-}
-
-
-return "Aucun blocage détecté";
-
-}
-
-
-/* =====================================================
-   ACTION ENGINE
-===================================================== */
-
-function generateAction(category){
-
-const actions = {
-
+let actions={
 
 EMPLOI:
-
 "Découvre une seule opportunité professionnelle qui correspond à ta situation actuelle.",
 
-
 ARGENT:
-
 "Identifie une seule possibilité réaliste d'améliorer tes revenus.",
 
-
-BUSINESS:
-
-"Décris ton idée de business en une seule phrase.",
-
-
 PROJET:
-
 "Définis en une seule phrase ce que ton projet doit permettre de faire.",
 
+BUSINESS:
+"Trouve une seule personne qui pourrait être intéressée par ton idée et imagine comment lui présenter.",
 
 APPRENTISSAGE:
-
-"Choisis une seule notion liée à ce que tu veux apprendre.",
-
-
-BLOCAGE:
-
-"Identifie précisément la seule chose qui te bloque aujourd'hui.",
-
+"Choisis une seule notion importante liée à ce que tu veux apprendre et découvre-la aujourd'hui.",
 
 EXPLORATION:
-
-"Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau."
+"Choisis une seule chose liée à ton idée et découvre quelque chose de nouveau à son sujet."
 
 };
-
 
 return actions[category];
 
 }
 
 
-/* =====================================================
-   ANALYZE
-===================================================== */
+/* =========================================================
+RUN AGENT
+========================================================= */
 
-function analyze(text){
+function runAgent(){
 
-const intent =
-detectIntent(text);
-
-
-const category =
-detectCategory(text);
-
-
-const level =
-detectLevel(text);
-
-
-const block =
-detectBlock(text);
-
-
-const action =
-generateAction(category);
-
-
-return {
-
-intent,
-
-category,
-
-level,
-
-block,
-
-action
-
-};
-
-}
-
-
-/* =====================================================
-   DISCOVER
-===================================================== */
-
-function discover(){
-
-const input =
-
-document
-.getElementById("userInput")
+let input=
+document.getElementById("input")
 .value
 .trim();
 
-
 if(!input){
 
-alert(
-
-"Dis-moi simplement ce que tu as en tête."
-
-);
+alert("Dis-moi simplement ce que tu as en tête.");
 
 return;
 
 }
 
-
-const analysis =
-
-analyze(input);
-
-
-session.category =
-
-analysis.category;
-
-
-session.lastAnalysis =
-
-analysis;
-
+let result=analyze(input);
 
 memory.push({
 
 text:input,
 
-intent:analysis.intent,
+category:result.category,
 
-category:analysis.category,
+intent:result.intent,
 
-level:analysis.level,
+block:result.block,
 
-block:analysis.block,
-
-action:analysis.action,
+decision:result.decision,
 
 feedback:null,
 
-date:
-new Date()
-.toISOString()
+date:new Date().toISOString()
 
 });
 
-
 localStorage.setItem(
-
 "nexaMemory",
-
 JSON.stringify(memory)
-
 );
 
+document.getElementById("intent")
+.innerText=result.intent;
 
-localStorage.setItem(
+document.getElementById("category")
+.innerText=result.category;
 
-"nexaSession",
+document.getElementById("level")
+.innerText="Niveau "+profile.level;
 
-JSON.stringify(session)
+document.getElementById("block")
+.innerText=result.block;
 
-);
+document.getElementById("decision")
+.innerText=result.decision;
 
-
-document
-.getElementById("analysisIntent")
-.innerText =
-
-analysis.intent;
-
-
-document
-.getElementById("analysisContext")
-.innerText =
-
-analysis.category;
-
-
-document
-.getElementById("analysisLevel")
-.innerText =
-
-analysis.level;
-
-
-document
-.getElementById("analysisBlock")
-.innerText =
-
-analysis.block;
-
-
-document
-.getElementById("resultText")
-.innerText =
-
-analysis.action;
-
-
-hideAll();
-
-
-document
-.getElementById("result")
-.style
-.display =
-
-"block";
+show("result");
 
 }
 
 
-/* =====================================================
-   FEEDBACK
-===================================================== */
+/* =========================================================
+FEEDBACK
+========================================================= */
 
 function feedback(type){
 
-const last =
+let last=memory[memory.length-1];
 
-memory[
-memory.length - 1
-];
+if(!last)return;
 
+last.feedback=type;
 
-if(!last){
+if(type==="like"){
 
-return;
+profile.likes++;
 
-}
+profile.level=
+Math.min(5,profile.level+1);
 
-
-last.feedback =
-
-type;
-
-
-if(type === "like"){
-
-session.likes++;
-
-session.positiveActions++;
-
-session.level =
-
-Math.min(
-
-session.level + 1,
-
-5
-
-);
+profile.domain=
+last.category;
 
 }
 
+if(type==="later"){
 
-if(type === "later"){
-
-session.later++;
-
-}
-
-
-if(type === "no"){
-
-session.no++;
-
-session.level =
-
-Math.max(
-
-session.level - 1,
-
-1
-
-);
+profile.later++;
 
 }
 
+if(type==="no"){
+
+profile.no++;
+
+}
 
 localStorage.setItem(
-
 "nexaMemory",
-
 JSON.stringify(memory)
-
 );
-
 
 localStorage.setItem(
-
-"nexaSession",
-
-JSON.stringify(session)
-
+"nexaProfile",
+JSON.stringify(profile)
 );
-
 
 goHome();
 
 }
 
 
-/* =====================================================
-   PROGRESS
-===================================================== */
+/* =========================================================
+IDENTITY CAMERA
+========================================================= */
 
-function showProgress(){
+async function startCamera(){
 
-hideAll();
+try{
 
+stream=
+await navigator.mediaDevices.getUserMedia({
 
-document
-.getElementById("progress")
-.style
-.display =
-"block";
+video:{
+facingMode:"user"
+},
 
+audio:false
 
-document
-.getElementById("statCategory")
-.innerText =
+});
 
-session.category
-||
-"Aucune";
+let video=
+document.getElementById("video");
 
+video.srcObject=stream;
 
-document
-.getElementById("statLevel")
-.innerText =
+video.style.display="block";
 
-"Niveau " +
-session.level;
+document.getElementById("preview")
+.style.display="none";
 
+document.getElementById("scannerEmpty")
+.style.display="none";
 
-document
-.getElementById("statLikes")
-.innerText =
+document.getElementById("scanLine")
+.style.display="block";
 
-session.likes;
+document.getElementById("scanStatus")
+.innerText=
+"SCANNING FACIAL GEOMETRY";
 
+}
 
-document
-.getElementById("statActions")
-.innerText =
+catch(e){
 
-session.positiveActions;
+alert(
+"Impossible d'accéder à la caméra. Vérifie les autorisations."
+);
 
-
-document
-.getElementById("levelFill")
-.style
-.width =
-
-(session.level * 20)
-+
-"%";
+}
 
 }
 
 
-/* =====================================================
-   HOME
-===================================================== */
+/* =========================================================
+CAPTURE
+========================================================= */
 
-function goHome(){
+function captureFace(){
+
+let video=
+document.getElementById("video");
+
+if(!stream){
+
+alert(
+"Active d'abord la caméra."
+);
+
+return;
+
+}
+
+let canvas=
+document.createElement("canvas");
+
+canvas.width=video.videoWidth;
+
+canvas.height=video.videoHeight;
+
+let ctx=canvas.getContext("2d");
+
+ctx.translate(canvas.width,0);
+
+ctx.scale(-1,1);
+
+ctx.drawImage(
+video,
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+currentImage=
+canvas.toDataURL(
+"image/jpeg",
+.9
+);
+
+showPreview(currentImage);
+
+analyzeFace(currentImage);
+
+}
+
+
+/* =========================================================
+PHOTO
+========================================================= */
+
+function choosePhoto(){
+
+document
+.getElementById("photoInput")
+.click();
+
+}
+
+function loadPhoto(event){
+
+let file=
+event.target.files[0];
+
+if(!file)return;
+
+let reader=
+new FileReader();
+
+reader.onload=function(e){
+
+currentImage=e.target.result;
+
+showPreview(currentImage);
+
+analyzeFace(currentImage);
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
+PREVIEW
+========================================================= */
+
+function showPreview(src){
 
 stopCamera();
 
+let preview=
+document.getElementById("preview");
 
-hideAll();
+preview.src=src;
 
+preview.style.display="block";
 
 document
-.getElementById("home")
-.style
-.display =
-"block";
+.getElementById("video")
+.style.display="none";
+
+document
+.getElementById("scannerEmpty")
+.style.display="none";
+
+document
+.getElementById("scanLine")
+.style.display="block";
+
+document
+.getElementById("scanStatus")
+.innerText=
+"ANALYZING DIGITAL DNA";
 
 }
 
 
-/* =====================================================
-   ENTER
-===================================================== */
+/* =========================================================
+FACE ANALYSIS
+========================================================= */
+
+async function analyzeFace(src){
+
+try{
+
+let MODEL_URL=
+"https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@master/weights";
+
+await faceapi.nets.tinyFaceDetector
+.loadFromUri(MODEL_URL);
+
+let img=
+await faceapi.fetchImage(src);
+
+let detection=
+await faceapi.detectSingleFace(
+img,
+new faceapi.TinyFaceDetectorOptions()
+);
+
+if(detection){
+
+document.getElementById("dnaFace")
+.innerText=
+"Geometry detected";
+
+document.getElementById("dnaQuality")
+.innerText=
+Math.round(
+detection.score*100
+)+"%";
+
+document.getElementById("scanStatus")
+.innerText=
+"SCAN COMPLETE";
+
+}
+
+else{
+
+document.getElementById("dnaFace")
+.innerText=
+"Manual construct";
+
+document.getElementById("scanStatus")
+.innerText=
+"FACE NOT DETECTED — CONTINUE";
+
+}
+
+}
+
+catch(e){
+
+document.getElementById("scanStatus")
+.innerText=
+"LOCAL CONSTRUCT READY";
+
+}
 
 document
-.getElementById("userInput")
+.getElementById("dna")
+.style.display="block";
+
+document
+.getElementById("avatarLab")
+.style.display="block";
+
+}
+
+
+/* =========================================================
+AVATAR LAB
+========================================================= */
+
+function selectOption(button){
+
+let group=
+button.parentElement;
+
+group
+.querySelectorAll(".option")
+.forEach(
+b=>b.classList.remove("selected")
+);
+
+button.classList.add("selected");
+
+}
+
+
+/* =========================================================
+GENERATE DIGITAL CONSTRUCT
+========================================================= */
+
+function generateConstruct(){
+
+if(!currentImage){
+
+alert(
+"Commence par scanner ton visage ou choisir une photo."
+);
+
+return;
+
+}
+
+let style=
+document
+.querySelector(".option.selected")
+.innerText;
+
+localStorage.setItem(
+"nexaAvatar",
+currentImage
+);
+
+document
+.getElementById("miniAvatar")
+.src=currentImage;
+
+document
+.querySelector(".avatar-mini")
+.classList
+.add("has-avatar");
+
+document
+.getElementById("constructImage")
+.src=currentImage;
+
+document
+.getElementById("construct")
+.style.display="block";
+
+document
+.getElementById("scanStatus")
+.innerText=
+"IDENTITY CONSTRUCT ONLINE";
+
+}
+
+
+/* =========================================================
+STOP CAMERA
+========================================================= */
+
+function stopCamera(){
+
+if(stream){
+
+stream
+.getTracks()
+.forEach(
+track=>track.stop()
+);
+
+stream=null;
+
+}
+
+}
+
+
+/* =========================================================
+AGENT LAB
+========================================================= */
+
+function updateAgentLab(){
+
+document
+.getElementById("memoryCount")
+.innerText=
+memory.length;
+
+document
+.getElementById("likes")
+.innerText=
+profile.likes;
+
+document
+.getElementById("rejections")
+.innerText=
+profile.no;
+
+document
+.getElementById("agentLevel")
+.innerText=
+profile.level;
+
+document
+.getElementById("agentDomain")
+.innerText=
+profile.domain;
+
+}
+
+
+/* =========================================================
+ENTER
+========================================================= */
+
+document
+.getElementById("input")
 .addEventListener(
-
 "keydown",
-
 function(e){
 
 if(
-
-e.key === "Enter" &&
+e.key==="Enter" &&
 !e.shiftKey
-
 ){
 
 e.preventDefault();
 
-discover();
+runAgent();
 
 }
 
-}
-
-);
+});
 
 </script>
 
-
 </body>
-
 </html>
