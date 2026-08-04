@@ -1,12 +1,54 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>NEXA</title>
-
 <style>
+
+/* =========================
+   DESIGN SYSTEM (CLEAN)
+========================= */
+
+:root {
+
+    /* COLORS */
+    --bg: #050507;
+    --surface: #101014;
+    --surface-2: #0c0c0f;
+
+    --border: #24242b;
+    --border-soft: #29292f;
+
+    --text: #ffffff;
+    --text-muted: #777;
+    --text-dim: #555;
+    --text-soft: #aaa;
+
+    --black: #000;
+    --white: #fff;
+
+    /* SPACING (SIMPLIFIED SCALE) */
+    --s-1: 10px;
+    --s-2: 14px;
+    --s-3: 18px;
+    --s-4: 22px;
+    --s-5: 25px;
+    --s-6: 35px;
+    --s-7: 40px;
+    --s-8: 45px;
+
+    /* RADIUS (REDUCED SET) */
+    --r-sm: 14px;
+    --r-lg: 22px;
+    --r-full: 50%;
+
+    /* SHADOW (MERGED) */
+    --shadow: 0 0 30px rgba(255,255,255,0.15),
+              0 0 100px rgba(255,255,255,0.05);
+
+    /* TYPO */
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+/* =========================
+   BASE
+========================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,9 +56,9 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-    background: #050507;
-    color: white;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -26,10 +68,14 @@ body {
     max-width: 600px;
     margin: auto;
     min-height: 100vh;
-    padding: 25px 20px 40px;
+    padding: var(--s-5) var(--s-3) 40px;
     display: flex;
     flex-direction: column;
 }
+
+/* =========================
+   HEADER
+========================= */
 
 header {
     display: flex;
@@ -45,23 +91,28 @@ header {
 
 .status {
     font-size: 11px;
-    color: #777;
+    color: var(--text-muted);
     letter-spacing: 2px;
 }
+
+/* =========================
+   HERO
+========================= */
 
 .hero {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 40px 0;
+    padding: var(--s-7) 0;
 }
 
 .orb {
     width: 90px;
     height: 90px;
-    margin: 0 auto 45px;
-    border-radius: 50%;
+    margin: 0 auto var(--s-8);
+    border-radius: var(--r-full);
+
     background: radial-gradient(
         circle at 35% 30%,
         #ffffff,
@@ -70,23 +121,14 @@ header {
         #080808 70%
     );
 
-    box-shadow:
-        0 0 30px rgba(255,255,255,0.15),
-        0 0 100px rgba(255,255,255,0.05);
+    box-shadow: var(--shadow);
 
     animation: breathe 4s infinite ease-in-out;
 }
 
 @keyframes breathe {
-    0%,100% {
-        transform: scale(1);
-        opacity: .8;
-    }
-
-    50% {
-        transform: scale(1.08);
-        opacity: 1;
-    }
+    0%,100% { transform: scale(1); opacity: .8; }
+    50% { transform: scale(1.08); opacity: 1; }
 }
 
 .title {
@@ -94,27 +136,25 @@ header {
     font-size: 32px;
     font-weight: 600;
     line-height: 1.2;
-    margin-bottom: 12px;
+    margin-bottom: var(--s-2);
 }
 
 .subtitle {
     text-align: center;
-    color: #777;
+    color: var(--text-muted);
     font-size: 15px;
-    margin-bottom: 35px;
+    margin-bottom: var(--s-6);
 }
+
+/* =========================
+   INPUT
+========================= */
 
 .input-box {
-    background: #101014;
-    border: 1px solid #24242b;
-    border-radius: 22px;
-    padding: 18px;
-    transition: .3s;
-}
-
-.input-box:focus-within {
-    border-color: #555;
-    box-shadow: 0 0 30px rgba(255,255,255,.04);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--s-3);
 }
 
 textarea {
@@ -122,91 +162,96 @@ textarea {
     height: 110px;
     resize: none;
     border: none;
-    outline: none;
     background: transparent;
-    color: white;
+    color: var(--text);
     font-size: 17px;
     font-family: inherit;
 }
 
 textarea::placeholder {
-    color: #555;
+    color: var(--text-dim);
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 .discover {
     width: 100%;
-    margin-top: 15px;
-    padding: 17px;
+    margin-top: var(--s-2);
+    padding: var(--s-3);
     border: none;
-    border-radius: 15px;
-    background: white;
-    color: black;
+    border-radius: var(--r-sm);
+    background: var(--white);
+    color: var(--black);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: .2s;
 }
 
-.discover:active {
-    transform: scale(.97);
+.progress-button {
+    width: 100%;
+    margin-top: var(--s-2);
+    padding: var(--s-2);
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border-soft);
+    background: var(--surface-2);
+    color: var(--text-soft);
+    font-size: 14px;
 }
 
-.result {
+/* =========================
+   RESULT
+========================= */
+
+.result,
+.progress-view {
     display: none;
     animation: appear .5s ease;
 }
 
 @keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .result-label {
-    color: #777;
+    color: var(--text-muted);
     font-size: 11px;
     letter-spacing: 3px;
-    margin-bottom: 12px;
-}
-
-.result h2 {
-    font-size: 26px;
-    line-height: 1.25;
-    margin-bottom: 20px;
+    margin-bottom: var(--s-2);
 }
 
 .result-card {
-    background: #101014;
-    border: 1px solid #24242b;
-    border-radius: 22px;
-    padding: 22px;
-    margin-bottom: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--s-4);
+    margin-bottom: var(--s-4);
 }
 
 .result-card p {
-    color: #aaa;
+    color: var(--text-soft);
     line-height: 1.6;
     font-size: 15px;
 }
 
+/* =========================
+   ACTIONS
+========================= */
+
 .actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: var(--s-1);
 }
 
 .action {
-    padding: 15px 10px;
-    border-radius: 14px;
-    border: 1px solid #29292f;
-    background: #0c0c0f;
-    color: white;
+    padding: var(--s-2);
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border-soft);
+    background: var(--surface-2);
+    color: var(--text);
     font-size: 14px;
     cursor: pointer;
 }
@@ -215,734 +260,57 @@ textarea::placeholder {
     grid-column: span 2;
 }
 
-.action:active {
-    transform: scale(.97);
-}
+/* =========================
+   PROGRESS
+========================= */
 
 .progress {
-    margin-top: 20px;
+    margin-top: var(--s-4);
     text-align: center;
-    color: #555;
+    color: var(--text-dim);
     font-size: 11px;
-    letter-spacing: 1px;
 }
+
+.stat {
+    padding: var(--s-2) 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.stat-value {
+    margin-top: 6px;
+    font-size: 18px;
+}
+
+/* =========================
+   BACK
+========================= */
+
+.back-button {
+    width: 100%;
+    padding: var(--s-2);
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border-soft);
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+}
+
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     text-align: center;
     color: #444;
     font-size: 11px;
     letter-spacing: 1px;
-    padding-top: 20px;
+    padding-top: var(--s-4);
 }
+
 </style>
-</head>
-
-<body>
-
-<div class="container">
-
-<header>
-
-    <div class="logo">
-        NEXA
-    </div>
-
-    <div class="status">
-        FOR NOW
-    </div>
-
-</header>
-
-<main class="hero">
-
-<div id="home">
-
-    <div class="orb"></div>
-
-    <h1 class="title">
-        Qu'est-ce qui pourrait<br>
-        être intéressant pour toi ?
-    </h1>
-
-    <p class="subtitle">
-        Dis-moi simplement ce que tu as en tête.
-    </p>
-
-    <div class="input-box">
-
-        <textarea
-            id="userInput"
-            placeholder="Je veux apprendre quelque chose...
-Je cherche une idée...
-Je ne sais pas quoi faire..."
-        ></textarea>
-
-        <button
-            class="discover"
-            onclick="discover()"
-        >
-            Découvrir
-        </button>
-
-    </div>
-
-</div>
-
-
-<div id="result" class="result">
-
-    <div class="result-label">
-        NEXA A TROUVÉ ÇA POUR TOI
-    </div>
-
-    <h2 id="resultTitle"></h2>
-
-    <div class="result-card">
-
-        <p id="resultText"></p>
-
-    </div>
-
-    <div class="actions">
-
-        <button
-            class="action"
-            onclick="feedback('like')"
-        >
-            ❤️ Ça m'intéresse
-        </button>
-
-        <button
-            class="action"
-            onclick="feedback('later')"
-        >
-            🤔 Pas maintenant
-        </button>
-
-        <button
-            class="action full"
-            onclick="feedback('no')"
-        >
-            ❌ Pas pour moi
-        </button>
-
-    </div>
-
-    <div class="progress" id="progressText"></div>
-
-</div>
-
-</main>
-
-<footer>
-    NEXA — YOUR NEXT POSSIBILITY
-</footer>
-
-</div>
-
-
-<script>
-
-/* =========================
-   MÉMOIRE NEXA
-========================= */
-
-let memory =
-JSON.parse(
-localStorage.getItem("nexaMemory")
-) || [];
-
-
-/* =========================
-   ÉTAT ACTUEL
-========================= */
-
-let currentSession =
-JSON.parse(
-localStorage.getItem("nexaSession")
-) || {
-
-    category: null,
-
-    level: 1,
-
-    likes: 0,
-
-    later: 0,
-
-    no: 0
-
-};
-
-
-/* =========================
-   MOTS-CLÉS
-========================= */
-
-const keywords = {
-
-    emploi: [
-        "emploi",
-        "travail",
-        "job",
-        "métier",
-        "carrière",
-        "embauche",
-        "recrutement",
-        "salarié"
-    ],
-
-    argent: [
-        "argent",
-        "revenu",
-        "gagner",
-        "riche",
-        "salaire",
-        "finance",
-        "économiser",
-        "épargne"
-    ],
-
-    business: [
-        "business",
-        "entreprise",
-        "entreprendre",
-        "commerce",
-        "client",
-        "vendre",
-        "vente",
-        "entrepreneur"
-    ],
-
-    projet: [
-        "projet",
-        "application",
-        "app",
-        "site",
-        "créer",
-        "construire",
-        "développer",
-        "développement"
-    ],
-
-    apprentissage: [
-        "apprendre",
-        "étudier",
-        "formation",
-        "apprentissage",
-        "compétence",
-        "connaître",
-        "comprendre",
-        "cours"
-    ],
-
-    blocage: [
-        "bloqué",
-        "blocage",
-        "procrastination",
-        "procrastiner",
-        "peur",
-        "stress",
-        "difficile",
-        "ne sais pas",
-        "perdu"
-    ]
-
-};
-
-
-/* =========================
-   DÉTECTION
-========================= */
-
-function detectCategory(input) {
-
-    const lower =
-    input.toLowerCase();
-
-    let scores = {
-
-        emploi: 0,
-
-        argent: 0,
-
-        business: 0,
-
-        projet: 0,
-
-        apprentissage: 0,
-
-        blocage: 0
-
-    };
-
-
-    for (
-        const category in keywords
-    ) {
-
-        keywords[category]
-        .forEach(word => {
-
-            if (
-                lower.includes(word)
-            ) {
-
-                scores[category]++;
-
-            }
-
-        });
-
-    }
-
-
-    let bestCategory =
-    "general";
-
-    let bestScore = 0;
-
-
-    for (
-        const category in scores
-    ) {
-
-        if (
-            scores[category] >
-            bestScore
-        ) {
-
-            bestScore =
-            scores[category];
-
-            bestCategory =
-            category;
-
-        }
-
-    }
-
-
-    return bestCategory;
-
-}
-
-
-/* =========================
-   GÉNÉRATION
-========================= */
-
-function generateAction(
-    category,
-    level,
-    feedback
-) {
-
-    const actions = {
-
-        emploi: [
-
-            "Trouve aujourd'hui une seule offre d'emploi qui correspond réellement à ton profil et regarde ce qu'elle demande.",
-
-            "Choisis une compétence demandée dans cette offre et découvre comment tu pourrais commencer à l'apprendre gratuitement.",
-
-            "Identifie une seule personne qui exerce ce métier et découvre comment elle a commencé.",
-
-            "Prépare une première action concrète pour te rapprocher de ce métier.",
-
-            "Fais aujourd'hui une démarche réelle liée à cette possibilité."
-        ],
-
-
-        argent: [
-
-            "Identifie une seule façon réaliste d'améliorer tes revenus avec ce que tu sais déjà faire.",
-
-            "Trouve une compétence simple qui pourrait augmenter ta valeur sur le marché du travail.",
-
-            "Explore une seule possibilité de revenu et vérifie si elle correspond réellement à ta situation.",
-
-            "Choisis une idée et cherche une première personne qui pourrait être intéressée.",
-
-            "Fais une première action réelle pour tester cette possibilité."
-        ],
-
-
-        business: [
-
-            "Décris ton idée de business en une seule phrase simple.",
-
-            "Trouve une seule personne qui pourrait avoir besoin de ce que tu veux proposer.",
-
-            "Pose-lui une question simple pour comprendre son vrai problème.",
-
-            "Utilise sa réponse pour améliorer ton idée.",
-
-            "Teste ton idée auprès d'une deuxième personne avant de construire davantage."
-        ],
-
-
-        projet: [
-
-            "Définis en une seule phrase ce que ton projet doit permettre de faire.",
-
-            "Choisis une seule fonctionnalité essentielle et imagine comment elle fonctionnerait.",
-
-            "Montre ton idée à une personne et demande-lui ce qu'elle en pense.",
-
-            "Utilise son retour pour améliorer une seule partie de ton projet.",
-
-            "Construis une première version très simple de cette fonctionnalité."
-        ],
-
-
-        apprentissage: [
-
-            "Choisis une seule notion liée à ce que tu veux apprendre et découvre-la pendant 10 minutes.",
-
-            "Trouve une explication simple de cette notion et essaie de la reformuler avec tes propres mots.",
-
-            "Applique cette connaissance à un petit exemple concret.",
-
-            "Teste ce que tu as appris dans une situation réelle.",
-
-            "Explique cette notion à quelqu'un d'autre pour vérifier que tu la maîtrises."
-        ],
-
-
-        blocage: [
-
-            "Identifie la seule chose qui te bloque le plus aujourd'hui.",
-
-            "Transforme ce blocage en une action tellement petite que tu peux la faire en moins de 5 minutes.",
-
-            "Fais cette action maintenant, sans chercher à la perfectionner.",
-
-            "Observe ce qui t'a empêché d'avancer et réduis encore la difficulté.",
-
-            "Répète cette petite action une fois de plus aujourd'hui."
-        ],
-
-
-        general: [
-
-            "Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau à son sujet.",
-
-            "Trouve une seule possibilité concrète qui pourrait être intéressante pour toi.",
-
-            "Choisis celle qui te donne le plus envie d'en savoir plus.",
-
-            "Fais une petite action pour vérifier si cette possibilité te correspond réellement.",
-
-            "Décide si cette piste mérite d'être poursuivie ou abandonnée."
-        ]
-
-    };
-
-
-    let list =
-    actions[category]
-    || actions.general;
-
-
-    let index =
-    Math.min(
-        level - 1,
-        list.length - 1
-    );
-
-
-    return list[index];
-
-}
-
-
-/* =========================
-   DÉCOUVRIR
-========================= */
-
-function discover() {
-
-    const input =
-    document
-    .getElementById("userInput")
-    .value
-    .trim();
-
-
-    if (!input) {
-
-        alert(
-        "Dis-moi simplement ce que tu as en tête."
-        );
-
-        return;
-
-    }
-
-
-    let category =
-    detectCategory(input);
-
-
-    if (
-        currentSession.category !== category
-    ) {
-
-        currentSession.category =
-        category;
-
-        currentSession.level = 1;
-
-    }
-
-
-    let action =
-    generateAction(
-        category,
-        currentSession.level
-    );
-
-
-    memory.push({
-
-        text: input,
-
-        category: category,
-
-        level:
-        currentSession.level,
-
-        action: action,
-
-        date:
-        new Date()
-        .toISOString()
-
-    });
-
-
-    localStorage.setItem(
-
-        "nexaMemory",
-
-        JSON.stringify(memory)
-
-    );
-
-
-    localStorage.setItem(
-
-        "nexaSession",
-
-        JSON.stringify(
-        currentSession
-        )
-
-    );
-
-
-    document
-    .getElementById("resultTitle")
-    .innerText =
-    getTitle(category);
-
-
-    document
-    .getElementById("resultText")
-    .innerText =
-    action;
-
-
-    document
-    .getElementById("progressText")
-    .innerText =
-    "NIVEAU " +
-    currentSession.level +
-    " • " +
-    category.toUpperCase();
-
-
-    document
-    .getElementById("home")
-    .style
-    .display =
-    "none";
-
-
-    document
-    .getElementById("result")
-    .style
-    .display =
-    "block";
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-}
-
-
-/* =========================
-   TITRES
-========================= */
-
-function getTitle(category) {
-
-    const titles = {
-
-        emploi:
-        "Explore une possibilité qui pourrait améliorer ta situation.",
-
-        argent:
-        "Trouve une possibilité concrète d'améliorer tes revenus.",
-
-        business:
-        "Ton idée mérite un premier test.",
-
-        projet:
-        "Transforme ton idée en une première étape concrète.",
-
-        apprentissage:
-        "Découvre une nouvelle compétence.",
-
-        blocage:
-        "Réduis ton blocage à une seule petite action.",
-
-        general:
-        "Commence par une petite découverte."
-
-    };
-
-
-    return (
-        titles[category]
-        ||
-        titles.general
-    );
-
-}
-
-
-/* =========================
-   FEEDBACK
-========================= */
-
-function feedback(type) {
-
-    const last =
-    memory[
-        memory.length - 1
-    ];
-
-
-    if (last) {
-
-        last.feedback =
-        type;
-
-
-        if (
-            type === "like"
-        ) {
-
-            currentSession.likes++;
-
-            currentSession.level =
-            Math.min(
-                currentSession.level + 1,
-                5
-            );
-
-        }
-
-
-        if (
-            type === "later"
-        ) {
-
-            currentSession.later++;
-
-        }
-
-
-        if (
-            type === "no"
-        ) {
-
-            currentSession.no++;
-
-            currentSession.level =
-            Math.max(
-                currentSession.level - 1,
-                1
-            );
-
-        }
-
-
-        last.nextLevel =
-        currentSession.level;
-
-
-        localStorage.setItem(
-
-            "nexaMemory",
-
-            JSON.stringify(memory)
-
-        );
-
-
-        localStorage.setItem(
-
-            "nexaSession",
-
-            JSON.stringify(
-            currentSession
-            )
-
-        );
-
-    }
-
-
-    document
-    .getElementById("result")
-    .style
-    .display =
-    "none";
-
-
-    document
-    .getElementById("home")
-    .style
-    .display =
-    "block";
-
-
-    document
-    .getElementById("userInput")
-    .value =
-    "";
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-}
-
-</script>
-
-</body>
-</html>
