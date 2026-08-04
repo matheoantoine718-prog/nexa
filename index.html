@@ -10,31 +10,29 @@ name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 >
 
-<meta name="theme-color" content="#050507">
+<meta name="theme-color" content="#030305">
 
-<title>NEXA CORE</title>
+<title>NEXA V6 — BRAIN CORE</title>
 
 <style>
 
-/* =========================================================
-   NEXA V5 — CORE INTERFACE
-========================================================= */
+/* =====================================================
+   NEXA V6.1 — BRAIN CORE
+===================================================== */
 
 :root {
 
 --bg:#030305;
---panel:rgba(15,15,22,.78);
---panel2:rgba(10,10,15,.9);
+--panel:rgba(14,14,21,.86);
+--panel2:rgba(8,8,13,.95);
 
---line:rgba(255,255,255,.12);
+--line:rgba(255,255,255,.11);
 
 --text:#ffffff;
 --muted:#777;
 
 --cyan:#9fe8ff;
 --violet:#b69cff;
-
---radius:24px;
 
 }
 
@@ -54,8 +52,6 @@ html {
 
 background:var(--bg);
 
-min-height:100%;
-
 }
 
 body {
@@ -69,13 +65,13 @@ sans-serif;
 background:
 
 radial-gradient(
-circle at 50% 20%,
-rgba(100,120,255,.09),
+circle at 50% 15%,
+rgba(100,120,255,.11),
 transparent 35%
 ),
 
 radial-gradient(
-circle at 20% 80%,
+circle at 10% 90%,
 rgba(0,200,255,.05),
 transparent 35%
 ),
@@ -99,9 +95,9 @@ font-family:inherit;
 }
 
 
-/* =========================================================
+/* =====================================================
    BACKGROUND
-========================================================= */
+===================================================== */
 
 .background {
 
@@ -109,9 +105,9 @@ position:fixed;
 
 inset:0;
 
-pointer-events:none;
-
 overflow:hidden;
+
+pointer-events:none;
 
 z-index:0;
 
@@ -142,8 +138,7 @@ transform:
 perspective(500px)
 rotateX(55deg);
 
-animation:
-gridMove 20s linear infinite;
+animation:gridMove 20s linear infinite;
 
 }
 
@@ -170,9 +165,9 @@ translateY(40px);
 }
 
 
-/* =========================================================
+/* =====================================================
    APP
-========================================================= */
+===================================================== */
 
 .app {
 
@@ -188,11 +183,7 @@ margin:auto;
 
 min-height:100vh;
 
-padding:
-
-22px
-18px
-35px;
+padding:22px 18px 35px;
 
 display:flex;
 
@@ -201,9 +192,9 @@ flex-direction:column;
 }
 
 
-/* =========================================================
+/* =====================================================
    HEADER
-========================================================= */
+===================================================== */
 
 header {
 
@@ -225,7 +216,7 @@ letter-spacing:6px;
 
 }
 
-.core-status {
+.status {
 
 font-size:9px;
 
@@ -257,12 +248,11 @@ box-shadow:
 
 0 0 20px var(--cyan);
 
-animation:
-statusPulse 2s infinite;
+animation:pulse 2s infinite;
 
 }
 
-@keyframes statusPulse {
+@keyframes pulse {
 
 0%,100% {
 
@@ -279,9 +269,9 @@ opacity:1;
 }
 
 
-/* =========================================================
-   HERO
-========================================================= */
+/* =====================================================
+   MAIN
+===================================================== */
 
 main {
 
@@ -295,11 +285,16 @@ justify-content:center;
 
 }
 
+
+/* =====================================================
+   CORE
+===================================================== */
+
 .core-area {
 
 position:relative;
 
-height:230px;
+height:220px;
 
 display:flex;
 
@@ -309,18 +304,13 @@ justify-content:center;
 
 }
 
-
-/* =========================================================
-   CORE
-========================================================= */
-
 .core {
 
 position:relative;
 
-width:120px;
+width:115px;
 
-height:120px;
+height:115px;
 
 border-radius:50%;
 
@@ -329,23 +319,21 @@ background:
 radial-gradient(
 circle at 35% 30%,
 #ffffff,
-#b9c9ff 10%,
-#6b6dff 25%,
-#17172b 55%,
+#c4d1ff 10%,
+#7777ff 25%,
+#18182d 55%,
 #050507 75%
 );
 
 box-shadow:
 
-0 0 25px rgba(120,130,255,.6),
+0 0 30px rgba(120,130,255,.6),
 
-0 0 70px rgba(100,100,255,.25),
+0 0 80px rgba(100,100,255,.2),
 
 inset 0 0 30px rgba(255,255,255,.2);
 
-animation:
-
-coreBreath 4s ease-in-out infinite;
+animation:breath 4s ease-in-out infinite;
 
 z-index:3;
 
@@ -362,13 +350,10 @@ inset:-22px;
 border-radius:50%;
 
 border:
-
 1px solid
-rgba(150,200,255,.35);
+rgba(150,210,255,.4);
 
-animation:
-
-orbit 8s linear infinite;
+animation:rotate 8s linear infinite;
 
 }
 
@@ -383,17 +368,14 @@ inset:-45px;
 border-radius:50%;
 
 border:
-
 1px solid
-rgba(160,120,255,.12);
+rgba(180,120,255,.15);
 
-animation:
-
-orbitReverse 12s linear infinite;
+animation:rotateReverse 12s linear infinite;
 
 }
 
-@keyframes coreBreath {
+@keyframes breath {
 
 0%,100% {
 
@@ -409,7 +391,7 @@ transform:scale(1.08);
 
 }
 
-@keyframes orbit {
+@keyframes rotate {
 
 to {
 
@@ -419,7 +401,7 @@ transform:rotate(360deg);
 
 }
 
-@keyframes orbitReverse {
+@keyframes rotateReverse {
 
 to {
 
@@ -429,19 +411,13 @@ transform:rotate(-360deg);
 
 }
 
-
-/* =========================================================
-   SCAN RINGS
-========================================================= */
-
-.scan-ring {
+.ring {
 
 position:absolute;
 
 border-radius:50%;
 
 border:
-
 1px solid
 rgba(255,255,255,.08);
 
@@ -449,27 +425,25 @@ rgba(255,255,255,.08);
 
 .ring1 {
 
-width:170px;
+width:165px;
 
-height:170px;
+height:165px;
 
-animation:
-ringPulse 3s infinite;
+animation:ring 3s infinite;
 
 }
 
 .ring2 {
 
-width:215px;
+width:210px;
 
-height:215px;
+height:210px;
 
-animation:
-ringPulse 3s infinite 1s;
+animation:ring 3s infinite 1s;
 
 }
 
-@keyframes ringPulse {
+@keyframes ring {
 
 0% {
 
@@ -495,29 +469,24 @@ opacity:0;
 
 }
 
-
-/* =========================================================
-   CORE LABEL
-========================================================= */
-
 .core-label {
 
 position:absolute;
 
-bottom:8px;
+bottom:5px;
 
 font-size:9px;
 
 letter-spacing:4px;
 
-color:#777;
+color:#666;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    AVATAR
-========================================================= */
+===================================================== */
 
 .avatar-button {
 
@@ -525,7 +494,7 @@ position:absolute;
 
 right:0;
 
-top:15px;
+top:10px;
 
 width:62px;
 
@@ -533,22 +502,15 @@ height:62px;
 
 border-radius:50%;
 
-border:
+overflow:hidden;
 
+border:
 1px solid
 var(--line);
 
-background:
-
-rgba(255,255,255,.04);
-
-overflow:hidden;
+background:#111118;
 
 cursor:pointer;
-
-box-shadow:
-
-0 0 20px rgba(0,0,0,.4);
 
 }
 
@@ -583,12 +545,11 @@ font-size:22px;
 .avatar-button.has-avatar {
 
 border-color:
-
-rgba(160,220,255,.5);
+rgba(150,220,255,.5);
 
 box-shadow:
-
-0 0 20px rgba(100,200,255,.2);
+0 0 20px
+rgba(100,200,255,.2);
 
 }
 
@@ -600,27 +561,19 @@ display:none;
 }
 
 
-/* =========================================================
-   TEXT
-========================================================= */
+/* =====================================================
+   TITRE
+===================================================== */
 
 .title {
 
 text-align:center;
 
-font-size:
-
-clamp(
-28px,
-8vw,
-36px
-);
+font-size:clamp(28px,8vw,36px);
 
 font-weight:600;
 
 line-height:1.15;
-
-letter-spacing:-.8px;
 
 margin-bottom:12px;
 
@@ -641,9 +594,9 @@ margin-bottom:28px;
 }
 
 
-/* =========================================================
+/* =====================================================
    INPUT
-========================================================= */
+===================================================== */
 
 .input-panel {
 
@@ -652,23 +605,16 @@ background:
 linear-gradient(
 145deg,
 rgba(20,20,28,.85),
-rgba(8,8,12,.9)
+rgba(8,8,12,.95)
 );
 
 border:
-
 1px solid
 var(--line);
 
-border-radius:
-
-var(--radius);
+border-radius:24px;
 
 padding:16px;
-
-box-shadow:
-
-0 20px 60px rgba(0,0,0,.3);
 
 }
 
@@ -701,9 +647,9 @@ color:#555;
 }
 
 
-/* =========================================================
+/* =====================================================
    BUTTON
-========================================================= */
+===================================================== */
 
 .primary {
 
@@ -727,8 +673,6 @@ font-weight:600;
 
 cursor:pointer;
 
-transition:.2s;
-
 }
 
 .primary:active {
@@ -738,164 +682,9 @@ transform:scale(.97);
 }
 
 
-/* =========================================================
-   AVATAR PANEL
-========================================================= */
-
-.avatar-panel {
-
-display:none;
-
-position:fixed;
-
-inset:0;
-
-z-index:20;
-
-background:
-
-rgba(0,0,0,.82);
-
-backdrop-filter:
-blur(20px);
-
-align-items:center;
-
-justify-content:center;
-
-padding:20px;
-
-}
-
-.avatar-panel.open {
-
-display:flex;
-
-}
-
-.avatar-card {
-
-width:100%;
-
-max-width:400px;
-
-background:
-
-#0c0c12;
-
-border:
-
-1px solid var(--line);
-
-border-radius:28px;
-
-padding:25px;
-
-text-align:center;
-
-}
-
-.avatar-card h2 {
-
-font-size:24px;
-
-margin-bottom:8px;
-
-}
-
-.avatar-card p {
-
-color:#777;
-
-font-size:14px;
-
-margin-bottom:22px;
-
-}
-
-.avatar-preview {
-
-width:150px;
-
-height:150px;
-
-margin:0 auto 20px;
-
-border-radius:50%;
-
-overflow:hidden;
-
-border:
-
-1px solid
-rgba(160,220,255,.4);
-
-box-shadow:
-
-0 0 40px rgba(100,200,255,.15);
-
-}
-
-.avatar-preview img {
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-}
-
-.avatar-options {
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:10px;
-
-}
-
-.avatar-option {
-
-padding:15px;
-
-border-radius:14px;
-
-border:
-
-1px solid var(--line);
-
-background:#111118;
-
-color:white;
-
-cursor:pointer;
-
-}
-
-.close-avatar {
-
-margin-top:10px;
-
-width:100%;
-
-padding:14px;
-
-border:none;
-
-border-radius:14px;
-
-background:white;
-
-color:black;
-
-}
-
-
-/* =========================================================
+/* =====================================================
    RESULT
-========================================================= */
+===================================================== */
 
 .result {
 
@@ -947,6 +736,61 @@ margin-bottom:18px;
 
 }
 
+
+/* =====================================================
+   BRAIN ANALYSIS
+===================================================== */
+
+.analysis {
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:10px;
+
+margin-bottom:18px;
+
+}
+
+.analysis-card {
+
+background:
+
+rgba(15,15,22,.8);
+
+border:
+1px solid
+var(--line);
+
+border-radius:16px;
+
+padding:14px;
+
+}
+
+.analysis-label {
+
+font-size:8px;
+
+letter-spacing:2px;
+
+color:#666;
+
+margin-bottom:7px;
+
+}
+
+.analysis-value {
+
+font-size:14px;
+
+color:white;
+
+line-height:1.3;
+
+}
+
 .result-card {
 
 padding:22px;
@@ -954,11 +798,10 @@ padding:22px;
 border-radius:24px;
 
 border:
-
-1px solid var(--line);
+1px solid
+var(--line);
 
 background:
-
 rgba(15,15,22,.8);
 
 margin-bottom:18px;
@@ -974,6 +817,11 @@ line-height:1.65;
 color:#aaa;
 
 }
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
 
 .actions {
 
@@ -992,8 +840,8 @@ padding:16px 10px;
 border-radius:15px;
 
 border:
-
-1px solid var(--line);
+1px solid
+var(--line);
 
 background:#0d0d12;
 
@@ -1009,121 +857,16 @@ grid-column:span 2;
 
 }
 
+.action:active {
 
-/* =========================================================
-   PROGRESS
-========================================================= */
-
-.progress-view {
-
-display:none;
-
-animation:appear .4s ease;
-
-}
-
-.progress-card {
-
-padding:22px;
-
-border-radius:24px;
-
-border:
-
-1px solid var(--line);
-
-background:var(--panel);
-
-}
-
-.stat {
-
-padding:16px 0;
-
-border-bottom:
-
-1px solid var(--line);
-
-}
-
-.stat:last-child {
-
-border-bottom:none;
-
-}
-
-.stat-label {
-
-font-size:9px;
-
-letter-spacing:2px;
-
-color:#777;
-
-}
-
-.stat-value {
-
-margin-top:7px;
-
-font-size:16px;
-
-}
-
-.level-bar {
-
-height:5px;
-
-background:#222;
-
-border-radius:5px;
-
-margin-top:10px;
-
-overflow:hidden;
-
-}
-
-.level-fill {
-
-height:100%;
-
-width:20%;
-
-background:
-
-linear-gradient(
-90deg,
-var(--cyan),
-var(--violet)
-);
-
-transition:.5s;
-
-}
-
-.back {
-
-width:100%;
-
-margin-top:15px;
-
-padding:15px;
-
-border-radius:15px;
-
-border:none;
-
-background:white;
-
-color:black;
+transform:scale(.97);
 
 }
 
 
-/* =========================================================
+/* =====================================================
    MENU
-========================================================= */
+===================================================== */
 
 .menu {
 
@@ -1145,18 +888,270 @@ border:none;
 
 color:#555;
 
-font-size:11px;
-
-cursor:pointer;
+font-size:10px;
 
 letter-spacing:1px;
+
+cursor:pointer;
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress {
+
+display:none;
+
+animation:appear .4s ease;
+
+}
+
+.progress-card {
+
+padding:22px;
+
+border-radius:24px;
+
+border:
+1px solid
+var(--line);
+
+background:var(--panel);
+
+}
+
+.stat {
+
+padding:16px 0;
+
+border-bottom:
+1px solid
+var(--line);
+
+}
+
+.stat:last-child {
+
+border-bottom:none;
+
+}
+
+.stat-label {
+
+font-size:9px;
+
+letter-spacing:2px;
+
+color:#666;
+
+}
+
+.stat-value {
+
+margin-top:7px;
+
+font-size:16px;
+
+}
+
+.bar {
+
+height:5px;
+
+background:#222;
+
+border-radius:5px;
+
+margin-top:10px;
+
+overflow:hidden;
+
+}
+
+.fill {
+
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+var(--cyan),
+var(--violet)
+);
+
+transition:.5s;
+
+}
+
+.back {
+
+width:100%;
+
+margin-top:15px;
+
+padding:15px;
+
+border:none;
+
+border-radius:15px;
+
+background:white;
+
+color:black;
+
+}
+
+
+/* =====================================================
+   AVATAR MODAL
+===================================================== */
+
+.avatar-modal {
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+z-index:20;
+
+background:
+rgba(0,0,0,.85);
+
+backdrop-filter:blur(20px);
+
+align-items:center;
+
+justify-content:center;
+
+padding:20px;
+
+}
+
+.avatar-modal.open {
+
+display:flex;
+
+}
+
+.avatar-card {
+
+width:100%;
+
+max-width:400px;
+
+background:#0c0c12;
+
+border:
+1px solid
+var(--line);
+
+border-radius:28px;
+
+padding:25px;
+
+text-align:center;
+
+}
+
+.avatar-card h2 {
+
+margin-bottom:8px;
+
+}
+
+.avatar-card p {
+
+color:#777;
+
+font-size:14px;
+
+margin-bottom:20px;
+
+}
+
+.avatar-preview {
+
+width:150px;
+
+height:150px;
+
+margin:0 auto 20px;
+
+border-radius:50%;
+
+overflow:hidden;
+
+border:
+1px solid
+rgba(150,220,255,.4);
+
+}
+
+.avatar-preview img {
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.avatar-options {
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:10px;
+
+}
+
+.avatar-option {
+
+padding:15px;
+
+border-radius:14px;
+
+border:
+1px solid
+var(--line);
+
+background:#111118;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+.close {
+
+width:100%;
+
+margin-top:10px;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+background:white;
+
+color:black;
+
+}
+
+
+/* =====================================================
    FOOTER
-========================================================= */
+===================================================== */
 
 footer {
 
@@ -1169,53 +1164,6 @@ letter-spacing:2px;
 color:#333;
 
 padding-top:20px;
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:380px){
-
-.core-area {
-
-height:200px;
-
-}
-
-.core {
-
-width:100px;
-
-height:100px;
-
-}
-
-.ring1 {
-
-width:145px;
-
-height:145px;
-
-}
-
-.ring2 {
-
-width:180px;
-
-height:180px;
-
-}
-
-.avatar-button {
-
-width:55px;
-
-height:55px;
-
-}
 
 }
 
@@ -1245,11 +1193,11 @@ NEXA
 
 </div>
 
-<div class="core-status">
+<div class="status">
 
 <span class="status-light"></span>
 
-CORE ONLINE
+BRAIN ONLINE
 
 </div>
 
@@ -1266,18 +1214,15 @@ CORE ONLINE
 
 <div class="core-area">
 
+<div class="ring ring1"></div>
 
-<div class="scan-ring ring1"></div>
-
-<div class="scan-ring ring2"></div>
-
+<div class="ring ring2"></div>
 
 <div class="core"></div>
 
-
 <div class="core-label">
 
-NEXA CORE
+NEXA BRAIN CORE
 
 </div>
 
@@ -1297,7 +1242,7 @@ onclick="openAvatar()"
 <img
 id="avatarImage"
 alt="Avatar"
-/>
+>
 
 </button>
 
@@ -1316,9 +1261,9 @@ Qu'est-ce qui pourrait<br>
 
 <p class="subtitle">
 
-NEXA transforme ce que tu as en tête<br>
+Dis-moi simplement ce que tu as en tête.<br>
 
-en une prochaine possibilité.
+NEXA va essayer de comprendre.
 
 </p>
 
@@ -1329,8 +1274,9 @@ en une prochaine possibilité.
 <textarea
 id="userInput"
 placeholder="Je veux apprendre...
-Je cherche une idée...
-Je veux changer quelque chose..."
+Je cherche un travail...
+Je veux créer un projet...
+Je suis bloqué..."
 ></textarea>
 
 
@@ -1377,12 +1323,97 @@ class="result"
 
 <div class="result-label">
 
-NEXA CORE — ANALYSE TERMINÉE
+NEXA BRAIN — ANALYSE TERMINÉE
 
 </div>
 
 
 <h2 id="resultTitle"></h2>
+
+
+<div class="analysis">
+
+
+<div class="analysis-card">
+
+<div class="analysis-label">
+
+INTENTION
+
+</div>
+
+<div
+class="analysis-value"
+id="analysisIntent"
+>
+
+—
+
+</div>
+
+</div>
+
+
+<div class="analysis-card">
+
+<div class="analysis-label">
+
+CONTEXTE
+
+</div>
+
+<div
+class="analysis-value"
+id="analysisContext"
+>
+
+—
+
+</div>
+
+</div>
+
+
+<div class="analysis-card">
+
+<div class="analysis-label">
+
+NIVEAU
+
+</div>
+
+<div
+class="analysis-value"
+id="analysisLevel"
+>
+
+—
+
+</div>
+
+</div>
+
+
+<div class="analysis-card">
+
+<div class="analysis-label">
+
+BLOCAGE
+
+</div>
+
+<div
+class="analysis-value"
+id="analysisBlock"
+>
+
+—
+
+</div>
+
+</div>
+
+</div>
 
 
 <div class="result-card">
@@ -1434,14 +1465,14 @@ onclick="feedback('no')"
 <!-- PROGRESS -->
 
 <div
-id="progressView"
-class="progress-view"
+id="progress"
+class="progress"
 >
 
 
 <div class="result-label">
 
-NEXA CORE — PROFIL
+NEXA BRAIN — PROFIL
 
 </div>
 
@@ -1460,7 +1491,7 @@ Ta progression
 
 <div class="stat-label">
 
-DIRECTION
+DIRECTION ACTUELLE
 
 </div>
 
@@ -1480,7 +1511,7 @@ Aucune
 
 <div class="stat-label">
 
-NIVEAU NEXA
+NIVEAU
 
 </div>
 
@@ -1494,10 +1525,10 @@ Niveau 1
 </div>
 
 
-<div class="level-bar">
+<div class="bar">
 
 <div
-class="level-fill"
+class="fill"
 id="levelFill"
 ></div>
 
@@ -1510,7 +1541,7 @@ id="levelFill"
 
 <div class="stat-label">
 
-INTÉRÊTS
+INTÉRÊTS POSITIFS
 
 </div>
 
@@ -1567,7 +1598,7 @@ Retour au NEXA CORE
 
 <footer>
 
-NEXA CORE — YOUR NEXT POSSIBILITY
+NEXA V6 — BRAIN CORE
 
 </footer>
 
@@ -1576,12 +1607,12 @@ NEXA CORE — YOUR NEXT POSSIBILITY
 
 
 <!-- =====================================================
-     AVATAR MODAL
+     AVATAR
 ===================================================== -->
 
 <div
-class="avatar-panel"
-id="avatarPanel"
+class="avatar-modal"
+id="avatarModal"
 >
 
 
@@ -1590,24 +1621,23 @@ id="avatarPanel"
 
 <h2>
 
-Créer mon avatar
+NEXA IDENTITY
 
 </h2>
 
 
 <p>
 
-Ajoute une photo pour créer ton identité visuelle NEXA.
+Crée ton identité visuelle NEXA.
 
 </p>
 
 
 <div class="avatar-preview">
 
-
 <img
 id="avatarPreview"
-alt="Prévisualisation"
+alt="Avatar"
 />
 
 </div>
@@ -1628,7 +1658,7 @@ onclick="chooseCamera()"
 
 <button
 class="avatar-option"
-onclick="choosePhoto()"
+onclick="chooseGallery()"
 >
 
 🖼️ Galerie
@@ -1640,7 +1670,7 @@ onclick="choosePhoto()"
 
 
 <button
-class="close-avatar"
+class="close"
 onclick="closeAvatar()"
 >
 
@@ -1661,7 +1691,7 @@ onchange="handleAvatar(event)"
 
 <input
 type="file"
-id="photoInput"
+id="galleryInput"
 accept="image/*"
 style="display:none"
 onchange="handleAvatar(event)"
@@ -1670,18 +1700,19 @@ onchange="handleAvatar(event)"
 
 </div>
 
-
 </div>
 
 
 <script>
 
-/* =========================================================
-   NEXA V5 ENGINE
-========================================================= */
+/* =====================================================
+   NEXA V6.1 — BRAIN CORE ENGINE
+===================================================== */
 
 
-/* MEMORY */
+/* =====================================================
+   MEMORY
+===================================================== */
 
 let memory =
 
@@ -1690,7 +1721,9 @@ localStorage.getItem("nexaMemory")
 ) || [];
 
 
-/* SESSION */
+/* =====================================================
+   SESSION
+===================================================== */
 
 let session =
 
@@ -1710,16 +1743,14 @@ no:0,
 
 positiveActions:0,
 
-lastAction:"",
-
-nextMode:"normal"
+lastAnalysis:null
 
 };
 
 
-/* =========================================================
+/* =====================================================
    AVATAR
-========================================================= */
+===================================================== */
 
 let savedAvatar =
 
@@ -1731,7 +1762,7 @@ localStorage.getItem(
 function openAvatar(){
 
 document
-.getElementById("avatarPanel")
+.getElementById("avatarModal")
 .classList
 .add("open");
 
@@ -1750,7 +1781,7 @@ savedAvatar;
 function closeAvatar(){
 
 document
-.getElementById("avatarPanel")
+.getElementById("avatarModal")
 .classList
 .remove("open");
 
@@ -1766,10 +1797,10 @@ document
 }
 
 
-function choosePhoto(){
+function chooseGallery(){
 
 document
-.getElementById("photoInput")
+.getElementById("galleryInput")
 .click();
 
 }
@@ -1838,8 +1869,6 @@ reader.readAsDataURL(file);
 }
 
 
-/* LOAD AVATAR */
-
 if(savedAvatar){
 
 document
@@ -1861,168 +1890,360 @@ document
 }
 
 
-/* =========================================================
-   CATEGORY DETECTION
-========================================================= */
+/* =====================================================
+   BRAIN — INTENTION
+===================================================== */
 
-function detectCategory(input){
-
-const text =
-input.toLowerCase();
-
+function detectIntent(text){
 
 if(
 
-text.includes("travail") ||
-text.includes("emploi") ||
-text.includes("job") ||
-text.includes("métier")
+/travail|emploi|job|métier|carrière|embauche/i
+.test(text)
 
 ){
 
-return "emploi";
+return "Trouver une opportunité professionnelle";
 
 }
 
 
 if(
 
-text.includes("argent") ||
-text.includes("revenu") ||
-text.includes("salaire") ||
-text.includes("gagner")
+/argent|revenu|salaire|gagner|économ|financ/i
+.test(text)
 
 ){
 
-return "argent";
+return "Améliorer sa situation financière";
 
 }
 
 
 if(
 
-text.includes("business") ||
-text.includes("entreprise") ||
-text.includes("commerce")
+/apprendre|formation|étudier|compétence|cours/i
+.test(text)
 
 ){
 
-return "business";
+return "Développer une compétence";
 
 }
 
 
 if(
 
-text.includes("projet") ||
-text.includes("application") ||
-text.includes("app") ||
-text.includes("site") ||
-text.includes("coder")
+/créer|construire|développer|application|site|projet|coder/i
+.test(text)
 
 ){
 
-return "projet";
+return "Créer ou construire quelque chose";
 
 }
 
 
 if(
 
-text.includes("apprendre") ||
-text.includes("formation") ||
-text.includes("étudier") ||
-text.includes("compétence")
+/business|entreprise|commerce|vendre|client/i
+.test(text)
 
 ){
 
-return "apprentissage";
+return "Explorer une opportunité de business";
 
 }
 
 
 if(
 
-text.includes("bloqué") ||
-text.includes("procrastination") ||
-text.includes("peur") ||
-text.includes("stress")
+/bloqué|bloquée|procrastin|peur|stress|doute|difficile/i
+.test(text)
 
 ){
 
-return "blocage";
+return "Sortir d'un blocage";
 
 }
 
 
-return "general";
+return "Explorer une nouvelle possibilité";
 
 }
 
 
-/* =========================================================
-   ACTIONS
-========================================================= */
+/* =====================================================
+   BRAIN — CATEGORY
+===================================================== */
 
-const actionLibrary = {
+function detectCategory(text){
 
-emploi:[
+if(
 
-"Découvre une seule offre d'emploi qui correspond réellement à ta situation actuelle.",
+/travail|emploi|job|métier|carrière/i
+.test(text)
 
-"Choisis une compétence demandée dans cette offre et découvre comment commencer à l'apprendre gratuitement.",
+){
 
-"Trouve une personne qui exerce ce métier et découvre comment elle a commencé.",
+return "EMPLOI";
 
-"Prépare une première démarche concrète pour te rapprocher de ce métier.",
+}
 
-"Fais aujourd'hui une action réelle liée à cette possibilité."
+
+if(
+
+/argent|revenu|salaire|gagner|financ/i
+.test(text)
+
+){
+
+return "ARGENT";
+
+}
+
+
+if(
+
+/business|entreprise|commerce|client|vendre/i
+.test(text)
+
+){
+
+return "BUSINESS";
+
+}
+
+
+if(
+
+/application|site|coder|projet|développer/i
+.test(text)
+
+){
+
+return "PROJET";
+
+}
+
+
+if(
+
+/apprendre|formation|étudier|compétence|cours/i
+.test(text)
+
+){
+
+return "APPRENTISSAGE";
+
+}
+
+
+if(
+
+/bloqué|bloquée|procrastin|peur|stress|doute/i
+.test(text)
+
+){
+
+return "BLOCAGE";
+
+}
+
+
+return "EXPLORATION";
+
+}
+
+
+/* =====================================================
+   BRAIN — LEVEL
+===================================================== */
+
+function detectLevel(text){
+
+if(
+
+/je ne sais pas|aucune idée|débutant|commencer|comment commencer/i
+.test(text)
+
+){
+
+return "DÉCOUVERTE";
+
+}
+
+
+if(
+
+/je veux|j'aimerais|je cherche|je voudrais/i
+.test(text)
+
+){
+
+return "DÉBUTANT";
+
+}
+
+
+if(
+
+/j'ai déjà|je travaille|j'ai commencé|je connais/i
+.test(text)
+
+){
+
+return "EN COURS";
+
+}
+
+
+if(
+
+/avancé|expert|professionnel|expérimenté/i
+.test(text)
+
+){
+
+return "AVANCÉ";
+
+}
+
+
+return "DÉBUTANT";
+
+}
+
+
+/* =====================================================
+   BRAIN — BLOCK
+===================================================== */
+
+function detectBlock(text){
+
+if(
+
+/ne sais pas|sais pas comment|bloqué|bloquée|peur|doute/i
+.test(text)
+
+){
+
+return "Manque de clarté";
+
+}
+
+
+if(
+
+/temps|occupé|fatigué|fatigue/i
+.test(text)
+
+){
+
+return "Manque de disponibilité";
+
+}
+
+
+if(
+
+/argent|budget|cher/i
+.test(text)
+
+){
+
+return "Contrainte financière";
+
+}
+
+
+if(
+
+/compétence|ne connais pas|je ne sais/i
+.test(text)
+
+){
+
+return "Compétence à développer";
+
+}
+
+
+return "Aucun blocage détecté";
+
+}
+
+
+/* =====================================================
+   BRAIN — ACTION ENGINE
+===================================================== */
+
+function generateAction(category,level,text){
+
+const actions = {
+
+
+"EMPLOI":[
+
+"Découvre une seule opportunité professionnelle qui correspond à ta situation actuelle.",
+
+"Choisis un métier qui t'intéresse et découvre une seule compétence demandée pour y accéder.",
+
+"Trouve une offre réelle et identifie la compétence qui te manque le plus.",
+
+"Choisis une démarche concrète pour te rapprocher de ce métier.",
+
+"Réalise aujourd'hui une première action liée à cette opportunité."
 
 ],
 
-argent:[
 
-"Identifie une seule façon réaliste d'améliorer tes revenus avec ce que tu sais déjà faire.",
+"ARGENT":[
 
-"Découvre une compétence qui pourrait augmenter ta valeur sur le marché du travail.",
+"Identifie une seule possibilité réaliste d'améliorer tes revenus.",
 
-"Explore une possibilité de revenu et vérifie si elle correspond réellement à ta situation.",
+"Découvre une compétence qui pourrait augmenter ta valeur professionnelle.",
 
-"Choisis une idée et trouve une personne qui pourrait être intéressée.",
+"Choisis une possibilité et vérifie si elle correspond réellement à ta situation.",
 
-"Fais une première action réelle pour tester cette possibilité."
+"Trouve une première façon concrète de tester cette possibilité.",
+
+"Réalise aujourd'hui une action qui peut produire un résultat réel."
 
 ],
 
-business:[
+
+"BUSINESS":[
 
 "Décris ton idée de business en une seule phrase.",
 
-"Trouve une personne qui pourrait réellement avoir besoin de ce que tu veux proposer.",
+"Identifie une seule personne qui pourrait avoir besoin de ton idée.",
 
-"Pose-lui une question simple pour comprendre son problème.",
+"Découvre quel problème cette personne cherche réellement à résoudre.",
 
-"Utilise sa réponse pour améliorer ton idée.",
+"Propose une solution simple et demande son avis.",
 
-"Teste ton idée auprès d'une deuxième personne."
+"Teste ton idée auprès d'une personne réelle."
 
 ],
 
-projet:[
+
+"PROJET":[
 
 "Définis en une seule phrase ce que ton projet doit permettre de faire.",
 
 "Choisis une seule fonctionnalité essentielle.",
 
-"Imagine comment cette fonctionnalité fonctionnerait.",
+"Imagine comment cette fonctionnalité pourrait fonctionner.",
 
-"Montre ton idée à une personne et demande son avis.",
+"Crée une première version très simple.",
 
-"Construis une première version très simple."
+"Montre ton projet à une personne et observe sa réaction."
 
 ],
 
-apprentissage:[
+
+"APPRENTISSAGE":[
 
 "Choisis une seule notion liée à ce que tu veux apprendre.",
 
@@ -2032,13 +2253,14 @@ apprentissage:[
 
 "Applique cette connaissance à un exemple concret.",
 
-"Explique cette notion à quelqu'un d'autre."
+"Utilise cette compétence dans une situation réelle."
 
 ],
 
-blocage:[
 
-"Identifie la seule chose qui te bloque le plus aujourd'hui.",
+"BLOCAGE":[
+
+"Identifie précisément la seule chose qui te bloque aujourd'hui.",
 
 "Transforme ce blocage en une action de moins de cinq minutes.",
 
@@ -2046,19 +2268,20 @@ blocage:[
 
 "Observe ce qui t'a empêché d'avancer.",
 
-"Répète cette petite action une nouvelle fois."
+"Répète l'action et avance d'une étape supplémentaire."
 
 ],
 
-general:[
 
-"Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau à son sujet.",
+"EXPLORATION":[
+
+"Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau.",
 
 "Trouve une possibilité concrète qui pourrait être intéressante pour toi.",
 
-"Choisis celle qui te donne le plus envie d'en savoir plus.",
+"Choisis la possibilité qui t'intrigue le plus.",
 
-"Fais une petite action pour vérifier si cette possibilité te correspond.",
+"Fais une petite action pour vérifier si elle te correspond.",
 
 "Décide si cette piste mérite d'être poursuivie."
 
@@ -2067,45 +2290,74 @@ general:[
 };
 
 
-/* =========================================================
-   TITLES
-========================================================= */
+let index =
 
-function getTitle(category){
+Math.max(
 
-const titles={
+0,
 
-emploi:
-"Explore une possibilité qui pourrait améliorer ta situation.",
+Math.min(
 
-argent:
-"Trouve une possibilité concrète d'améliorer tes revenus.",
+session.level - 1,
 
-business:
-"Ton idée mérite un premier test.",
+4
 
-projet:
-"Transforme ton idée en une première étape concrète.",
+)
 
-apprentissage:
-"Découvre une nouvelle compétence.",
+);
 
-blocage:
-"Réduis ton blocage à une seule petite action.",
 
-general:
-"Commence par une petite découverte."
-
-};
-
-return titles[category] || titles.general;
+return actions[category][index];
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   BRAIN — MAIN ANALYSIS
+===================================================== */
+
+function analyze(text){
+
+const intent =
+detectIntent(text);
+
+const category =
+detectCategory(text);
+
+const level =
+detectLevel(text);
+
+const block =
+detectBlock(text);
+
+const action =
+generateAction(
+category,
+level,
+text
+);
+
+
+return {
+
+intent,
+
+category,
+
+level,
+
+block,
+
+action
+
+};
+
+}
+
+
+/* =====================================================
    DISCOVER
-========================================================= */
+===================================================== */
 
 function discover(){
 
@@ -2120,7 +2372,9 @@ document
 if(!input){
 
 alert(
+
 "Dis-moi simplement ce que tu as en tête."
+
 );
 
 return;
@@ -2128,52 +2382,39 @@ return;
 }
 
 
-const category =
-detectCategory(input);
+/* BRAIN SCAN */
+
+const analysis =
+
+analyze(input);
 
 
-if(
-session.category !== category
-){
+/* SESSION */
 
 session.category =
-category;
 
-session.level =
-1;
+analysis.category;
 
-}
+session.lastAnalysis =
 
-
-let index =
-
-Math.min(
-
-session.level - 1,
-
-4
-
-);
+analysis;
 
 
-const action =
-
-actionLibrary[category][index];
-
-
-session.lastAction =
-action;
-
+/* MEMORY */
 
 memory.push({
 
 text:input,
 
-category:category,
+intent:analysis.intent,
 
-level:session.level,
+category:analysis.category,
 
-action:action,
+level:analysis.level,
+
+block:analysis.block,
+
+action:analysis.action,
 
 feedback:null,
 
@@ -2202,19 +2443,51 @@ JSON.stringify(session)
 );
 
 
+/* DISPLAY */
+
 document
 .getElementById("resultTitle")
 .innerText =
 
-getTitle(category);
+"Transforme ton intention en prochaine étape.";
+
+
+document
+.getElementById("analysisIntent")
+.innerText =
+
+analysis.intent;
+
+
+document
+.getElementById("analysisContext")
+.innerText =
+
+analysis.category;
+
+
+document
+.getElementById("analysisLevel")
+.innerText =
+
+analysis.level;
+
+
+document
+.getElementById("analysisBlock")
+.innerText =
+
+analysis.block;
 
 
 document
 .getElementById("resultText")
 .innerText =
 
-action;
+analysis.action;
 
+
+/* SCREEN */
 
 document
 .getElementById("home")
@@ -2225,7 +2498,7 @@ document
 
 
 document
-.getElementById("progressView")
+.getElementById("progress")
 .style
 .display =
 
@@ -2251,16 +2524,16 @@ behavior:"smooth"
 }
 
 
-/* =========================================================
+/* =====================================================
    FEEDBACK
-========================================================= */
+===================================================== */
 
 function feedback(type){
 
 const last =
 
 memory[
-memory.length-1
+memory.length - 1
 ];
 
 
@@ -2275,7 +2548,7 @@ last.feedback =
 type;
 
 
-if(type==="like"){
+if(type === "like"){
 
 session.likes++;
 
@@ -2285,7 +2558,7 @@ session.level =
 
 Math.min(
 
-session.level+1,
+session.level + 1,
 
 5
 
@@ -2294,14 +2567,14 @@ session.level+1,
 }
 
 
-if(type==="later"){
+if(type === "later"){
 
 session.later++;
 
 }
 
 
-if(type==="no"){
+if(type === "no"){
 
 session.no++;
 
@@ -2309,7 +2582,7 @@ session.level =
 
 Math.max(
 
-session.level-1,
+session.level - 1,
 
 1
 
@@ -2358,13 +2631,12 @@ document
 
 "";
 
-
 }
 
 
-/* =========================================================
+/* =====================================================
    PROGRESS
-========================================================= */
+===================================================== */
 
 function showProgress(){
 
@@ -2385,7 +2657,7 @@ document
 
 
 document
-.getElementById("progressView")
+.getElementById("progress")
 .style
 .display =
 
@@ -2397,10 +2669,8 @@ document
 .innerText =
 
 session.category
-?
-session.category.toUpperCase()
-:
-"AUCUNE";
+||
+"Aucune";
 
 
 document
@@ -2430,19 +2700,21 @@ document
 .style
 .width =
 
-(
-session.level * 20
-)
+(session.level * 20)
 +
 "%";
 
 }
 
 
+/* =====================================================
+   HOME
+===================================================== */
+
 function goHome(){
 
 document
-.getElementById("progressView")
+.getElementById("progress")
 .style
 .display =
 
@@ -2467,9 +2739,9 @@ document
 }
 
 
-/* =========================================================
-   ENTER
-========================================================= */
+/* =====================================================
+   ENTER KEY
+===================================================== */
 
 document
 .getElementById("userInput")
@@ -2481,7 +2753,7 @@ function(e){
 
 if(
 
-e.key==="Enter" &&
+e.key === "Enter" &&
 !e.shiftKey
 
 ){
