@@ -1,4 +1,3 @@
-# nexa
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -79,7 +78,6 @@ header {
 }
 
 @keyframes breathe {
-
     0%,100% {
         transform: scale(1);
         opacity: .8;
@@ -89,7 +87,6 @@ header {
         transform: scale(1.08);
         opacity: 1;
     }
-
 }
 
 .title {
@@ -160,7 +157,6 @@ textarea::placeholder {
 }
 
 @keyframes appear {
-
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -170,7 +166,6 @@ textarea::placeholder {
         opacity: 1;
         transform: translateY(0);
     }
-
 }
 
 .result-label {
@@ -224,6 +219,14 @@ textarea::placeholder {
     transform: scale(.97);
 }
 
+.progress {
+    margin-top: 20px;
+    text-align: center;
+    color: #555;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
 footer {
     text-align: center;
     color: #444;
@@ -231,7 +234,6 @@ footer {
     letter-spacing: 1px;
     padding-top: 20px;
 }
-
 </style>
 </head>
 
@@ -326,14 +328,14 @@ Je ne sais pas quoi faire..."
 
     </div>
 
+    <div class="progress" id="progressText"></div>
+
 </div>
 
 </main>
 
 <footer>
-
     NEXA — YOUR NEXT POSSIBILITY
-
 </footer>
 
 </div>
@@ -341,11 +343,323 @@ Je ne sais pas quoi faire..."
 
 <script>
 
+/* =========================
+   MÉMOIRE NEXA
+========================= */
+
 let memory =
 JSON.parse(
 localStorage.getItem("nexaMemory")
 ) || [];
 
+
+/* =========================
+   ÉTAT ACTUEL
+========================= */
+
+let currentSession =
+JSON.parse(
+localStorage.getItem("nexaSession")
+) || {
+
+    category: null,
+
+    level: 1,
+
+    likes: 0,
+
+    later: 0,
+
+    no: 0
+
+};
+
+
+/* =========================
+   MOTS-CLÉS
+========================= */
+
+const keywords = {
+
+    emploi: [
+        "emploi",
+        "travail",
+        "job",
+        "métier",
+        "carrière",
+        "embauche",
+        "recrutement",
+        "salarié"
+    ],
+
+    argent: [
+        "argent",
+        "revenu",
+        "gagner",
+        "riche",
+        "salaire",
+        "finance",
+        "économiser",
+        "épargne"
+    ],
+
+    business: [
+        "business",
+        "entreprise",
+        "entreprendre",
+        "commerce",
+        "client",
+        "vendre",
+        "vente",
+        "entrepreneur"
+    ],
+
+    projet: [
+        "projet",
+        "application",
+        "app",
+        "site",
+        "créer",
+        "construire",
+        "développer",
+        "développement"
+    ],
+
+    apprentissage: [
+        "apprendre",
+        "étudier",
+        "formation",
+        "apprentissage",
+        "compétence",
+        "connaître",
+        "comprendre",
+        "cours"
+    ],
+
+    blocage: [
+        "bloqué",
+        "blocage",
+        "procrastination",
+        "procrastiner",
+        "peur",
+        "stress",
+        "difficile",
+        "ne sais pas",
+        "perdu"
+    ]
+
+};
+
+
+/* =========================
+   DÉTECTION
+========================= */
+
+function detectCategory(input) {
+
+    const lower =
+    input.toLowerCase();
+
+    let scores = {
+
+        emploi: 0,
+
+        argent: 0,
+
+        business: 0,
+
+        projet: 0,
+
+        apprentissage: 0,
+
+        blocage: 0
+
+    };
+
+
+    for (
+        const category in keywords
+    ) {
+
+        keywords[category]
+        .forEach(word => {
+
+            if (
+                lower.includes(word)
+            ) {
+
+                scores[category]++;
+
+            }
+
+        });
+
+    }
+
+
+    let bestCategory =
+    "general";
+
+    let bestScore = 0;
+
+
+    for (
+        const category in scores
+    ) {
+
+        if (
+            scores[category] >
+            bestScore
+        ) {
+
+            bestScore =
+            scores[category];
+
+            bestCategory =
+            category;
+
+        }
+
+    }
+
+
+    return bestCategory;
+
+}
+
+
+/* =========================
+   GÉNÉRATION
+========================= */
+
+function generateAction(
+    category,
+    level,
+    feedback
+) {
+
+    const actions = {
+
+        emploi: [
+
+            "Trouve aujourd'hui une seule offre d'emploi qui correspond réellement à ton profil et regarde ce qu'elle demande.",
+
+            "Choisis une compétence demandée dans cette offre et découvre comment tu pourrais commencer à l'apprendre gratuitement.",
+
+            "Identifie une seule personne qui exerce ce métier et découvre comment elle a commencé.",
+
+            "Prépare une première action concrète pour te rapprocher de ce métier.",
+
+            "Fais aujourd'hui une démarche réelle liée à cette possibilité."
+        ],
+
+
+        argent: [
+
+            "Identifie une seule façon réaliste d'améliorer tes revenus avec ce que tu sais déjà faire.",
+
+            "Trouve une compétence simple qui pourrait augmenter ta valeur sur le marché du travail.",
+
+            "Explore une seule possibilité de revenu et vérifie si elle correspond réellement à ta situation.",
+
+            "Choisis une idée et cherche une première personne qui pourrait être intéressée.",
+
+            "Fais une première action réelle pour tester cette possibilité."
+        ],
+
+
+        business: [
+
+            "Décris ton idée de business en une seule phrase simple.",
+
+            "Trouve une seule personne qui pourrait avoir besoin de ce que tu veux proposer.",
+
+            "Pose-lui une question simple pour comprendre son vrai problème.",
+
+            "Utilise sa réponse pour améliorer ton idée.",
+
+            "Teste ton idée auprès d'une deuxième personne avant de construire davantage."
+        ],
+
+
+        projet: [
+
+            "Définis en une seule phrase ce que ton projet doit permettre de faire.",
+
+            "Choisis une seule fonctionnalité essentielle et imagine comment elle fonctionnerait.",
+
+            "Montre ton idée à une personne et demande-lui ce qu'elle en pense.",
+
+            "Utilise son retour pour améliorer une seule partie de ton projet.",
+
+            "Construis une première version très simple de cette fonctionnalité."
+        ],
+
+
+        apprentissage: [
+
+            "Choisis une seule notion liée à ce que tu veux apprendre et découvre-la pendant 10 minutes.",
+
+            "Trouve une explication simple de cette notion et essaie de la reformuler avec tes propres mots.",
+
+            "Applique cette connaissance à un petit exemple concret.",
+
+            "Teste ce que tu as appris dans une situation réelle.",
+
+            "Explique cette notion à quelqu'un d'autre pour vérifier que tu la maîtrises."
+        ],
+
+
+        blocage: [
+
+            "Identifie la seule chose qui te bloque le plus aujourd'hui.",
+
+            "Transforme ce blocage en une action tellement petite que tu peux la faire en moins de 5 minutes.",
+
+            "Fais cette action maintenant, sans chercher à la perfectionner.",
+
+            "Observe ce qui t'a empêché d'avancer et réduis encore la difficulté.",
+
+            "Répète cette petite action une fois de plus aujourd'hui."
+        ],
+
+
+        general: [
+
+            "Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau à son sujet.",
+
+            "Trouve une seule possibilité concrète qui pourrait être intéressante pour toi.",
+
+            "Choisis celle qui te donne le plus envie d'en savoir plus.",
+
+            "Fais une petite action pour vérifier si cette possibilité te correspond réellement.",
+
+            "Décide si cette piste mérite d'être poursuivie ou abandonnée."
+        ]
+
+    };
+
+
+    let list =
+    actions[category]
+    || actions.general;
+
+
+    let index =
+    Math.min(
+        level - 1,
+        list.length - 1
+    );
+
+
+    return list[index];
+
+}
+
+
+/* =========================
+   DÉCOUVRIR
+========================= */
 
 function discover() {
 
@@ -367,9 +681,39 @@ function discover() {
     }
 
 
+    let category =
+    detectCategory(input);
+
+
+    if (
+        currentSession.category !== category
+    ) {
+
+        currentSession.category =
+        category;
+
+        currentSession.level = 1;
+
+    }
+
+
+    let action =
+    generateAction(
+        category,
+        currentSession.level
+    );
+
+
     memory.push({
 
         text: input,
+
+        category: category,
+
+        level:
+        currentSession.level,
+
+        action: action,
 
         date:
         new Date()
@@ -387,114 +731,50 @@ function discover() {
     );
 
 
-    let title = "";
+    localStorage.setItem(
 
-    let text = "";
+        "nexaSession",
 
+        JSON.stringify(
+        currentSession
+        )
 
-    const lower =
-    input.toLowerCase();
-
-
-    if (
-
-        lower.includes("argent") ||
-
-        lower.includes("travail") ||
-
-        lower.includes("emploi") ||
-
-        lower.includes("job")
-
-    ) {
-
-        title =
-        "Explore une possibilité que tu n'avais peut-être pas envisagée.";
-
-
-        text =
-        "Tu pourrais explorer une compétence ou un métier qui correspond à ce que tu recherches aujourd'hui. " +
-        "Commence par découvrir une seule possibilité qui pourrait améliorer ta situation.";
-
-    }
-
-
-    else if (
-
-        lower.includes("apprendre") ||
-
-        lower.includes("étudier") ||
-
-        lower.includes("connaître")
-
-    ) {
-
-        title =
-        "Découvre quelque chose que tu ne savais pas hier.";
-
-
-        text =
-        "Choisis un sujet qui t'intrigue, puis consacre seulement quelques minutes à comprendre une idée nouvelle. " +
-        "Une petite découverte peut parfois ouvrir une nouvelle direction.";
-
-    }
-
-
-    else if (
-
-        lower.includes("entreprise") ||
-
-        lower.includes("business") ||
-
-        lower.includes("projet")
-
-    ) {
-
-        title =
-        "Ton idée mérite peut-être un premier test.";
-
-
-        text =
-        "Au lieu de construire tout ton projet, trouve une seule personne qui pourrait être intéressée par ton idée. " +
-        "Une conversation réelle peut t'apprendre plus qu'une semaine de réflexion.";
-
-    }
-
-
-    else {
-
-        title =
-        "Commence par une petite découverte.";
-
-
-        text =
-        "Ton idée mérite d'être explorée. " +
-        "Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau à son sujet. " +
-        "NEXA pourra apprendre de ta réaction.";
-
-    }
+    );
 
 
     document
     .getElementById("resultTitle")
-    .innerText = title;
+    .innerText =
+    getTitle(category);
 
 
     document
     .getElementById("resultText")
-    .innerText = text;
+    .innerText =
+    action;
+
+
+    document
+    .getElementById("progressText")
+    .innerText =
+    "NIVEAU " +
+    currentSession.level +
+    " • " +
+    category.toUpperCase();
 
 
     document
     .getElementById("home")
     .style
-    .display = "none";
+    .display =
+    "none";
 
 
     document
     .getElementById("result")
     .style
-    .display = "block";
+    .display =
+    "block";
 
 
     window.scrollTo({
@@ -508,8 +788,52 @@ function discover() {
 }
 
 
-function feedback(type) {
+/* =========================
+   TITRES
+========================= */
 
+function getTitle(category) {
+
+    const titles = {
+
+        emploi:
+        "Explore une possibilité qui pourrait améliorer ta situation.",
+
+        argent:
+        "Trouve une possibilité concrète d'améliorer tes revenus.",
+
+        business:
+        "Ton idée mérite un premier test.",
+
+        projet:
+        "Transforme ton idée en une première étape concrète.",
+
+        apprentissage:
+        "Découvre une nouvelle compétence.",
+
+        blocage:
+        "Réduis ton blocage à une seule petite action.",
+
+        general:
+        "Commence par une petite découverte."
+
+    };
+
+
+    return (
+        titles[category]
+        ||
+        titles.general
+    );
+
+}
+
+
+/* =========================
+   FEEDBACK
+========================= */
+
+function feedback(type) {
 
     const last =
     memory[
@@ -523,11 +847,65 @@ function feedback(type) {
         type;
 
 
+        if (
+            type === "like"
+        ) {
+
+            currentSession.likes++;
+
+            currentSession.level =
+            Math.min(
+                currentSession.level + 1,
+                5
+            );
+
+        }
+
+
+        if (
+            type === "later"
+        ) {
+
+            currentSession.later++;
+
+        }
+
+
+        if (
+            type === "no"
+        ) {
+
+            currentSession.no++;
+
+            currentSession.level =
+            Math.max(
+                currentSession.level - 1,
+                1
+            );
+
+        }
+
+
+        last.nextLevel =
+        currentSession.level;
+
+
         localStorage.setItem(
 
             "nexaMemory",
 
             JSON.stringify(memory)
+
+        );
+
+
+        localStorage.setItem(
+
+            "nexaSession",
+
+            JSON.stringify(
+            currentSession
+            )
 
         );
 
@@ -537,18 +915,21 @@ function feedback(type) {
     document
     .getElementById("result")
     .style
-    .display = "none";
+    .display =
+    "none";
 
 
     document
     .getElementById("home")
     .style
-    .display = "block";
+    .display =
+    "block";
 
 
     document
     .getElementById("userInput")
-    .value = "";
+    .value =
+    "";
 
 
     window.scrollTo({
