@@ -1,1 +1,567 @@
 # nexa
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>NEXA</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    background: #050507;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    min-height: 100vh;
+    padding: 25px 20px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 5px;
+}
+
+.status {
+    font-size: 11px;
+    color: #777;
+    letter-spacing: 2px;
+}
+
+.hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.orb {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 45px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 35% 30%,
+        #ffffff,
+        #777 20%,
+        #222 50%,
+        #080808 70%
+    );
+
+    box-shadow:
+        0 0 30px rgba(255,255,255,0.15),
+        0 0 100px rgba(255,255,255,0.05);
+
+    animation: breathe 4s infinite ease-in-out;
+}
+
+@keyframes breathe {
+
+    0%,100% {
+        transform: scale(1);
+        opacity: .8;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+
+}
+
+.title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 35px;
+}
+
+.input-box {
+    background: #101014;
+    border: 1px solid #24242b;
+    border-radius: 22px;
+    padding: 18px;
+    transition: .3s;
+}
+
+.input-box:focus-within {
+    border-color: #555;
+    box-shadow: 0 0 30px rgba(255,255,255,.04);
+}
+
+textarea {
+    width: 100%;
+    height: 110px;
+    resize: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 17px;
+    font-family: inherit;
+}
+
+textarea::placeholder {
+    color: #555;
+}
+
+.discover {
+    width: 100%;
+    margin-top: 15px;
+    padding: 17px;
+    border: none;
+    border-radius: 15px;
+    background: white;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.discover:active {
+    transform: scale(.97);
+}
+
+.result {
+    display: none;
+    animation: appear .5s ease;
+}
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.result-label {
+    color: #777;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.result h2 {
+    font-size: 26px;
+    line-height: 1.25;
+    margin-bottom: 20px;
+}
+
+.result-card {
+    background: #101014;
+    border: 1px solid #24242b;
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+.result-card p {
+    color: #aaa;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.action {
+    padding: 15px 10px;
+    border-radius: 14px;
+    border: 1px solid #29292f;
+    background: #0c0c0f;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.action.full {
+    grid-column: span 2;
+}
+
+.action:active {
+    transform: scale(.97);
+}
+
+footer {
+    text-align: center;
+    color: #444;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding-top: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+    <div class="logo">
+        NEXA
+    </div>
+
+    <div class="status">
+        FOR NOW
+    </div>
+
+</header>
+
+<main class="hero">
+
+<div id="home">
+
+    <div class="orb"></div>
+
+    <h1 class="title">
+        Qu'est-ce qui pourrait<br>
+        être intéressant pour toi ?
+    </h1>
+
+    <p class="subtitle">
+        Dis-moi simplement ce que tu as en tête.
+    </p>
+
+    <div class="input-box">
+
+        <textarea
+            id="userInput"
+            placeholder="Je veux apprendre quelque chose...
+Je cherche une idée...
+Je ne sais pas quoi faire..."
+        ></textarea>
+
+        <button
+            class="discover"
+            onclick="discover()"
+        >
+            Découvrir
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="result" class="result">
+
+    <div class="result-label">
+        NEXA A TROUVÉ ÇA POUR TOI
+    </div>
+
+    <h2 id="resultTitle"></h2>
+
+    <div class="result-card">
+
+        <p id="resultText"></p>
+
+    </div>
+
+    <div class="actions">
+
+        <button
+            class="action"
+            onclick="feedback('like')"
+        >
+            ❤️ Ça m'intéresse
+        </button>
+
+        <button
+            class="action"
+            onclick="feedback('later')"
+        >
+            🤔 Pas maintenant
+        </button>
+
+        <button
+            class="action full"
+            onclick="feedback('no')"
+        >
+            ❌ Pas pour moi
+        </button>
+
+    </div>
+
+</div>
+
+</main>
+
+<footer>
+
+    NEXA — YOUR NEXT POSSIBILITY
+
+</footer>
+
+</div>
+
+
+<script>
+
+let memory =
+JSON.parse(
+localStorage.getItem("nexaMemory")
+) || [];
+
+
+function discover() {
+
+    const input =
+    document
+    .getElementById("userInput")
+    .value
+    .trim();
+
+
+    if (!input) {
+
+        alert(
+        "Dis-moi simplement ce que tu as en tête."
+        );
+
+        return;
+
+    }
+
+
+    memory.push({
+
+        text: input,
+
+        date:
+        new Date()
+        .toISOString()
+
+    });
+
+
+    localStorage.setItem(
+
+        "nexaMemory",
+
+        JSON.stringify(memory)
+
+    );
+
+
+    let title = "";
+
+    let text = "";
+
+
+    const lower =
+    input.toLowerCase();
+
+
+    if (
+
+        lower.includes("argent") ||
+
+        lower.includes("travail") ||
+
+        lower.includes("emploi") ||
+
+        lower.includes("job")
+
+    ) {
+
+        title =
+        "Explore une possibilité que tu n'avais peut-être pas envisagée.";
+
+
+        text =
+        "Tu pourrais explorer une compétence ou un métier qui correspond à ce que tu recherches aujourd'hui. " +
+        "Commence par découvrir une seule possibilité qui pourrait améliorer ta situation.";
+
+    }
+
+
+    else if (
+
+        lower.includes("apprendre") ||
+
+        lower.includes("étudier") ||
+
+        lower.includes("connaître")
+
+    ) {
+
+        title =
+        "Découvre quelque chose que tu ne savais pas hier.";
+
+
+        text =
+        "Choisis un sujet qui t'intrigue, puis consacre seulement quelques minutes à comprendre une idée nouvelle. " +
+        "Une petite découverte peut parfois ouvrir une nouvelle direction.";
+
+    }
+
+
+    else if (
+
+        lower.includes("entreprise") ||
+
+        lower.includes("business") ||
+
+        lower.includes("projet")
+
+    ) {
+
+        title =
+        "Ton idée mérite peut-être un premier test.";
+
+
+        text =
+        "Au lieu de construire tout ton projet, trouve une seule personne qui pourrait être intéressée par ton idée. " +
+        "Une conversation réelle peut t'apprendre plus qu'une semaine de réflexion.";
+
+    }
+
+
+    else {
+
+        title =
+        "Commence par une petite découverte.";
+
+
+        text =
+        "Ton idée mérite d'être explorée. " +
+        "Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau à son sujet. " +
+        "NEXA pourra apprendre de ta réaction.";
+
+    }
+
+
+    document
+    .getElementById("resultTitle")
+    .innerText = title;
+
+
+    document
+    .getElementById("resultText")
+    .innerText = text;
+
+
+    document
+    .getElementById("home")
+    .style
+    .display = "none";
+
+
+    document
+    .getElementById("result")
+    .style
+    .display = "block";
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+function feedback(type) {
+
+
+    const last =
+    memory[
+        memory.length - 1
+    ];
+
+
+    if (last) {
+
+        last.feedback =
+        type;
+
+
+        localStorage.setItem(
+
+            "nexaMemory",
+
+            JSON.stringify(memory)
+
+        );
+
+    }
+
+
+    document
+    .getElementById("result")
+    .style
+    .display = "none";
+
+
+    document
+    .getElementById("home")
+    .style
+    .display = "block";
+
+
+    document
+    .getElementById("userInput")
+    .value = "";
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
