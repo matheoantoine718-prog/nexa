@@ -2,921 +2,496 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>NEXA — Dual AI Core</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>NEXA ONE</title>
 <style>
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-:root{
---bg:#050507;
---panel:#0e0e13;
---panel2:#15151c;
---border:#272732;
---text:#ffffff;
---muted:#858591;
---accent:#ffffff;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
 font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
-background:
-radial-gradient(circle at 50% -10%,#20202c 0%,transparent 35%),
-var(--bg);
-color:var(--text);
-min-height:100vh;
-overflow-x:hidden;
+background:#050507;color:#fff;min-height:100vh
 }
-.container{
-width:100%;
-max-width:650px;
-margin:auto;
-padding:22px 18px 50px;
-min-height:100vh;
+.app{max-width:620px;margin:auto;padding:22px 18px 40px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.logo{font-weight:700;letter-spacing:5px;font-size:21px}
+.status{font-size:10px;color:#777;letter-spacing:2px}
+nav{display:flex;gap:8px;margin-bottom:30px}
+nav button{
+flex:1;padding:11px;border-radius:13px;
+border:1px solid #25252d;background:#101014;color:#888
 }
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:35px;
-}
-.logo{
-font-size:21px;
-font-weight:700;
-letter-spacing:5px;
-}
-.status{
-font-size:10px;
-letter-spacing:2px;
-color:#777;
-}
-.nav{
-display:flex;
-gap:8px;
-margin-bottom:30px;
-}
-.nav button{
-flex:1;
-padding:12px 8px;
-border-radius:14px;
-border:1px solid var(--border);
-background:var(--panel);
-color:#888;
-font-size:12px;
-}
-.nav button.active{
-background:white;
-color:black;
-}
-section{
-display:none;
-animation:fade .35s ease;
-}
-section.active{
-display:block;
-}
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(12px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
+nav button.active{background:#fff;color:#000}
+.page{display:none}
+.page.active{display:block}
 .orb{
-width:95px;
-height:95px;
-margin:35px auto;
-border-radius:50%;
-background:
-radial-gradient(circle at 35% 30%,#fff,#999 18%,#333 50%,#050507 72%);
-box-shadow:
-0 0 35px rgba(255,255,255,.18),
-0 0 120px rgba(255,255,255,.06);
-animation:breathe 4s infinite ease-in-out;
+width:90px;height:90px;border-radius:50%;margin:30px auto;
+background:radial-gradient(circle at 35% 30%,#fff,#888 20%,#222 55%,#050507 75%);
+box-shadow:0 0 40px #ffffff18;
+animation:pulse 4s infinite
 }
-@keyframes breathe{
-0%,100%{
-transform:scale(1);
-}
-50%{
-transform:scale(1.08);
-}
-}
-h1{
-font-size:31px;
-text-align:center;
-line-height:1.2;
-margin-bottom:12px;
-}
-.subtitle{
-text-align:center;
-color:var(--muted);
-font-size:14px;
-line-height:1.6;
-margin-bottom:30px;
-}
-.input-box{
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:22px;
-padding:18px;
+@keyframes pulse{50%{transform:scale(1.08)}}
+h1{text-align:center;font-size:30px;line-height:1.2}
+.subtitle{text-align:center;color:#777;font-size:14px;line-height:1.6;margin:12px 0 28px}
+.box,.card{
+background:#101014;border:1px solid #25252d;border-radius:20px;padding:18px
 }
 textarea{
-width:100%;
-height:120px;
-border:0;
-outline:0;
-resize:none;
-background:transparent;
-color:white;
-font-family:inherit;
-font-size:16px;
+width:100%;height:110px;background:transparent;border:0;outline:0;
+resize:none;color:#fff;font:16px inherit
 }
-textarea::placeholder{
-color:#555;
-}
+textarea::placeholder{color:#555}
+button{font:inherit;cursor:pointer}
 .primary{
-width:100%;
-padding:17px;
-margin-top:12px;
-border:0;
-border-radius:15px;
-background:white;
-color:black;
-font-weight:700;
-font-size:15px;
+width:100%;padding:16px;margin-top:12px;border:0;border-radius:14px;
+background:#fff;color:#000;font-weight:700
 }
-.result-card,
-.identity-card,
-.memory-card{
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:22px;
-padding:22px;
-margin-top:18px;
-}
-.label{
-font-size:10px;
-letter-spacing:3px;
-color:#777;
-margin-bottom:12px;
-}
-.result-title{
-font-size:25px;
-line-height:1.3;
-margin-bottom:15px;
-}
-.result-text{
-color:#aaa;
-line-height:1.65;
-font-size:15px;
-}
-.actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:15px;
-}
+.result{display:none;margin-top:18px}
+.label{font-size:10px;color:#777;letter-spacing:3px;margin-bottom:12px}
+.result h2{font-size:24px;line-height:1.3;margin-bottom:12px}
+.result p{color:#aaa;line-height:1.6;font-size:15px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
 .action{
-padding:15px 8px;
-border-radius:14px;
-border:1px solid var(--border);
-background:#0b0b0f;
-color:white;
+padding:14px;border-radius:13px;border:1px solid #292930;
+background:#0c0c0f;color:#fff
 }
-.full{
-grid-column:span 2;
+.full{grid-column:span 2}
+.avatar{
+width:170px;height:170px;margin:20px auto;border-radius:50%;
+overflow:hidden;border:1px solid #333;
+background:radial-gradient(circle,#333,#08080a);
+display:flex;align-items:center;justify-content:center
 }
-.identity-header{
-text-align:center;
-margin-bottom:25px;
+.avatar img{width:100%;height:100%;object-fit:cover;display:none}
+.avatar span{font-size:42px;color:#555}
+.upload{
+display:grid;grid-template-columns:1fr 1fr;gap:9px
 }
-.identity-header h2{
-font-size:27px;
-margin-bottom:10px;
+.upload button,.upload label{
+padding:14px;text-align:center;border-radius:13px;
+border:1px solid #292930;background:#0c0c0f;color:#fff;font-size:13px
 }
-.identity-header p{
-color:#777;
-font-size:13px;
-line-height:1.6;
+#photo{display:none}
+video{
+width:100%;border-radius:18px;margin-top:12px;display:none;background:#000
 }
-.avatar-preview{
-width:180px;
-height:180px;
-margin:20px auto;
-border-radius:50%;
-border:1px solid #333;
-overflow:hidden;
-background:
-radial-gradient(circle,#333,#09090b);
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-}
-.avatar-preview img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:none;
-}
-.avatar-placeholder{
-font-size:42px;
-opacity:.4;
-}
-.upload-area{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-.upload-area button,
-input[type=file]{
-width:100%;
-}
-.file-label{
-padding:14px;
-text-align:center;
-border:1px solid var(--border);
-background:#0b0b0f;
-border-radius:14px;
-font-size:13px;
-}
-#photoInput{
-display:none;
-}
-.camera{
-display:none;
-width:100%;
-border-radius:20px;
-margin-top:15px;
-background:black;
-}
-.controls{
-margin-top:20px;
-}
-.control{
-margin-bottom:18px;
-}
+.controls{margin-top:20px}
+.control{margin-bottom:18px}
 .control label{
-display:flex;
-justify-content:space-between;
-color:#aaa;
-font-size:13px;
-margin-bottom:8px;
+display:flex;justify-content:space-between;
+font-size:12px;color:#999;margin-bottom:7px
 }
-input[type=range]{
-width:100%;
-}
+input[type=range]{width:100%}
 select{
-width:100%;
-padding:14px;
-border-radius:14px;
-background:#0b0b0f;
-border:1px solid var(--border);
-color:white;
+width:100%;padding:13px;border-radius:13px;
+background:#0c0c0f;border:1px solid #292930;color:#fff
 }
-.generate{
-margin-top:10px;
+.identityResult{display:none;margin-top:18px}
+.identityResult pre{
+white-space:pre-wrap;color:#999;font-size:11px;line-height:1.7
 }
-.identity-result{
-display:none;
-margin-top:20px;
-padding:20px;
-border-radius:20px;
-background:
-linear-gradient(135deg,#161620,#08080b);
-border:1px solid #333;
-}
-.identity-code{
-font-family:monospace;
-font-size:12px;
-color:#999;
-line-height:1.7;
-word-break:break-word;
-}
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-top:20px;
-}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .stat{
-padding:15px 8px;
-background:#0b0b0f;
-border:1px solid var(--border);
-border-radius:15px;
-text-align:center;
+background:#101014;border:1px solid #25252d;border-radius:15px;
+padding:15px 5px;text-align:center
 }
-.stat strong{
-display:block;
-font-size:20px;
+.stat strong{display:block;font-size:20px}
+.stat span{font-size:9px;color:#777}
+.memory{margin-top:15px}
+.memoryItem{
+padding:12px 0;border-bottom:1px solid #222;
+font-size:13px
 }
-.stat span{
-font-size:10px;
-color:#777;
-}
-footer{
-text-align:center;
-color:#444;
-font-size:10px;
-letter-spacing:2px;
-margin-top:45px;
-}
+.memoryItem small{display:block;color:#666;margin-top:5px}
+footer{text-align:center;color:#444;font-size:10px;letter-spacing:2px;margin-top:40px}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="app">
 <header>
 <div class="logo">NEXA</div>
-<div class="status" id="systemStatus">
-LOCAL CORE
-</div>
+<div class="status">ONE CORE</div>
 </header>
-<div class="nav">
-<button class="active" onclick="showTab('core',this)">
-CORE
-</button>
-<button onclick="showTab('identity',this)">
-IDENTITY
-</button>
-<button onclick="showTab('memory',this)">
-MEMORY
-</button>
-</div>
-<!-- NEXA CORE -->
-<section id="core" class="active">
+<nav>
+<button class="active" onclick="tab('home',this)">CORE</button>
+<button onclick="tab('identity',this)">IDENTITY</button>
+<button onclick="tab('memory',this)">MEMORY</button>
+</nav>
+<!-- CORE -->
+<section id="home" class="page active">
 <div class="orb"></div>
-<h1>
-Qu'est-ce qui pourrait<br>
-être intéressant pour toi ?
-</h1>
+<h1>Qu'est-ce qui pourrait<br>être intéressant pour toi ?</h1>
 <p class="subtitle">
-NEXA transforme ton intention en une prochaine possibilité concrète.
+Dis-moi simplement ce que tu as en tête.
 </p>
-<div class="input-box">
-<textarea
-id="userInput"
-placeholder="Je veux créer un projet...
-Je cherche un travail...
-Je veux apprendre quelque chose...
-Je ne sais pas quoi faire..."
-></textarea>
-<button class="primary" onclick="runNexa()">
+<div class="box">
+<textarea id="input"
+placeholder="Je cherche un travail...
+Je veux créer un projet...
+Je veux apprendre...
+Je ne sais pas quoi faire..."></textarea>
+
 DÉCOUVRIR
-</button>
+
 </div>
-<div id="coreResult" style="display:none">
-<div class="result-card">
-<div class="label">
-NEXA CORE A ANALYSÉ TON INTENTION
-</div>
-<div class="result-title" id="resultTitle"></div>
-<div class="result-text" id="resultText"></div>
+<div class="result" id="result">
+<div class="card">
+<div class="label">NEXA A TROUVÉ ÇA POUR TOI</div>
+<h2 id="title"></h2>
+<p id="text"></p>
 </div>
 <div class="actions">
-<button class="action" onclick="feedback('like')">
-❤️ Ça m'intéresse
-</button>
-<button class="action" onclick="feedback('later')">
+
+❤️ Ça m’intéresse
+
 🤔 Pas maintenant
-</button>
-<button class="action full" onclick="feedback('no')">
+
 ❌ Pas pour moi
-</button>
+
 </div>
 </div>
 </section>
 <!-- IDENTITY -->
-<section id="identity">
-<div class="identity-header">
-<h2>IDENTITY CONSTRUCT</h2>
-<p>
-Crée ton identité numérique personnelle.
-Ton avatar est construit à partir de tes choix et de ton image.
+<section id="identity" class="page">
+<div class="card">
+<div class="label">IDENTITY CONSTRUCT</div>
+<h2>Crée ton identité numérique</h2>
+<p style="color:#777;font-size:13px;line-height:1.6;margin-top:8px">
+Choisis une photo depuis ton téléphone ou utilise ta caméra.
 </p>
-</div>
-<div class="identity-card">
-<div class="label">
-SCAN // AVATAR GENERATOR
-</div>
-<div class="avatar-preview">
-<img id="avatarImage">
-<div class="avatar-placeholder" id="avatarPlaceholder">
+<div class="avatar">
+<img id="avatarImg">
+
 ◉
+
 </div>
-</div>
-<div class="upload-area">
-<label class="file-label">
-
-CHOISIR UNE PHOTO
-
-<input
-id=“photoInput”
-type=“file”
-accept=“image/*”
-onchange=“loadPhoto(event)”
-
+<div class="upload">
+<label>
+PHOTO
+<input id="photo" type="file" accept="image/*" onchange="photo(event)">
 </label>
-<button class="file-label" onclick="startCamera()">
-ACTIVER CAMÉRA
-</button>
+
+CAMÉRA
+
 </div>
-
-<video
-id=“camera”
-class=“camera”
-autoplay
-playsinline
-
-</video>
-
-<button
-id=“captureButton”
-class=“primary”
-style=“display:none”
-onclick=“capturePhoto()”
-
+<button id="capture" class="primary" style="display:none" onclick="capture()">
 CAPTURER
+</button>
 <div class="controls">
 <div class="control">
-<label>
+
 STYLE
-</label>
+
 <select id="style">
 <option>Cyber Future</option>
-<option>Digital Human</option>
 <option>Anime 3D</option>
-<option>Realistic AI</option>
+<option>Digital Human</option>
 <option>Cosmic</option>
-<option>Minimal</option>
 <option>Cyberpunk</option>
+<option>Minimal</option>
 </select>
 </div>
 <div class="control">
-<label>
-FUTURISME
-<span id="futureValue">70%</span>
-</label>
 
-<input
-type=“range”
-min=“0”
-max=“100”
-value=“70”
-oninput=“futureValue.innerText=this.value+’%’”
+FUTURISME 70%
 
 </div>
 <div class="control">
-<label>
-ORIGINALITÉ
-<span id="originalValue">80%</span>
-</label>
 
-<input
-type=“range”
-min=“0”
-max=“100”
-value=“80”
-oninput=“originalValue.innerText=this.value+’%’”
-
-</div>
-<div class="control">
-<label>
-ÉNERGIE
-<span id="energyValue">60%</span>
-</label>
-
-<input
-type=“range”
-min=“0”
-max=“100”
-value=“60”
-oninput=“energyValue.innerText=this.value+’%’”
+ORIGINALITÉ 80%
 
 </div>
 </div>
-<button class="primary generate" onclick="generateIdentity()">
-
-GÉNÉRER MON IDENTITY ASSET
-
+<button class="primary" onclick="identity()">
+CRÉER MON IDENTITY ASSET
 </button>
-<div id="identityResult" class="identity-result">
-<div class="label">
-NEXA IDENTITY ASSET
-</div>
-<div class="identity-code" id="identityCode"></div>
+<div class="identityResult" id="identityResult">
+<div class="label">IDENTITY ASSET</div>
+<pre id="identityText"></pre>
 </div>
 </div>
 </section>
 <!-- MEMORY -->
-<section id="memory">
-<div class="identity-header">
-<h2>NEXA MEMORY</h2>
-<p>
-NEXA utilise ton historique local pour améliorer progressivement ses décisions.
+<section id="memory" class="page">
+<div class="label">NEXA MEMORY</div>
+<h2>Ce que NEXA apprend</h2>
+<p style="color:#777;font-size:13px;margin:10px 0 20px">
+Tes données restent actuellement dans la mémoire locale de ton navigateur.
 </p>
-</div>
 <div class="stats">
 <div class="stat">
-<strong id="totalCount">
-0
-</strong>
-
-INTENTIONS
-
+<strong id="total">0</strong>
+<span>INTENTIONS</span>
 </div>
 <div class="stat">
-<strong id="likeCount">
-0
-</strong>
-
-INTÉRESSÉ
-
+<strong id="likes">0</strong>
+<span>INTÉRESSÉ</span>
 </div>
 <div class="stat">
-<strong id="levelCount">
-1
-</strong>
-
-NIVEAU
-
+<strong id="level">1</strong>
+<span>NIVEAU</span>
 </div>
 </div>
-<div class="memory-card">
-<div class="label">
-HISTORIQUE
-</div>
-<div id="memoryList">
-Aucune donnée pour le moment.
-</div>
+<div class="card memory" id="memoryList">
+Aucune mémoire pour le moment.
 </div>
 </section>
-<footer>
-
-NEXA — DUAL AI CORE
-
-</footer>
+<footer>NEXA — YOUR NEXT POSSIBILITY</footer>
 </div>
 <script>
-/* =========================
-NEXA MEMORY
-========================= */
-let memory =
-JSON.parse(localStorage.getItem("nexaMemoryV8")) || [];
-let level =
-parseInt(localStorage.getItem("nexaLevelV8")) || 1;
-/* =========================
-TAB SYSTEM
-========================= */
-function showTab(tab,button){
-document
-.querySelectorAll("section")
-.forEach(s=>s.classList.remove("active"));
-document
-.getElementById(tab)
+/* NEXA ONE CORE */
+let memories=
+JSON.parse(localStorage.getItem("nexaOneMemory")||"[]");
+let level=
+Number(localStorage.getItem("nexaOneLevel")||1);
+let stream=null;
+/* NAVIGATION */
+function tab(id,btn){
+document.querySelectorAll(".page")
+.forEach(x=>x.classList.remove("active"));
+document.getElementById(id)
 .classList.add("active");
-document
-.querySelectorAll(".nav button")
-.forEach(b=>b.classList.remove("active"));
-button.classList.add("active");
-if(tab==="memory"){
-renderMemory();
+document.querySelectorAll("nav button")
+.forEach(x=>x.classList.remove("active"));
+btn.classList.add("active");
+if(id==="memory")renderMemory();
 }
-}
-/* =========================
-NEXA CORE
-========================= */
-function runNexa(){
-const input =
-document
-.getElementById("userInput")
-.value
-.trim();
+/* NEXA ENGINE */
+function think(){
+let input=
+document.getElementById("input")
+.value.trim();
 if(!input){
-alert("Dis-moi simplement ce que tu as en tête.");
+alert("Écris simplement ce que tu as en tête.");
 return;
 }
-const lower=input.toLowerCase();
-let title="";
-let text="";
+let x=input.toLowerCase();
 let type="GENERAL";
-if(
-lower.includes("travail")||
-lower.includes("emploi")||
-lower.includes("job")||
-lower.includes("argent")
-){
+let title=
+"Commence par une petite découverte.";
+let text=
+"Choisis une seule chose liée à ton idée et découvre une première possibilité. Une petite action peut ouvrir une nouvelle direction.";
+if(/travail|emploi|job|argent/.test(x)){
 type="CAREER";
 title=
-"Explore une possibilité qui pourrait améliorer ta situation.";
+"Explore une possibilité professionnelle.";
 text=
-"Choisis une seule compétence ou une seule opportunité professionnelle qui correspond à ta situation actuelle. Ta prochaine action : découvre une possibilité concrète aujourd'hui.";
+"Découvre une seule compétence ou une seule opportunité qui pourrait améliorer ta situation actuelle.";
 }
-else if(
-lower.includes("projet")||
-lower.includes("business")||
-lower.includes("entreprise")||
-lower.includes("application")
-){
+else if(/projet|business|entreprise|application/.test(x)){
 type="PROJECT";
 title=
-"Transforme ton idée en une première action concrète.";
+"Transforme ton idée en première étape.";
 text=
-"Définis en une seule phrase ce que ton projet doit permettre de faire. Cette phrase deviendra le point de départ de ton projet.";
+"Définis en une phrase ce que ton projet doit permettre de faire. Cette phrase devient ton point de départ.";
 }
-else if(
-lower.includes("apprendre")||
-lower.includes("étudier")||
-lower.includes("formation")
-){
+else if(/apprendre|formation|étudier|compétence/.test(x)){
 type="LEARNING";
 title=
-"Découvre une compétence qui pourrait changer ta trajectoire.";
+"Découvre une compétence utile.";
 text=
-"Choisis une seule compétence qui pourrait améliorer ta situation actuelle. Découvre aujourd'hui une première ressource pour commencer.";
+"Choisis une seule compétence qui pourrait améliorer ta situation et trouve aujourd'hui une première ressource pour commencer.";
 }
-else{
-title=
-"Transforme ta réflexion en une petite découverte.";
-text=
-"Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau à son sujet. NEXA pourra apprendre de ta réaction.";
-}
-memory.push({
-input:input,
-type:type,
-title:title,
+memories.push({
+input,
+type,
 feedback:null,
 date:new Date().toISOString()
 });
-saveMemory();
-document
-.getElementById("resultTitle")
-.innerText=title;
-document
-.getElementById("resultText")
-.innerText=text;
-document
-.getElementById("coreResult")
+save();
+document.getElementById("title")
+.textContent=title;
+document.getElementById("text")
+.textContent=text;
+document.getElementById("result")
 .style.display="block";
 }
-/* =========================
-FEEDBACK
-========================= */
+/* FEEDBACK */
 function feedback(type){
-if(memory.length===0)return;
-let last=
-memory[memory.length-1];
-last.feedback=type;
-if(type==="like"){
-level++;
-}
-if(type==="no" && level>1){
-level--;
-}
-saveMemory();
-document
-.getElementById("coreResult")
+if(!memories.length)return;
+memories[memories.length-1]
+.feedback=type;
+if(type==="like")level++;
+if(type==="no"&&level>1)level--;
+save();
+document.getElementById("result")
 .style.display="none";
-document
-.getElementById("userInput")
+document.getElementById("input")
 .value="";
 }
-function saveMemory(){
+function save(){
 localStorage.setItem(
-"nexaMemoryV8",
-JSON.stringify(memory)
+"nexaOneMemory",
+JSON.stringify(memories)
 );
 localStorage.setItem(
-"nexaLevelV8",
+"nexaOneLevel",
 level
 );
 }
-/* =========================
-IDENTITY PHOTO
-========================= */
-function loadPhoto(event){
-const file=
-event.target.files[0];
+/* PHOTO */
+function photo(e){
+let file=e.target.files[0];
 if(!file)return;
-const reader=
-new FileReader();
-reader.onload=function(e){
-const img=
-document.getElementById("avatarImage");
-img.src=e.target.result;
+let reader=new FileReader();
+reader.onload=function(){
+let img=
+document.getElementById("avatarImg");
+img.src=reader.result;
 img.style.display="block";
-document
-.getElementById("avatarPlaceholder")
+document.getElementById("avatarIcon")
 .style.display="none";
 localStorage.setItem(
-"nexaIdentityPhoto",
-e.target.result
+"nexaAvatar",
+reader.result
 );
 };
 reader.readAsDataURL(file);
 }
-/* =========================
-CAMERA
-========================= */
-let cameraStream=null;
-async function startCamera(){
+/* CAMERA */
+async function camera(){
+if(!navigator.mediaDevices||
+!navigator.mediaDevices.getUserMedia){
+alert(
+"La caméra n'est pas disponible dans ce navigateur."
+);
+return;
+}
 try{
-cameraStream=
+stream=
 await navigator.mediaDevices.getUserMedia({
 video:{
 facingMode:"user"
 },
 audio:false
 });
-const camera=
-document.getElementById("camera");
-camera.srcObject=cameraStream;
-camera.style.display="block";
-document
-.getElementById("captureButton")
+let video=
+document.getElementById("video");
+video.srcObject=stream;
+video.style.display="block";
+document.getElementById("capture")
 .style.display="block";
-}catch(error){
+}catch(e){
 alert(
-"Impossible d'accéder à la caméra. Vérifie les autorisations du navigateur."
+"Accès caméra refusé. Autorise la caméra dans les réglages de ton navigateur puis réessaie."
 );
 }
 }
-function capturePhoto(){
-const camera=
-document.getElementById("camera");
-const canvas=
+/* CAPTURE */
+function capture(){
+let video=
+document.getElementById("video");
+let canvas=
 document.createElement("canvas");
-canvas.width=camera.videoWidth;
-canvas.height=camera.videoHeight;
-const ctx=
-canvas.getContext("2d");
-ctx.drawImage(
-camera,
-0,
-0
-);
-const data=
+canvas.width=video.videoWidth;
+canvas.height=video.videoHeight;
+canvas
+.getContext("2d")
+.drawImage(video,0,0);
+let data=
 canvas.toDataURL("image/jpeg");
-document
-.getElementById("avatarImage")
-.src=data;
-document
-.getElementById("avatarImage")
-.style.display="block";
-document
-.getElementById("avatarPlaceholder")
+let img=
+document.getElementById("avatarImg");
+img.src=data;
+img.style.display="block";
+document.getElementById("avatarIcon")
 .style.display="none";
 localStorage.setItem(
-"nexaIdentityPhoto",
+"nexaAvatar",
 data
 );
-if(cameraStream){
-cameraStream
+if(stream){
+stream
 .getTracks()
-.forEach(track=>track.stop());
+.forEach(t=>t.stop());
 }
-camera.style.display="none";
-document
-.getElementById("captureButton")
+video.style.display="none";
+document.getElementById("capture")
 .style.display="none";
 }
-/* =========================
-IDENTITY ENGINE
-========================= */
-function generateIdentity(){
-const style=
-document
-.getElementById("style")
-.value;
-const future=
-document
-.querySelectorAll('input[type="range"]')[0]
-.value;
-const originality=
-document
-.querySelectorAll('input[type="range"]')[1]
-.value;
-const energy=
-document
-.querySelectorAll('input[type="range"]')[2]
-.value;
-const identityID=
-"NEXA-"+
-Math
-.random()
+/* IDENTITY */
+function identity(){
+let style=
+document.getElementById("style").value;
+let futur=
+document.querySelectorAll(
+'input[type="range"]'
+)[0].value;
+let original=
+document.querySelectorAll(
+'input[type="range"]'
+)[1].value;
+let id=
+"NEXA-"+Math.random()
 .toString(36)
-.substring(2,10)
+.substring(2,9)
 .toUpperCase();
-const asset={
-id:identityID,
-style:style,
-futurism:future,
-originality:originality,
-energy:energy,
-created:new Date().toISOString(),
-version:"V8"
+let asset={
+id,
+style,
+futurism:futur,
+originality:original,
+created:new Date().toISOString()
 };
 localStorage.setItem(
-"nexaIdentityAsset",
+"nexaIdentity",
 JSON.stringify(asset)
 );
-document
-.getElementById("identityResult")
+document.getElementById("identityResult")
 .style.display="block";
-document
-.getElementById("identityCode")
-.innerText=
-"IDENTITY ID : "+identityID+
+document.getElementById("identityText")
+.textContent=
+"IDENTITY ID : "+id+
 "\nSTYLE : "+style+
-"\nFUTURISME : "+future+"%"+
-"\nORIGINALITÉ : "+originality+"%"+
-"\nÉNERGIE : "+energy+"%"+
-"\nVERSION : NEXA V8"+
-"\n\nSTATUS : IDENTITY ASSET CREATED"+
-"\n\nGénération IA réelle : architecture prête.";
+"\nFUTURISME : "+futur+"%"+
+"\nORIGINALITÉ : "+original+"%"+
+"\nSTATUS : LOCAL ASSET"+
+"\nVERSION : NEXA ONE";
 }
-/* =========================
-MEMORY DISPLAY
-========================= */
+/* MEMORY */
 function renderMemory(){
-document
-.getElementById("totalCount")
-.innerText=
-memory.length;
-document
-.getElementById("likeCount")
-.innerText=
-memory.filter(
-x=>x.feedback==="like"
-).length;
-document
-.getElementById("levelCount")
-.innerText=
-level;
-const list=
-document
-.getElementById("memoryList");
-if(memory.length===0){
-list.innerText=
-"Aucune donnée pour le moment.";
+document.getElementById("total")
+.textContent=memories.length;
+document.getElementById("likes")
+.textContent=
+memories.filter(x=>x.feedback==="like").length;
+document.getElementById("level")
+.textContent=level;
+let list=
+document.getElementById("memoryList");
+if(!memories.length){
+list.textContent=
+"Aucune mémoire pour le moment.";
 return;
 }
 list.innerHTML=
-memory
+memories
 .slice()
 .reverse()
 .slice(0,10)
-.map(item=>`
-<div style="
-padding:12px 0;
-border-bottom:1px solid #222;
-">
-<div style="
-font-size:13px;
-color:white;
-">
-${escapeHTML(item.input)}
+.map(x=>`
+<div class="memoryItem">
+${safe(x.input)}
+<small>
+${x.type} ${x.feedback?"• "+x.feedback:""}
+</small>
 </div>
-<div style="
-font-size:10px;
-color:#666;
-margin-top:5px;
-">
-${item.type}
-${item.feedback ? " • "+item.feedback : ""}
-</div>
-</div>
-`)
-.join("");
+`).join("");
 }
-function escapeHTML(text){
-const div=
-document.createElement("div");
-div.innerText=text;
+function safe(text){
+let div=document.createElement("div");
+div.textContent=text;
 return div.innerHTML;
 }
-/* =========================
-RESTORE IDENTITY
-========================= */
-const savedPhoto=
-localStorage.getItem("nexaIdentityPhoto");
-if(savedPhoto){
-const img=
-document
-.getElementById("avatarImage");
-img.src=savedPhoto;
+/* RESTORE */
+let saved=
+localStorage.getItem("nexaAvatar");
+if(saved){
+let img=
+document.getElementById("avatarImg");
+img.src=saved;
 img.style.display="block";
-document
-.getElementById("avatarPlaceholder")
+document.getElementById("avatarIcon")
 .style.display="none";
 }
-/* =========================
-INITIAL STATE
-========================= */
 renderMemory();
 </script>
 </body>
