@@ -4,19 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
-<title>NEXA V7 — AGENT CORE</title>
-
-<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+<title>NEXA V7.5 — IDENTITY STUDIO</title>
 
 <style>
 
-/* =========================================================
-NEXA V7 — AGENT CORE
-========================================================= */
-
 :root{
 --bg:#030305;
---panel:#0b0b11;
+--panel:#0c0c12;
 --panel2:#11111a;
 --line:rgba(255,255,255,.1);
 --text:#fff;
@@ -38,23 +32,23 @@ font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
 background:
 radial-gradient(circle at 50% 0%,rgba(100,100,255,.12),transparent 35%),
 var(--bg);
-color:var(--text);
+color:white;
 min-height:100vh;
 overflow-x:hidden;
 }
 
-button,textarea,input{
+button,
+textarea,
+input{
 font-family:inherit;
 }
 
 .app{
-position:relative;
-z-index:2;
 width:100%;
 max-width:650px;
 margin:auto;
 min-height:100vh;
-padding:22px 18px 35px;
+padding:22px 18px 40px;
 }
 
 header{
@@ -88,7 +82,7 @@ box-shadow:0 0 15px var(--green);
 
 .screen{
 display:none;
-animation:appear .5s ease;
+animation:appear .45s ease;
 }
 
 .screen.active{
@@ -107,7 +101,9 @@ transform:translateY(0);
 }
 
 
-/* CORE */
+/* =========================
+CORE
+========================= */
 
 .core-zone{
 height:230px;
@@ -149,7 +145,6 @@ border-radius:50%;
 border:1px solid var(--line);
 background:#111;
 overflow:hidden;
-cursor:pointer;
 }
 
 .avatar-mini img{
@@ -161,10 +156,6 @@ display:none;
 
 .avatar-mini.has-avatar img{
 display:block;
-}
-
-.avatar-mini.has-avatar .avatar-empty{
-display:none;
 }
 
 .avatar-empty{
@@ -185,13 +176,13 @@ margin-bottom:12px;
 .subtitle{
 text-align:center;
 color:var(--muted);
-line-height:1.6;
 font-size:15px;
+line-height:1.6;
 margin-bottom:28px;
 }
 
 .input-box{
-background:rgba(15,15,22,.9);
+background:#0d0d13;
 border:1px solid var(--line);
 border-radius:24px;
 padding:16px;
@@ -200,10 +191,10 @@ padding:16px;
 textarea{
 width:100%;
 height:110px;
+background:transparent;
 border:none;
 outline:none;
 resize:none;
-background:transparent;
 color:white;
 font-size:17px;
 line-height:1.5;
@@ -223,12 +214,17 @@ background:white;
 color:black;
 font-weight:600;
 font-size:16px;
+cursor:pointer;
+}
+
+.primary:active{
+transform:scale(.98);
 }
 
 .nav{
 display:flex;
 justify-content:center;
-gap:24px;
+gap:25px;
 margin-top:22px;
 }
 
@@ -241,33 +237,21 @@ letter-spacing:2px;
 }
 
 
-/* RESULT */
+/* =========================
+RESULT
+========================= */
 
 .label{
 font-size:10px;
 letter-spacing:3px;
 color:var(--cyan);
-margin-bottom:12px;
+margin:25px 0 12px;
 }
 
 .result-title{
 font-size:29px;
 line-height:1.2;
 margin-bottom:20px;
-}
-
-.card{
-background:rgba(15,15,22,.9);
-border:1px solid var(--line);
-border-radius:22px;
-padding:21px;
-margin-bottom:15px;
-}
-
-.card p{
-color:#aaa;
-line-height:1.65;
-font-size:15px;
 }
 
 .grid{
@@ -295,6 +279,20 @@ margin-bottom:7px;
 font-size:14px;
 }
 
+.card{
+background:#0d0d13;
+border:1px solid var(--line);
+border-radius:22px;
+padding:21px;
+margin-bottom:15px;
+}
+
+.card p{
+color:#aaa;
+line-height:1.65;
+font-size:15px;
+}
+
 .actions{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -313,8 +311,20 @@ color:white;
 grid-column:span 2;
 }
 
+.back{
+width:100%;
+padding:15px;
+margin-top:20px;
+border-radius:15px;
+background:#0d0d12;
+border:1px solid var(--line);
+color:white;
+}
 
-/* IDENTITY */
+
+/* =========================
+IDENTITY
+========================= */
 
 .identity-header{
 text-align:center;
@@ -322,7 +332,7 @@ margin:25px 0;
 }
 
 .identity-header h2{
-font-size:30px;
+font-size:29px;
 letter-spacing:2px;
 margin-bottom:10px;
 }
@@ -336,7 +346,7 @@ line-height:1.6;
 .scanner{
 position:relative;
 width:100%;
-max-width:370px;
+max-width:380px;
 aspect-ratio:1;
 margin:auto;
 border-radius:30px;
@@ -353,47 +363,11 @@ transform:scaleX(-1);
 display:none;
 }
 
-#preview{
+#sourceImage{
 width:100%;
 height:100%;
 object-fit:cover;
 display:none;
-}
-
-.scan-frame{
-position:absolute;
-inset:25px;
-border:1px solid rgba(160,220,255,.4);
-border-radius:25px;
-pointer-events:none;
-}
-
-.scan-line{
-position:absolute;
-left:10%;
-right:10%;
-top:20%;
-height:1px;
-background:var(--cyan);
-box-shadow:0 0 20px var(--cyan);
-display:none;
-animation:scan 2.5s infinite linear;
-}
-
-@keyframes scan{
-0%{top:20%}
-100%{top:80%}
-}
-
-.scan-status{
-position:absolute;
-bottom:18px;
-left:0;
-right:0;
-text-align:center;
-font-size:9px;
-letter-spacing:3px;
-color:#aaa;
 }
 
 .scanner-empty{
@@ -403,12 +377,48 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-color:#555;
 gap:12px;
+color:#555;
 }
 
 .scanner-empty div{
 font-size:45px;
+}
+
+.scan-frame{
+position:absolute;
+inset:25px;
+border:1px solid rgba(160,220,255,.35);
+border-radius:25px;
+pointer-events:none;
+}
+
+.scan-line{
+position:absolute;
+left:10%;
+right:10%;
+height:1px;
+top:20%;
+background:var(--cyan);
+box-shadow:0 0 20px var(--cyan);
+display:none;
+animation:scan 2s infinite linear;
+}
+
+@keyframes scan{
+0%{top:20%}
+100%{top:80%}
+}
+
+.scan-status{
+position:absolute;
+bottom:17px;
+left:0;
+right:0;
+text-align:center;
+font-size:9px;
+letter-spacing:3px;
+color:#aaa;
 }
 
 .identity-buttons{
@@ -433,20 +443,18 @@ color:black;
 font-weight:600;
 }
 
-.privacy{
-text-align:center;
-font-size:9px;
-letter-spacing:2px;
-color:#444;
-margin:20px 0;
+#photoInput{
+display:none;
 }
 
 
-/* DIGITAL DNA */
+/* =========================
+DIGITAL DNA
+========================= */
 
 .dna{
 display:none;
-margin-top:22px;
+margin-top:25px;
 }
 
 .dna-title{
@@ -482,22 +490,24 @@ font-size:13px;
 }
 
 
-/* AVATAR LAB */
+/* =========================
+IDENTITY STUDIO
+========================= */
 
-.avatar-lab{
+.studio{
 display:none;
 margin-top:25px;
 }
 
-.lab-title{
+.studio-title{
 font-size:11px;
 letter-spacing:4px;
 color:var(--violet);
-margin-bottom:15px;
+margin-bottom:18px;
 }
 
 .option-group{
-margin-bottom:18px;
+margin-bottom:20px;
 }
 
 .option-label{
@@ -522,69 +532,167 @@ border:1px solid var(--line);
 background:#0c0c12;
 color:white;
 font-size:12px;
+cursor:pointer;
 }
 
 .option.selected{
 border-color:var(--cyan);
-box-shadow:0 0 15px rgba(100,220,255,.15);
+box-shadow:0 0 20px rgba(100,220,255,.15);
+}
+
+.slider-row{
+margin-bottom:20px;
+}
+
+.slider-row label{
+display:flex;
+justify-content:space-between;
+font-size:9px;
+letter-spacing:2px;
+color:#777;
+margin-bottom:10px;
+}
+
+input[type=range]{
+width:100%;
+accent-color:white;
 }
 
 
-/* CONSTRUCT */
+/* =========================
+GENERATION
+========================= */
 
-.construct{
+.generation{
 display:none;
-text-align:center;
 margin-top:25px;
+text-align:center;
 }
 
-.construct-avatar{
-width:190px;
-height:190px;
+.generate-box{
+position:relative;
+width:250px;
+height:250px;
 margin:auto;
-border-radius:50%;
-padding:4px;
-background:conic-gradient(
-var(--cyan),
-var(--violet),
-var(--green),
-var(--cyan)
-);
-animation:spin 8s linear infinite;
+border-radius:30px;
+overflow:hidden;
+background:#08080d;
+border:1px solid var(--line);
 }
 
-.construct-avatar img{
+#generatedCanvas{
 width:100%;
 height:100%;
-border-radius:50%;
-object-fit:cover;
-border:5px solid #050507;
-animation:spinReverse 8s linear infinite;
+display:block;
 }
 
-@keyframes spin{
+.generating{
+position:absolute;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+gap:15px;
+background:rgba(3,3,5,.88);
+backdrop-filter:blur(10px);
+}
+
+.loader{
+width:45px;
+height:45px;
+border:2px solid #333;
+border-top-color:white;
+border-radius:50%;
+animation:rotate 1s linear infinite;
+}
+
+@keyframes rotate{
 to{transform:rotate(360deg)}
 }
 
-@keyframes spinReverse{
-to{transform:rotate(-360deg)}
-}
-
-.construct h3{
-margin-top:20px;
-font-size:12px;
-letter-spacing:4px;
+.generation-status{
+font-size:9px;
+letter-spacing:3px;
 color:var(--cyan);
 }
 
-.construct p{
-margin-top:10px;
+.avatar-name{
+margin-top:20px;
+font-size:12px;
+letter-spacing:4px;
+}
+
+.avatar-description{
+margin-top:9px;
 font-size:13px;
 color:#777;
+line-height:1.5;
+}
+
+.generation-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:20px;
+}
+
+.generation-actions button{
+padding:15px;
+border-radius:15px;
+border:1px solid var(--line);
+background:#0d0d12;
+color:white;
+}
+
+.generation-actions .save{
+grid-column:span 2;
+background:white;
+color:black;
+font-weight:600;
 }
 
 
-/* AGENT LAB */
+/* =========================
+AVATAR GALLERY
+========================= */
+
+.gallery{
+display:none;
+margin-top:30px;
+}
+
+.gallery-title{
+font-size:10px;
+letter-spacing:3px;
+color:#777;
+margin-bottom:12px;
+}
+
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+}
+
+.gallery-item{
+aspect-ratio:1;
+border-radius:12px;
+overflow:hidden;
+border:1px solid var(--line);
+background:#0d0d12;
+}
+
+.gallery-item img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+
+/* =========================
+AGENT LAB
+========================= */
 
 .agent-panel{
 background:#08080d;
@@ -610,22 +718,12 @@ border:none;
 color:#666;
 }
 
-.back{
-width:100%;
-padding:15px;
-margin-top:20px;
-border-radius:15px;
-background:#0d0d12;
-border:1px solid var(--line);
-color:white;
-}
-
 footer{
 text-align:center;
 color:#333;
 font-size:9px;
 letter-spacing:2px;
-padding-top:25px;
+padding-top:30px;
 }
 
 </style>
@@ -637,7 +735,9 @@ padding-top:25px;
 
 <header>
 
-<div class="logo">NEXA</div>
+<div class="logo">
+NEXA
+</div>
 
 <div class="agent-status">
 <span class="status-dot"></span>
@@ -647,9 +747,7 @@ AGENT CORE ONLINE
 </header>
 
 
-<!-- =====================================================
-HOME
-===================================================== -->
+<!-- HOME -->
 
 <section id="home" class="screen active">
 
@@ -662,7 +760,9 @@ class="avatar-mini"
 onclick="openIdentity()"
 >
 
-<div class="avatar-empty">◎</div>
+<div class="avatar-empty">
+◎
+</div>
 
 <img id="miniAvatar">
 
@@ -701,18 +801,20 @@ onclick="runAgent()"
 
 <div class="nav">
 
-<button onclick="openIdentity()">IDENTITY</button>
+<button onclick="openIdentity()">
+IDENTITY STUDIO
+</button>
 
-<button onclick="openAgentLab()">AGENT LAB</button>
+<button onclick="openAgentLab()">
+AGENT LAB
+</button>
 
 </div>
 
 </section>
 
 
-<!-- =====================================================
-RESULT
-===================================================== -->
+<!-- RESULT -->
 
 <section id="result" class="screen">
 
@@ -775,22 +877,24 @@ Retour
 </section>
 
 
-<!-- =====================================================
-IDENTITY
-===================================================== -->
+<!-- IDENTITY STUDIO -->
 
 <section id="identity" class="screen">
 
 <div class="identity-header">
 
-<div class="label">IDENTITY ENGINE</div>
+<div class="label">
+IDENTITY ENGINE
+</div>
 
-<h2>IDENTITY CONSTRUCT</h2>
+<h2>
+IDENTITY STUDIO
+</h2>
 
 <p>
-SCAN // DIGITAL DNA // AVATAR LAB
-<br><br>
-Crée ton identité numérique personnalisée.
+SCAN // DIGITAL DNA // CONSTRUCT
+<br>
+Crée une identité numérique personnalisée.
 </p>
 
 </div>
@@ -798,23 +902,39 @@ Crée ton identité numérique personnalisée.
 
 <div class="scanner">
 
-<video id="video" autoplay playsinline muted></video>
+<video
+id="video"
+autoplay
+playsinline
+muted
+></video>
 
-<img id="preview">
+<img id="sourceImage">
 
-<div class="scanner-empty" id="scannerEmpty">
+<div
+id="scannerEmpty"
+class="scanner-empty"
+>
 
 <div>◎</div>
 
-<span>IDENTITY SYSTEM READY</span>
+<span>
+IDENTITY SYSTEM READY
+</span>
 
 </div>
 
 <div class="scan-frame"></div>
 
-<div id="scanLine" class="scan-line"></div>
+<div
+id="scanLine"
+class="scan-line"
+></div>
 
-<div id="scanStatus" class="scan-status">
+<div
+id="scanStatus"
+class="scan-status"
+>
 WAITING FOR INPUT
 </div>
 
@@ -827,14 +947,14 @@ WAITING FOR INPUT
 class="wide"
 onclick="startCamera()"
 >
-📷 ACTIVER LE SCAN
+📷 ACTIVER LA CAMÉRA
 </button>
 
 <button onclick="choosePhoto()">
 🖼️ GALERIE
 </button>
 
-<button onclick="captureFace()">
+<button onclick="capturePhoto()">
 ◎ CAPTURER
 </button>
 
@@ -842,10 +962,9 @@ onclick="startCamera()"
 
 
 <input
-type="file"
 id="photoInput"
+type="file"
 accept="image/*"
-style="display:none"
 onchange="loadPhoto(event)"
 >
 
@@ -859,58 +978,75 @@ DIGITAL DNA // ANALYSIS
 <div class="dna-grid">
 
 <div class="dna-item">
-<span>FACE GEOMETRY</span>
-<strong id="dnaFace">Detected</strong>
+<span>FACIAL GEOMETRY</span>
+<strong id="dnaFace">
+READY
+</strong>
 </div>
 
 <div class="dna-item">
 <span>SCAN QUALITY</span>
-<strong id="dnaQuality">High</strong>
+<strong id="dnaQuality">
+HIGH
+</strong>
 </div>
 
 <div class="dna-item">
 <span>IDENTITY CORE</span>
-<strong id="dnaCore">Unique</strong>
+<strong id="dnaCore">
+UNIQUE
+</strong>
 </div>
 
 <div class="dna-item">
 <span>PROCESSING</span>
-<strong>LOCAL</strong>
+<strong>
+LOCAL
+</strong>
 </div>
 
 </div>
 
 
-<div class="avatar-lab" id="avatarLab">
+<!-- STUDIO -->
 
-<div class="lab-title">
-AVATAR LAB // PERSONALIZATION
+<div id="studio" class="studio">
+
+<div class="studio-title">
+AVATAR CONSTRUCT // PERSONALIZATION
 </div>
 
 
 <div class="option-group">
 
-<div class="option-label">STYLE</div>
+<div class="option-label">
+VISUAL STYLE
+</div>
 
 <div class="options">
 
-<button class="option selected" onclick="selectOption(this)">
+<button class="option selected"
+onclick="selectOption(this)">
 REALISTIC
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 3D
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 ANIME
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 CYBERPUNK
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 SCI-FI
 </button>
 
@@ -921,23 +1057,29 @@ SCI-FI
 
 <div class="option-group">
 
-<div class="option-label">IDENTITY</div>
+<div class="option-label">
+IDENTITY
+</div>
 
 <div class="options">
 
-<button class="option selected" onclick="selectOption(this)">
+<button class="option selected"
+onclick="selectOption(this)">
 EXPLORER
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 CREATOR
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 BUILDER
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 VISIONARY
 </button>
 
@@ -948,23 +1090,29 @@ VISIONARY
 
 <div class="option-group">
 
-<div class="option-label">ENVIRONMENT</div>
+<div class="option-label">
+ENVIRONMENT
+</div>
 
 <div class="options">
 
-<button class="option selected" onclick="selectOption(this)">
+<button class="option selected"
+onclick="selectOption(this)">
 MINIMAL
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 NEON CITY
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 SPACE
 </button>
 
-<button class="option" onclick="selectOption(this)">
+<button class="option"
+onclick="selectOption(this)">
 FUTURE
 </button>
 
@@ -973,29 +1121,141 @@ FUTURE
 </div>
 
 
+<div class="slider-row">
+
+<label>
+INTENSITÉ DU STYLE
+<span id="styleValue">
+60%
+</span>
+</label>
+
+<input
+id="styleIntensity"
+type="range"
+min="0"
+max="100"
+value="60"
+oninput="updateSlider()"
+>
+
+</div>
+
+
+<div class="slider-row">
+
+<label>
+LUMINOSITÉ
+<span id="lightValue">
+60%
+</span>
+</label>
+
+<input
+id="lightIntensity"
+type="range"
+min="0"
+max="100"
+value="60"
+oninput="updateSlider()"
+>
+
+</div>
+
+
 <button
 class="primary"
-onclick="generateConstruct()"
+onclick="generateAvatar()"
 >
-✦ GENERATE DIGITAL CONSTRUCT
+✦ GÉNÉRER MON AVATAR
 </button>
 
 </div>
 
 
-<div class="construct" id="construct">
+<!-- GENERATION -->
 
-<div class="construct-avatar">
+<div
+id="generation"
+class="generation"
+>
 
-<img id="constructImage">
+<div class="generate-box">
+
+<canvas
+id="generatedCanvas"
+width="600"
+height="600"
+></canvas>
+
+<div
+id="generating"
+class="generating"
+>
+
+<div class="loader"></div>
+
+<div class="generation-status">
+CONSTRUCTING IDENTITY
+</div>
 
 </div>
 
-<h3>IDENTITY CONSTRUCT ONLINE</h3>
+</div>
 
-<p>
-Your digital identity is ready.
-</p>
+<div
+id="avatarName"
+class="avatar-name"
+>
+DIGITAL CONSTRUCT
+</div>
+
+<div
+id="avatarDescription"
+class="avatar-description"
+>
+Ton identité numérique est prête.
+</div>
+
+
+<div class="generation-actions">
+
+<button onclick="regenerateAvatar()">
+🔄 RÉGÉNÉRER
+</button>
+
+<button onclick="openStudio()">
+✏️ MODIFIER
+</button>
+
+<button
+class="save"
+onclick="saveAvatar()"
+>
+💾 SAUVEGARDER L'AVATAR
+</button>
+
+</div>
+
+</div>
+
+
+<!-- GALLERY -->
+
+<div
+id="gallery"
+class="gallery"
+>
+
+<div class="gallery-title">
+MY IDENTITY ARCHIVE
+</div>
+
+<div
+id="galleryGrid"
+class="gallery-grid"
+>
+</div>
 
 </div>
 
@@ -1004,22 +1264,24 @@ Your digital identity is ready.
 
 <div class="privacy">
 
-● LOCAL PROCESSING<br><br>
-FACIAL DATA IS NOT USED FOR IDENTIFICATION
+● LOCAL PROCESSING
+<br><br>
+TES IMAGES RESTENT DANS TON NAVIGATEUR
 
 </div>
 
 
-<button class="back" onclick="goHome()">
+<button
+class="back"
+onclick="goHome()"
+>
 ← RETOUR À NEXA
 </button>
 
 </section>
 
 
-<!-- =====================================================
-AGENT LAB
-===================================================== -->
+<!-- AGENT LAB -->
 
 <section id="agentLab" class="screen">
 
@@ -1060,7 +1322,6 @@ SELF-LEARNING SYSTEM
 
 </div>
 
-
 <div class="card">
 
 <p>
@@ -1069,8 +1330,10 @@ NEXA observe tes interactions, mémorise tes préférences et adapte progressive
 
 </div>
 
-
-<button class="back" onclick="goHome()">
+<button
+class="back"
+onclick="goHome()"
+>
 Retour au NEXA CORE
 </button>
 
@@ -1078,7 +1341,7 @@ Retour au NEXA CORE
 
 
 <footer>
-NEXA V7 — AGENT CORE
+NEXA V7.5 — IDENTITY STUDIO
 </footer>
 
 </div>
@@ -1087,25 +1350,30 @@ NEXA V7 — AGENT CORE
 <script>
 
 /* =========================================================
-NEXA AGENT CORE
+STATE
 ========================================================= */
 
-let memory =
-JSON.parse(localStorage.getItem("nexaMemory")) || [];
+let memory=
+JSON.parse(
+localStorage.getItem("nexaMemory")
+)||[];
 
-let profile =
-JSON.parse(localStorage.getItem("nexaProfile")) || {
-
+let profile=
+JSON.parse(
+localStorage.getItem("nexaProfile")
+)||{
 level:1,
 likes:0,
 later:0,
 no:0,
 domain:"EXPLORATION"
-
 };
 
-let currentImage=null;
 let stream=null;
+
+let sourceImage=null;
+
+let generatedImage=null;
 
 
 /* =========================================================
@@ -1116,7 +1384,9 @@ function show(id){
 
 document
 .querySelectorAll(".screen")
-.forEach(s=>s.classList.remove("active"));
+.forEach(
+s=>s.classList.remove("active")
+);
 
 document
 .getElementById(id)
@@ -1136,6 +1406,8 @@ function openIdentity(){
 
 show("identity");
 
+loadGallery();
+
 }
 
 function openAgentLab(){
@@ -1148,97 +1420,117 @@ show("agentLab");
 
 
 /* =========================================================
-AGENT ANALYSIS
+AGENT
 ========================================================= */
 
 function analyze(text){
 
 let category="EXPLORATION";
+
 let intent="Explorer une nouvelle possibilité";
+
 let block="Aucun blocage détecté";
+
 
 if(/travail|emploi|job|métier|carrière/i.test(text)){
 
 category="EMPLOI";
-intent="Trouver une opportunité professionnelle";
+
+intent=
+"Trouver une opportunité professionnelle";
 
 }
 
 else if(/argent|revenu|salaire|financ/i.test(text)){
 
 category="ARGENT";
-intent="Améliorer sa situation financière";
+
+intent=
+"Améliorer sa situation financière";
 
 }
 
 else if(/projet|application|site|coder|créer/i.test(text)){
 
 category="PROJET";
-intent="Construire un projet concret";
+
+intent=
+"Construire un projet concret";
 
 }
 
 else if(/business|entreprise|commerce/i.test(text)){
 
 category="BUSINESS";
-intent="Explorer une opportunité de business";
+
+intent=
+"Explorer une opportunité de business";
 
 }
 
 else if(/apprendre|formation|étudier|compétence/i.test(text)){
 
 category="APPRENTISSAGE";
-intent="Développer une compétence";
+
+intent=
+"Développer une compétence";
 
 }
 
 if(/bloqué|bloquée|peur|doute|ne sais pas/i.test(text)){
 
-block="Manque de clarté";
+block=
+"Manque de clarté";
 
 }
 
-let decision=getDecision(category);
+
+let decision=
+getDecision(category);
+
 
 return{
-
 category,
 intent,
 block,
 decision
-
 };
 
 }
 
 
-/* =========================================================
-ADAPTIVE DECISION ENGINE
-========================================================= */
-
 function getDecision(category){
 
-let rejected =
+let rejected=
 memory.filter(
-m=>m.category===category && m.feedback==="no"
+m=>
+m.category===category &&
+m.feedback==="no"
 ).length;
 
-let liked =
+let liked=
 memory.filter(
-m=>m.category===category && m.feedback==="like"
+m=>
+m.category===category &&
+m.feedback==="like"
 ).length;
+
 
 if(rejected>=3){
 
-return "NEXA a remarqué que cette direction t'intéresse moins. Explore une possibilité différente liée à ton objectif initial.";
+return
+"NEXA a remarqué que cette direction t'intéresse moins. Explore une possibilité différente liée à ton objectif initial.";
 
 }
+
 
 if(liked>=2){
 
-return "Cette direction semble correspondre à tes intérêts. Passe maintenant à une étape légèrement plus concrète pour progresser.";
+return
+"Cette direction semble correspondre à tes intérêts. Passe maintenant à une étape légèrement plus concrète pour progresser.";
 
 }
+
 
 let actions={
 
@@ -1267,26 +1559,26 @@ return actions[category];
 }
 
 
-/* =========================================================
-RUN AGENT
-========================================================= */
-
 function runAgent(){
 
 let input=
-document.getElementById("input")
+document
+.getElementById("input")
 .value
 .trim();
 
 if(!input){
 
-alert("Dis-moi simplement ce que tu as en tête.");
+alert(
+"Dis-moi simplement ce que tu as en tête."
+);
 
 return;
 
 }
 
-let result=analyze(input);
+let result=
+analyze(input);
 
 memory.push({
 
@@ -1302,7 +1594,9 @@ decision:result.decision,
 
 feedback:null,
 
-date:new Date().toISOString()
+date:
+new Date()
+.toISOString()
 
 });
 
@@ -1311,33 +1605,40 @@ localStorage.setItem(
 JSON.stringify(memory)
 );
 
-document.getElementById("intent")
-.innerText=result.intent;
+document
+.getElementById("intent")
+.innerText=
+result.intent;
 
-document.getElementById("category")
-.innerText=result.category;
+document
+.getElementById("category")
+.innerText=
+result.category;
 
-document.getElementById("level")
-.innerText="Niveau "+profile.level;
+document
+.getElementById("level")
+.innerText=
+"Niveau "+profile.level;
 
-document.getElementById("block")
-.innerText=result.block;
+document
+.getElementById("block")
+.innerText=
+result.block;
 
-document.getElementById("decision")
-.innerText=result.decision;
+document
+.getElementById("decision")
+.innerText=
+result.decision;
 
 show("result");
 
 }
 
 
-/* =========================================================
-FEEDBACK
-========================================================= */
-
 function feedback(type){
 
-let last=memory[memory.length-1];
+let last=
+memory[memory.length-1];
 
 if(!last)return;
 
@@ -1348,7 +1649,10 @@ if(type==="like"){
 profile.likes++;
 
 profile.level=
-Math.min(5,profile.level+1);
+Math.min(
+5,
+profile.level+1
+);
 
 profile.domain=
 last.category;
@@ -1383,7 +1687,7 @@ goHome();
 
 
 /* =========================================================
-IDENTITY CAMERA
+CAMERA
 ========================================================= */
 
 async function startCamera(){
@@ -1391,42 +1695,45 @@ async function startCamera(){
 try{
 
 stream=
-await navigator.mediaDevices.getUserMedia({
-
+await navigator.mediaDevices
+.getUserMedia({
 video:{
 facingMode:"user"
 },
-
 audio:false
-
 });
 
 let video=
-document.getElementById("video");
+document
+.getElementById("video");
 
 video.srcObject=stream;
 
 video.style.display="block";
 
-document.getElementById("preview")
+document
+.getElementById("sourceImage")
 .style.display="none";
 
-document.getElementById("scannerEmpty")
+document
+.getElementById("scannerEmpty")
 .style.display="none";
 
-document.getElementById("scanLine")
+document
+.getElementById("scanLine")
 .style.display="block";
 
-document.getElementById("scanStatus")
+document
+.getElementById("scanStatus")
 .innerText=
-"SCANNING FACIAL GEOMETRY";
+"CAMERA READY — CAPTURE YOUR IDENTITY";
 
 }
 
 catch(e){
 
 alert(
-"Impossible d'accéder à la caméra. Vérifie les autorisations."
+"Accès caméra impossible. Autorise la caméra dans ton navigateur."
 );
 
 }
@@ -1434,14 +1741,11 @@ alert(
 }
 
 
-/* =========================================================
-CAPTURE
-========================================================= */
-
-function captureFace(){
+function capturePhoto(){
 
 let video=
-document.getElementById("video");
+document
+.getElementById("video");
 
 if(!stream){
 
@@ -1454,17 +1758,27 @@ return;
 }
 
 let canvas=
-document.createElement("canvas");
+document
+.createElement("canvas");
 
-canvas.width=video.videoWidth;
+canvas.width=
+video.videoWidth;
 
-canvas.height=video.videoHeight;
+canvas.height=
+video.videoHeight;
 
-let ctx=canvas.getContext("2d");
+let ctx=
+canvas.getContext("2d");
 
-ctx.translate(canvas.width,0);
+ctx.translate(
+canvas.width,
+0
+);
 
-ctx.scale(-1,1);
+ctx.scale(
+-1,
+1
+);
 
 ctx.drawImage(
 video,
@@ -1474,22 +1788,16 @@ canvas.width,
 canvas.height
 );
 
-currentImage=
+sourceImage=
 canvas.toDataURL(
 "image/jpeg",
-.9
+.92
 );
 
-showPreview(currentImage);
-
-analyzeFace(currentImage);
+showSource(sourceImage);
 
 }
 
-
-/* =========================================================
-PHOTO
-========================================================= */
 
 function choosePhoto(){
 
@@ -1498,6 +1806,7 @@ document
 .click();
 
 }
+
 
 function loadPhoto(event){
 
@@ -1511,11 +1820,10 @@ new FileReader();
 
 reader.onload=function(e){
 
-currentImage=e.target.result;
+sourceImage=
+e.target.result;
 
-showPreview(currentImage);
-
-analyzeFace(currentImage);
+showSource(sourceImage);
 
 };
 
@@ -1524,20 +1832,17 @@ reader.readAsDataURL(file);
 }
 
 
-/* =========================================================
-PREVIEW
-========================================================= */
-
-function showPreview(src){
+function showSource(src){
 
 stopCamera();
 
-let preview=
-document.getElementById("preview");
+let img=
+document
+.getElementById("sourceImage");
 
-preview.src=src;
+img.src=src;
 
-preview.style.display="block";
+img.style.display="block";
 
 document
 .getElementById("video")
@@ -1554,88 +1859,68 @@ document
 document
 .getElementById("scanStatus")
 .innerText=
-"ANALYZING DIGITAL DNA";
+"IDENTITY SCAN COMPLETE";
 
-}
-
-
-/* =========================================================
-FACE ANALYSIS
-========================================================= */
-
-async function analyzeFace(src){
-
-try{
-
-let MODEL_URL=
-"https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@master/weights";
-
-await faceapi.nets.tinyFaceDetector
-.loadFromUri(MODEL_URL);
-
-let img=
-await faceapi.fetchImage(src);
-
-let detection=
-await faceapi.detectSingleFace(
-img,
-new faceapi.TinyFaceDetectorOptions()
-);
-
-if(detection){
-
-document.getElementById("dnaFace")
-.innerText=
-"Geometry detected";
-
-document.getElementById("dnaQuality")
-.innerText=
-Math.round(
-detection.score*100
-)+"%";
-
-document.getElementById("scanStatus")
-.innerText=
-"SCAN COMPLETE";
-
-}
-
-else{
-
-document.getElementById("dnaFace")
-.innerText=
-"Manual construct";
-
-document.getElementById("scanStatus")
-.innerText=
-"FACE NOT DETECTED — CONTINUE";
-
-}
-
-}
-
-catch(e){
-
-document.getElementById("scanStatus")
-.innerText=
-"LOCAL CONSTRUCT READY";
-
-}
 
 document
 .getElementById("dna")
 .style.display="block";
 
 document
-.getElementById("avatarLab")
+.getElementById("studio")
 .style.display="block";
+
+document
+.getElementById("dnaFace")
+.innerText=
+"GEOMETRY READY";
+
+document
+.getElementById("dnaQuality")
+.innerText=
+"HIGH";
+
+document
+.getElementById("dnaCore")
+.innerText=
+"UNIQUE";
+
+}
+
+
+function stopCamera(){
+
+if(stream){
+
+stream
+.getTracks()
+.forEach(
+track=>track.stop()
+);
+
+stream=null;
+
+}
 
 }
 
 
 /* =========================================================
-AVATAR LAB
+STUDIO
 ========================================================= */
+
+function openStudio(){
+
+document
+.getElementById("studio")
+.style.display="block";
+
+document
+.getElementById("generation")
+.style.display="none";
+
+}
+
 
 function selectOption(button){
 
@@ -1653,74 +1938,694 @@ button.classList.add("selected");
 }
 
 
+function updateSlider(){
+
+document
+.getElementById("styleValue")
+.innerText=
+document
+.getElementById("styleIntensity")
+.value+"%";
+
+document
+.getElementById("lightValue")
+.innerText=
+document
+.getElementById("lightIntensity")
+.value+"%";
+
+}
+
+
 /* =========================================================
-GENERATE DIGITAL CONSTRUCT
+AVATAR GENERATION ENGINE
 ========================================================= */
 
-function generateConstruct(){
+function getSelectedOptions(){
 
-if(!currentImage){
+let groups=
+document
+.querySelectorAll(".option-group");
+
+return{
+
+style:
+groups[0]
+.querySelector(".selected")
+.innerText,
+
+identity:
+groups[1]
+.querySelector(".selected")
+.innerText,
+
+environment:
+groups[2]
+.querySelector(".selected")
+.innerText,
+
+styleIntensity:
+Number(
+document
+.getElementById("styleIntensity")
+.value
+),
+
+light:
+Number(
+document
+.getElementById("lightIntensity")
+.value
+)
+
+};
+
+}
+
+
+function generateAvatar(){
+
+if(!sourceImage){
 
 alert(
-"Commence par scanner ton visage ou choisir une photo."
+"Commence par utiliser la caméra ou choisir une photo."
 );
 
 return;
 
 }
 
-let style=
+let loading=
 document
-.querySelector(".option.selected")
-.innerText;
+.getElementById("generating");
+
+document
+.getElementById("generation")
+.style.display="block";
+
+loading.style.display="flex";
+
+setTimeout(
+()=>{
+
+renderAvatar();
+
+loading.style.display="none";
+
+},
+700
+);
+
+}
+
+
+function regenerateAvatar(){
+
+if(!sourceImage)return;
+
+let loading=
+document
+.getElementById("generating");
+
+loading.style.display="flex";
+
+setTimeout(
+()=>{
+
+renderAvatar();
+
+loading.style.display="none";
+
+},
+500
+);
+
+}
+
+
+function renderAvatar(){
+
+let canvas=
+document
+.getElementById("generatedCanvas");
+
+let ctx=
+canvas.getContext("2d");
+
+let img=
+new Image();
+
+img.onload=function(){
+
+let options=
+getSelectedOptions();
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+
+/* BACKGROUND */
+
+let gradient;
+
+if(options.environment==="NEON CITY"){
+
+gradient=
+ctx.createLinearGradient(
+0,
+0,
+600,
+600
+);
+
+gradient.addColorStop(
+0,
+"#071b2c"
+);
+
+gradient.addColorStop(
+.5,
+"#27104b"
+);
+
+gradient.addColorStop(
+1,
+"#020204"
+);
+
+}
+
+else if(options.environment==="SPACE"){
+
+gradient=
+ctx.createRadialGradient(
+300,
+250,
+20,
+300,
+300,
+500
+);
+
+gradient.addColorStop(
+0,
+"#18235b"
+);
+
+gradient.addColorStop(
+1,
+"#020204"
+);
+
+}
+
+else if(options.environment==="FUTURE"){
+
+gradient=
+ctx.createLinearGradient(
+0,
+0,
+600,
+600
+);
+
+gradient.addColorStop(
+0,
+"#102f35"
+);
+
+gradient.addColorStop(
+1,
+"#080511"
+);
+
+}
+
+else{
+
+gradient=
+ctx.createLinearGradient(
+0,
+0,
+0,
+600
+);
+
+gradient.addColorStop(
+0,
+"#171722"
+);
+
+gradient.addColorStop(
+1,
+"#050507"
+);
+
+}
+
+ctx.fillStyle=
+gradient;
+
+ctx.fillRect(
+0,
+0,
+600,
+600
+);
+
+
+/* IMAGE */
+
+let size=
+Math.min(
+img.width,
+img.height
+);
+
+let sx=
+(img.width-size)/2;
+
+let sy=
+(img.height-size)/2;
+
+let intensity=
+options.styleIntensity/100;
+
+let light=
+options.light/100;
+
+
+/* FILTERS */
+
+let filter=
+"brightness("+
+(0.75+light*.5)+
+") ";
+
+
+if(options.style==="ANIME"){
+
+filter+=
+"saturate("+
+(1.2+intensity*.8)+
+") contrast(1.15)";
+
+}
+
+else if(options.style==="CYBERPUNK"){
+
+filter+=
+"saturate("+
+(1.4+intensity)+
+") contrast(1.35) hue-rotate(10deg)";
+
+}
+
+else if(options.style==="SCI-FI"){
+
+filter+=
+"saturate(1.3) contrast(1.2)";
+
+}
+
+else if(options.style==="3D"){
+
+filter+=
+"saturate(1.15) contrast(1.15)";
+
+}
+
+else{
+
+filter+=
+"saturate(1) contrast(1.05)";
+
+}
+
+ctx.filter=
+filter;
+
+
+/* CIRCLE MASK */
+
+ctx.save();
+
+ctx.beginPath();
+
+ctx.arc(
+300,
+300,
+255,
+0,
+Math.PI*2
+);
+
+ctx.clip();
+
+ctx.drawImage(
+img,
+sx,
+sy,
+size,
+size,
+45,
+45,
+510,
+510
+);
+
+ctx.restore();
+
+ctx.filter="none";
+
+
+/* STYLE OVERLAY */
+
+if(options.style==="CYBERPUNK"){
+
+ctx.globalAlpha=
+.22+intensity*.25;
+
+ctx.fillStyle=
+"#00d9ff";
+
+ctx.fillRect(
+45,
+45,
+510,
+510
+);
+
+}
+
+if(options.style==="SCI-FI"){
+
+ctx.globalAlpha=
+.12+intensity*.15;
+
+ctx.fillStyle=
+"#a88cff";
+
+ctx.fillRect(
+45,
+45,
+510,
+510
+);
+
+}
+
+if(options.style==="ANIME"){
+
+ctx.globalAlpha=
+.12+intensity*.15;
+
+ctx.fillStyle=
+"#ff9eea";
+
+ctx.fillRect(
+45,
+45,
+510,
+510
+);
+
+}
+
+
+/* IDENTITY RING */
+
+ctx.globalAlpha=1;
+
+ctx.lineWidth=5;
+
+let ring=
+ctx.createLinearGradient(
+100,
+100,
+500,
+500
+);
+
+ring.addColorStop(
+0,
+"#9fe8ff"
+);
+
+ring.addColorStop(
+.5,
+"#a88cff"
+);
+
+ring.addColorStop(
+1,
+"#8fffc5"
+);
+
+ctx.strokeStyle=
+ring;
+
+ctx.beginPath();
+
+ctx.arc(
+300,
+300,
+260,
+0,
+Math.PI*2
+);
+
+ctx.stroke();
+
+
+/* DIGITAL GRID */
+
+if(options.identity==="VISIONARY" ||
+options.identity==="BUILDER"){
+
+ctx.globalAlpha=.15;
+
+ctx.strokeStyle="#fff";
+
+ctx.lineWidth=1;
+
+for(
+let i=60;
+i<600;
+i+=40
+){
+
+ctx.beginPath();
+
+ctx.moveTo(
+i,
+0
+);
+
+ctx.lineTo(
+i,
+600
+);
+
+ctx.stroke();
+
+ctx.beginPath();
+
+ctx.moveTo(
+0,
+i
+);
+
+ctx.lineTo(
+600,
+i
+);
+
+ctx.stroke();
+
+}
+
+}
+
+
+/* TITLE */
+
+ctx.globalAlpha=1;
+
+ctx.fillStyle="white";
+
+ctx.font=
+"600 18px Arial";
+
+ctx.textAlign=
+"center";
+
+ctx.fillText(
+"NEXA IDENTITY",
+300,
+570
+);
+
+
+generatedImage=
+canvas.toDataURL(
+"image/png"
+);
+
+
+document
+.getElementById("avatarName")
+.innerText=
+options.identity+
+" // "+
+options.style;
+
+document
+.getElementById("avatarDescription")
+.innerText=
+"Construct généré avec le style "+
+options.style+
+", environnement "+
+options.environment+
+" et intensité "+
+options.styleIntensity+
+"%.";
+
+};
+
+
+img.src=
+sourceImage;
+
+}
+
+
+/* =========================================================
+SAVE AVATAR
+========================================================= */
+
+function saveAvatar(){
+
+if(!generatedImage)return;
+
+let avatars=
+JSON.parse(
+localStorage.getItem("nexaAvatars")
+)||[];
+
+avatars.unshift({
+
+image:generatedImage,
+
+date:
+new Date()
+.toISOString(),
+
+style:
+getSelectedOptions().style,
+
+identity:
+getSelectedOptions().identity
+
+});
+
+avatars=
+avatars.slice(
+0,
+12
+);
+
+localStorage.setItem(
+"nexaAvatars",
+JSON.stringify(avatars)
+);
+
+
+/* MAIN AVATAR */
 
 localStorage.setItem(
 "nexaAvatar",
-currentImage
+generatedImage
 );
 
 document
 .getElementById("miniAvatar")
-.src=currentImage;
+.src=
+generatedImage;
 
 document
 .querySelector(".avatar-mini")
 .classList
 .add("has-avatar");
 
-document
-.getElementById("constructImage")
-.src=currentImage;
 
-document
-.getElementById("construct")
-.style.display="block";
+loadGallery();
 
-document
-.getElementById("scanStatus")
-.innerText=
-"IDENTITY CONSTRUCT ONLINE";
+alert(
+"Avatar enregistré dans ton Identity Archive."
+);
 
 }
 
 
 /* =========================================================
-STOP CAMERA
+GALLERY
 ========================================================= */
 
-function stopCamera(){
+function loadGallery(){
 
-if(stream){
+let avatars=
+JSON.parse(
+localStorage.getItem("nexaAvatars")
+)||[];
 
-stream
-.getTracks()
-.forEach(
-track=>track.stop()
-);
+let gallery=
+document
+.getElementById("gallery");
 
-stream=null;
+let grid=
+document
+.getElementById("galleryGrid");
+
+grid.innerHTML="";
+
+if(!avatars.length){
+
+gallery.style.display="none";
+
+return;
 
 }
+
+gallery.style.display="block";
+
+avatars.forEach(
+avatar=>{
+
+let item=
+document
+.createElement("div");
+
+item.className=
+"gallery-item";
+
+let img=
+document
+.createElement("img");
+
+img.src=
+avatar.image;
+
+item.appendChild(img);
+
+grid.appendChild(item);
+
+}
+);
 
 }
 
@@ -1760,7 +2665,40 @@ profile.domain;
 
 
 /* =========================================================
-ENTER
+LOAD SAVED AVATAR
+========================================================= */
+
+window.addEventListener(
+"load",
+function(){
+
+let saved=
+localStorage.getItem(
+"nexaAvatar"
+);
+
+if(saved){
+
+document
+.getElementById("miniAvatar")
+.src=
+saved;
+
+document
+.querySelector(".avatar-mini")
+.classList
+.add("has-avatar");
+
+}
+
+loadGallery();
+
+}
+);
+
+
+/* =========================================================
+ENTER KEY
 ========================================================= */
 
 document
@@ -1780,7 +2718,8 @@ runAgent();
 
 }
 
-});
+}
+);
 
 </script>
 
