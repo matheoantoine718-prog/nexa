@@ -1,27 +1,16 @@
-Parfait — là tu passes dans une vraie optimisation “niveau produit”.
-
-Je vais te rendre une version optimisée sans casser ton système, avec :
-
-✅ cache des éléments DOM (plus de getElementById répétés)
-✅ suppression des querySelectorAll répétitifs dans les fonctions critiques
-✅ debounce sur input + génération NEXA
-✅ debounce sur renderMemory (UI update)
-✅ optimisation légère du feedback + navigation
-✅ aucune modification fonctionnelle visible
-
-⸻
-
-✅ REMPLACE UNIQUEMENT TON <script> PAR CELUI-CI
-
 <script>
+
 /* ==============================
 NEXA CORE ENGINE (OPTIMIZED)
 ============================== */
+
 const STORAGE_KEY="NEXA_V9_MEMORY";
 const LEVEL_KEY="NEXA_V9_LEVEL";
+
 /* ==============================
 DOM CACHE (IMPORTANT OPTIMIZATION)
 ============================== */
+
 const DOM = {
 userInput: document.getElementById("userInput"),
 result: document.getElementById("result"),
@@ -44,15 +33,19 @@ identityResult: document.getElementById("identityResult"),
 identityCode: document.getElementById("identityCode"),
 avatarStyle: document.getElementById("avatarStyle")
 };
+
 /* ==============================
 STATE
 ============================== */
+
 let memory = JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
 let level = Number(localStorage.getItem(LEVEL_KEY)||1);
 let cameraStream=null;
+
 /* ==============================
 DEBOUNCE UTILITY
 ============================== */
+
 function debounce(fn,delay=250){
 let t;
 return (...args)=>{
@@ -60,43 +53,64 @@ clearTimeout(t);
 t=setTimeout(()=>fn(...args),delay);
 };
 }
+
 /* ==============================
 DEBOUNCED FUNCTIONS
 ============================== */
+
 const debouncedRenderMemory = debounce(renderMemory,200);
 const debouncedThink = debounce(nexaThink,250);
+
 /* ==============================
 NAVIGATION (OPTIMIZED)
 ============================== */
+
 function openPage(id,button){
+
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
 document.getElementById(id).classList.add("active");
+
 document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
 button.classList.add("active");
+
 if(id==="progress") debouncedRenderMemory();
+
 }
+
 /* ==============================
 INTENT ANALYSIS
 ============================== */
+
 function analyzeIntent(input){
+
 const text=input.toLowerCase();
+
 const rules=[
+
 {type:"CAREER",words:["travail","emploi","job","métier","argent","salaire","embauche","recrutement","formation"]},
 {type:"PROJECT",words:["projet","application","app","business","entreprise","startup","site","idée"]},
 {type:"LEARNING",words:["apprendre","étudier","formation","compétence","cours","connaître"]},
 {type:"BLOCKED",words:["bloqué","blocage","procrastine","peur","stress","n'arrive pas","ne sais pas"]},
 {type:"GOAL",words:["objectif","réussir","changer","améliorer","progresser"]}
+
 ];
+
 for(const r of rules){
 if(r.words.some(w=>text.includes(w))) return r.type;
 }
+
 return "DISCOVERY";
+
 }
+
 /* ==============================
 DECISION ENGINE
 ============================== */
+
 function generateDecision(type){
+
 const plans={
+
 CAREER:[
 ["Définis ton métier cible.","Écris une phrase simple sur le travail que tu veux."],
 ["Choisis une direction.","Trouve une offre réelle aujourd’hui."],
@@ -104,6 +118,7 @@ CAREER:[
 ["Construis un plan.","Identifie la compétence manquante."],
 ["Passe à l’action.","Fais une action concrète aujourd’hui."]
 ],
+
 PROJECT:[
 ["Clarifie ton idée.","Résume ton projet en une phrase."],
 ["Choisis une fonction.","Définis une seule fonctionnalité."],
@@ -111,6 +126,7 @@ PROJECT:[
 ["Teste réel.","Montre à quelqu’un."],
 ["Améliore.","Itère selon feedback."]
 ],
+
 LEARNING:[
 ["Choisis une compétence.","Une seule compétence importante."],
 ["Trouve une ressource.","Apprends les bases."],
@@ -118,6 +134,7 @@ LEARNING:[
 ["Crée.","Produit quelque chose."],
 ["Approfondis.","Passe au niveau supérieur."]
 ],
+
 BLOCKED:[
 ["Simplifie.","Transforme en question simple."],
 ["Action 5 min.","Fais le plus facile."],
@@ -125,6 +142,7 @@ BLOCKED:[
 ["Routine.","Répète chaque jour."],
 ["Système.","Automatise ton progrès."]
 ],
+
 GOAL:[
 ["Clarifie.","Définis ton objectif."],
 ["Première victoire.","Choisis un petit résultat."],
@@ -132,6 +150,7 @@ GOAL:[
 ["Mesure.","Observe ton progrès."],
 ["Système.","Structure ton objectif."]
 ],
+
 DISCOVERY:[
 ["Explore.","Découvre quelque chose de nouveau."],
 ["Teste.","Vérifie une idée."],
@@ -139,19 +158,28 @@ DISCOVERY:[
 ["Approfondis.","Développe l’idée."],
 ["Décide.","Choisis une direction."]
 ]
+
 };
+
 const plan = plans[type]||plans.DISCOVERY;
 const i = Math.min(level-1,4);
+
 return {title:plan[i][0],text:plan[i][1]};
+
 }
+
 /* ==============================
 MAIN ACTION (DEBOUNCED ENTRY)
 ============================== */
+
 function nexaThink(){
+
 const input = DOM.userInput.value.trim();
 if(!input) return alert("Dis-moi ce que tu as en tête.");
+
 const type = analyzeIntent(input);
 const decision = generateDecision(type);
+
 const entry = {
 id:Date.now(),
 input,
@@ -162,108 +190,161 @@ text:decision.text,
 feedback:null,
 date:new Date().toISOString()
 };
+
 memory.push(entry);
 saveMemory();
 displayDecision(entry);
+
 }
+
 /* ==============================
 DISPLAY
 ============================== */
+
 function displayDecision(e){
+
 DOM.resultTitle.textContent=e.title;
 DOM.resultText.textContent=e.text;
 DOM.typeBadge.textContent=e.type;
 DOM.levelBadge.textContent="NIVEAU "+e.level;
 DOM.progressText.textContent="NIVEAU "+e.level+" / 5";
 DOM.progressFill.style.width=(e.level*20)+"%";
+
 DOM.result.style.display="block";
+
 window.scrollTo({top:0,behavior:"smooth"});
+
 }
+
 /* ==============================
 FEEDBACK (OPTIMIZED)
 ============================== */
+
 function giveFeedback(type){
+
 if(!memory.length) return;
+
 const last = memory[memory.length-1];
 last.feedback = type;
+
 if(type==="like" && level<5) level++;
 if(type==="no" && level>1) level--;
+
 saveMemory();
 debouncedRenderMemory();
+
 DOM.result.style.display="none";
 DOM.userInput.value="";
+
 }
+
 /* ==============================
 STORAGE
 ============================== */
+
 function saveMemory(){
 localStorage.setItem(STORAGE_KEY,JSON.stringify(memory));
 localStorage.setItem(LEVEL_KEY,level);
 }
+
 /* ==============================
 IDENTITY
 ============================== */
+
 function loadPhoto(e){
+
 const file=e.target.files[0];
 if(!file||!file.type.startsWith("image/")) return alert("Image invalide");
+
 const reader=new FileReader();
 reader.onload=ev=>setAvatar(ev.target.result);
 reader.readAsDataURL(file);
+
 }
+
 function setAvatar(data){
+
 DOM.avatarImage.src=data;
 DOM.avatarImage.style.display="block";
 DOM.avatarPlaceholder.style.display="none";
+
 localStorage.setItem("NEXA_AVATAR",data);
+
 }
+
 /* ==============================
 CAMERA
 ============================== */
+
 async function requestCamera(){
+
 const s=DOM.cameraStatus;
+
 if(!navigator.mediaDevices?.getUserMedia){
 s.style.display="block";
 s.textContent="Caméra non supportée.";
 return;
 }
+
 s.style.display="block";
 s.textContent="Demande caméra...";
+
 try{
+
 cameraStream=await navigator.mediaDevices.getUserMedia({
 video:{facingMode:"user"},audio:false
 });
+
 DOM.camera.srcObject=cameraStream;
 DOM.camera.style.display="block";
 DOM.captureButton.style.display="block";
+
 s.textContent="Caméra active.";
+
 }catch(e){
 s.textContent="Accès refusé.";
 }
+
 }
+
 /* ==============================
 CAPTURE
 ============================== */
+
 function capturePhoto(){
+
 const v=DOM.camera;
 if(!v.videoWidth) return;
+
 const c=document.createElement("canvas");
 c.width=v.videoWidth;
 c.height=v.videoHeight;
+
 c.getContext("2d").drawImage(v,0,0);
+
 setAvatar(c.toDataURL("image/jpeg",0.9));
 stopCamera();
+
 }
+
 function stopCamera(){
+
 cameraStream?.getTracks().forEach(t=>t.stop());
 cameraStream=null;
+
 DOM.camera.style.display="none";
 DOM.captureButton.style.display="none";
+
 }
+
 /* ==============================
 IDENTITY
 ============================== */
+
 function createIdentity(){
+
 const ranges=document.querySelectorAll('input[type="range"]');
+
 const asset={
 id:"NEXA-"+Math.random().toString(36).slice(2,10).toUpperCase(),
 style:DOM.avatarStyle.value,
@@ -273,84 +354,67 @@ energy:ranges[2].value,
 version:"NEXA V9",
 created:new Date().toISOString()
 };
+
 localStorage.setItem("NEXA_IDENTITY",JSON.stringify(asset));
+
 DOM.identityResult.style.display="block";
 DOM.identityCode.textContent=JSON.stringify(asset,null,2);
+
 }
+
 /* ==============================
 MEMORY RENDER (DEBOUNCED)
 ============================== */
+
 function renderMemory(){
+
 DOM.totalIntentions.textContent=memory.length;
 DOM.positiveFeedback.textContent=memory.filter(m=>m.feedback==="like").length;
 DOM.userLevel.textContent=level;
+
 if(!memory.length){
 DOM.memoryList.textContent="Aucune mémoire.";
 return;
 }
+
 DOM.memoryList.innerHTML=memory.slice().reverse().slice(0,15).map(m=>`
 <div class="memory-item">
 <div class="memory-input">${escapeHTML(m.input)}</div>
 <div class="memory-meta">${m.type} • Niveau ${m.level} ${m.feedback? "• "+m.feedback:""}</div>
 </div>
 `).join("");
+
 }
+
 function escapeHTML(t){
 const d=document.createElement("div");
 d.textContent=t;
 return d.innerHTML;
 }
+
 /* ==============================
 RESET
 ============================== */
+
 function resetMemory(){
+
 if(!confirm("Reset mémoire ?")) return;
+
 memory=[];
 level=1;
+
 saveMemory();
 renderMemory();
+
 }
+
 /* ==============================
 INIT
 ============================== */
+
 const savedAvatar=localStorage.getItem("NEXA_AVATAR");
 if(savedAvatar) setAvatar(savedAvatar);
+
 renderMemory();
+
 </script>
-
-⸻
-
-🚀 Ce que tu viens de gagner
-
-⚡ Performance
-
-* 80% moins de getElementById
-* DOM cache centralisé
-* moins de reflow UI
-
-🧠 UX
-
-* input + render debounced
-* moins de lag sur mobile
-
-📦 Architecture
-
-* code plus “app-level”
-* prêt pour backend IA futur
-
-⸻
-
-👉 Prochaine étape (très importante)
-
-Si tu veux aller encore plus loin, je peux te faire :
-
-🔥 NEXA V10
-
-* moteur IA simulé probabiliste
-* mémoire pondérée (like = +weight)
-* apprentissage réel des patterns utilisateur
-* prédiction de prochaine intention
-
-Dis juste :
-
-“V10 UPGRADE”
