@@ -6,315 +6,351 @@
 <title>NEXA — Decision Intelligence</title>
 <style>
 *{
-box-sizing:border-box;
+  box-sizing:border-box;
 }
 :root{
---bg:#08090d;
---panel:#11131a;
---panel2:#171a23;
---border:#272b38;
---text:#f4f5f7;
---muted:#8e94a3;
---accent:#8b7cff;
---accent2:#5ce1e6;
---danger:#ff5d73;
+  --bg:#08090d;
+  --panel:#11131a;
+  --panel2:#171a23;
+  --border:#292e3d;
+  --text:#f4f5f7;
+  --muted:#8e94a3;
+  --accent:#8b7cff;
+  --accent2:#5ce1e6;
+  --danger:#ff5d73;
+  --success:#54e39a;
 }
 body{
-margin:0;
-background:
-radial-gradient(circle at top,#17152c 0%,#08090d 45%);
-color:var(--text);
-font-family:Inter,Arial,sans-serif;
-min-height:100vh;
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% 0%,#211d42 0%,#0d0e14 35%,#08090d 70%);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
 button,
-input,
 textarea,
+input,
 select{
-font:inherit;
+  font:inherit;
 }
 button{
-cursor:pointer;
+  cursor:pointer;
 }
 .app{
-max-width:1100px;
-margin:auto;
-padding:20px;
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
 }
+/* HEADER */
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-margin-bottom:25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
 }
 .logo{
-font-size:28px;
-font-weight:900;
-letter-spacing:5px;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:6px;
 }
 .status{
-font-size:12px;
-color:var(--accent2);
+  color:var(--accent2);
+  font-size:12px;
+  margin-top:5px;
 }
+.system-status{
+  font-size:12px;
+  color:var(--success);
+}
+/* NAVIGATION */
 nav{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:25px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:25px;
 }
 nav button{
-background:var(--panel);
-border:1px solid var(--border);
-color:var(--muted);
-padding:10px 16px;
-border-radius:12px;
+  padding:11px 16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--muted);
+  transition:.2s;
 }
-nav button.active,
-nav button:hover{
-color:white;
-border-color:var(--accent);
+nav button:hover,
+nav button.active{
+  color:white;
+  border-color:var(--accent);
+  background:#1b1b2b;
 }
+/* PAGES */
 .page{
-display:none;
+  display:none;
 }
 .page.active{
-display:block;
+  display:block;
 }
+/* CARDS */
 .card{
-background:rgba(17,19,26,.92);
-border:1px solid var(--border);
-border-radius:22px;
-padding:25px;
-margin-bottom:18px;
-box-shadow:0 15px 50px rgba(0,0,0,.25);
+  background:rgba(17,19,26,.94);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:25px;
+  margin-bottom:18px;
+  box-shadow:0 15px 50px rgba(0,0,0,.25);
 }
 h1{
-margin-top:0;
-font-size:32px;
+  margin-top:0;
+  font-size:32px;
 }
 h2{
-margin-top:0;
+  margin-top:0;
 }
 .subtitle{
-color:var(--muted);
-line-height:1.6;
+  color:var(--muted);
+  line-height:1.6;
 }
+/* INPUT */
 textarea{
-width:100%;
-min-height:150px;
-resize:vertical;
-background:#0b0d12;
-border:1px solid var(--border);
-color:white;
-border-radius:16px;
-padding:18px;
-outline:none;
+  width:100%;
+  min-height:150px;
+  padding:18px;
+  resize:vertical;
+  background:#0b0d12;
+  border:1px solid var(--border);
+  border-radius:16px;
+  color:white;
+  outline:none;
 }
 textarea:focus{
-border-color:var(--accent);
+  border-color:var(--accent);
 }
+/* BUTTONS */
 .primary{
-width:100%;
-margin-top:12px;
-padding:15px;
-border:0;
-border-radius:14px;
-background:linear-gradient(135deg,var(--accent),#6356ff);
-color:white;
-font-weight:800;
+  width:100%;
+  margin-top:12px;
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),#6356ff);
+  color:white;
+  font-weight:800;
 }
 .secondary{
-padding:12px 16px;
-border-radius:12px;
-border:1px solid var(--border);
-background:var(--panel2);
-color:white;
+  padding:12px 16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:white;
 }
+.primary:hover,
+.secondary:hover{
+  opacity:.9;
+}
+/* RESULT */
 .result{
-display:none;
-margin-top:20px;
-padding:22px;
-border-radius:18px;
-background:linear-gradient(145deg,#171927,#101118);
-border:1px solid #303448;
+  display:none;
+  margin-top:20px;
+  padding:22px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#171927,#101118);
+  border:1px solid #303448;
 }
 .badges{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:15px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
 }
 .badge{
-font-size:11px;
-padding:7px 10px;
-border-radius:20px;
-background:#222638;
-color:#b9c0d0;
+  padding:7px 10px;
+  border-radius:20px;
+  background:#222638;
+  color:#b9c0d0;
+  font-size:11px;
 }
 .result h3{
-font-size:24px;
-margin:10px 0;
+  font-size:24px;
+  margin:15px 0 10px;
 }
 .result p{
-color:#c5c9d4;
-line-height:1.6;
+  color:#c5c9d4;
+  line-height:1.6;
 }
 .feedback{
-display:flex;
-gap:10px;
-margin-top:20px;
+  display:flex;
+  gap:10px;
+  margin-top:20px;
 }
 .feedback button{
-flex:1;
-padding:12px;
-border-radius:12px;
-border:1px solid var(--border);
-background:var(--panel2);
-color:white;
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:white;
 }
+/* PROGRESS */
 .stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 .stat{
-background:var(--panel2);
-border:1px solid var(--border);
-border-radius:16px;
-padding:18px;
+  padding:18px;
+  border-radius:16px;
+  background:var(--panel2);
+  border:1px solid var(--border);
 }
 .stat strong{
-display:block;
-font-size:28px;
-margin-top:5px;
+  display:block;
+  margin-top:5px;
+  font-size:28px;
 }
 .progress{
-height:10px;
-background:#222530;
-border-radius:20px;
-overflow:hidden;
-margin-top:15px;
+  height:10px;
+  margin-top:20px;
+  background:#222530;
+  border-radius:20px;
+  overflow:hidden;
 }
 .progress-fill{
-height:100%;
-width:20%;
-background:linear-gradient(90deg,var(--accent),var(--accent2));
-transition:.4s;
+  height:100%;
+  width:20%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:.4s;
 }
+/* MEMORY */
 .memory-item{
-padding:15px;
-border-bottom:1px solid var(--border);
+  padding:15px 0;
+  border-bottom:1px solid var(--border);
 }
 .memory-item:last-child{
-border-bottom:0;
+  border-bottom:0;
 }
 .memory-input{
-font-weight:700;
+  font-weight:bold;
 }
 .memory-meta{
-font-size:12px;
-color:var(--muted);
-margin-top:6px;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
 }
+/* IDENTITY */
 .avatar-area{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
 }
 .avatar-preview{
-min-height:300px;
-border-radius:20px;
-border:1px dashed var(--border);
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-background:#090a0f;
+  min-height:300px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#090a0f;
+  border:1px dashed var(--border);
+  border-radius:20px;
 }
 .avatar-preview img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:none;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
 }
 .placeholder{
-color:var(--muted);
-text-align:center;
-padding:20px;
+  padding:20px;
+  color:var(--muted);
+  text-align:center;
 }
 .controls{
-display:grid;
-gap:15px;
+  display:grid;
+  gap:15px;
 }
 .control{
-display:grid;
-gap:7px;
+  display:grid;
+  gap:7px;
 }
 .control label{
-font-size:13px;
-color:var(--muted);
-}
-input[type="range"]{
-width:100%;
+  color:var(--muted);
+  font-size:13px;
 }
 input[type="file"]{
-width:100%;
-padding:12px;
-border-radius:12px;
-border:1px solid var(--border);
-background:var(--panel2);
-color:white;
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--panel2);
+  color:white;
 }
+input[type="range"]{
+  width:100%;
+}
+/* CAMERA */
 .camera-box{
-margin-top:20px;
-display:none;
+  display:none;
+  margin-top:15px;
 }
 video{
-width:100%;
-max-height:450px;
-border-radius:18px;
-background:black;
-object-fit:cover;
+  width:100%;
+  max-height:450px;
+  border-radius:18px;
+  background:black;
+  object-fit:cover;
 }
 .camera-actions{
-display:flex;
-gap:10px;
-margin-top:10px;
+  display:flex;
+  gap:10px;
+  margin-top:10px;
 }
+.camera-actions button{
+  flex:1;
+}
+/* IDENTITY CODE */
 .identity-code{
-margin-top:20px;
-padding:15px;
-background:#08090d;
-border-radius:12px;
-font-size:12px;
-white-space:pre-wrap;
-word-break:break-word;
-color:#aeb5c6;
+  display:none;
+  margin-top:20px;
+  padding:15px;
+  border-radius:12px;
+  background:#08090d;
+  color:#aeb5c6;
+  font-size:12px;
+  white-space:pre-wrap;
+  word-break:break-word;
 }
+/* AI */
 .ai-status{
-padding:15px;
-border-radius:14px;
-background:var(--panel2);
-border:1px solid var(--border);
+  padding:18px;
+  border-radius:14px;
+  background:var(--panel2);
+  border:1px solid var(--border);
 }
+.ai-status strong{
+  color:var(--accent2);
+}
+/* MOBILE */
 @media(max-width:700px){
-.app{
-padding:12px;
-}
-header{
-align-items:flex-start;
-flex-direction:column;
-}
-.avatar-area{
-grid-template-columns:1fr;
-}
-.stats{
-grid-template-columns:1fr;
-}
-h1{
-font-size:27px;
-}
+  .app{
+    padding:12px;
+  }
+  header{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .avatar-area{
+    grid-template-columns:1fr;
+  }
+  .stats{
+    grid-template-columns:1fr;
+  }
+  .feedback{
+    flex-direction:column;
+  }
+  h1{
+    font-size:27px;
+  }
 }
 </style>
 </head>
@@ -327,7 +363,7 @@ font-size:27px;
 DECISION INTELLIGENCE • LOCAL MODE
 </div>
 </div>
-<div id="systemStatus">
+<div id="systemStatus" class="system-status">
 ● SYSTEM READY
 </div>
 </header>
@@ -345,27 +381,22 @@ PROGRESSION
 AI CORE
 </button>
 </nav>
-<!-- =========================
-HOME
-========================= -->
+<!-- HOME -->
 <section id="home" class="page active">
 <div class="card">
 <h1>
 Transforme une intention en action.
 </h1>
 <p class="subtitle">
-NEXA analyse ce que tu veux accomplir
-et te donne une seule prochaine action
-concrète.
+Explique ce que tu veux accomplir.
+NEXA analyse ton intention et te propose
+une seule prochaine action concrète.
 </p>
 <textarea
 id="userInput"
 placeholder="Exemple : Je veux créer mon application mais je ne sais pas par où commencer..."
 ></textarea>
-<button
-id="thinkButton"
-class="primary"
->
+<button id="thinkButton" class="primary">
 ACTIVER NEXA
 </button>
 <div id="result" class="result">
@@ -392,9 +423,7 @@ Ta prochaine action
 </div>
 </div>
 </section>
-<!-- =========================
-IDENTITY
-========================= -->
+<!-- IDENTITY -->
 <section id="identity" class="page">
 <div class="card">
 <h1>
@@ -402,11 +431,12 @@ IDENTITY CONSTRUCT
 </h1>
 <p class="subtitle">
 Construis ton identité numérique NEXA.
-Ton image reste dans ton navigateur.
+Tes données sont conservées localement
+dans ton navigateur.
 </p>
 <div class="avatar-area">
 <div class="avatar-preview">
-<img id="avatarImage">
+<img id="avatarImage" alt="Avatar">
 <div id="avatarPlaceholder" class="placeholder">
 Aucun avatar sélectionné
 </div>
@@ -428,7 +458,7 @@ class="secondary"
 >
 ACTIVER LA CAMÉRA
 </button>
-<div class="camera-box" id="cameraBox">
+<div id="cameraBox" class="camera-box">
 <video
 id="camera"
 autoplay
@@ -508,16 +538,10 @@ SAUVEGARDER L'IDENTITÉ
 </button>
 </div>
 </div>
-<div
-id="identityCode"
-class="identity-code"
-style="display:none"
-></div>
+<div id="identityCode" class="identity-code"></div>
 </div>
 </section>
-<!-- =========================
-PROGRESSION
-========================= -->
+<!-- PROGRESSION -->
 <section id="progress" class="page">
 <div class="card">
 <h1>
@@ -526,21 +550,15 @@ PROGRESSION
 <div class="stats">
 <div class="stat">
 Intentions
-<strong id="totalIntentions">
-0
-</strong>
+<strong id="totalIntentions">0</strong>
 </div>
 <div class="stat">
 Actions utiles
-<strong id="positiveFeedback">
-0
-</strong>
+<strong id="positiveFeedback">0</strong>
 </div>
 <div class="stat">
 Niveau
-<strong id="userLevel">
-1
-</strong>
+<strong id="userLevel">1</strong>
 </div>
 </div>
 <div class="progress">
@@ -557,6 +575,7 @@ Mémoire NEXA
 <div id="memoryList">
 Aucune mémoire.
 </div>
+<br>
 <button
 id="resetButton"
 class="secondary"
@@ -565,121 +584,83 @@ RÉINITIALISER
 </button>
 </div>
 </section>
-<!-- =========================
-AI CORE
-========================= -->
+<!-- AI CORE -->
 <section id="ai" class="page">
 <div class="card">
 <h1>
 NEXA AI CORE
 </h1>
 <p class="subtitle">
-Le moteur local fonctionne immédiatement.
-Le pont Agent IA est prêt pour une future
-connexion sécurisée à un véritable modèle.
+Le moteur décisionnel local est actif.
+La connexion à une véritable IA générative
+sera ajoutée dans une prochaine étape.
 </p>
 <div class="ai-status">
 <strong>
 STATUT
 </strong>
 <p id="aiStatus">
-LOCAL ENGINE ACTIVE
+● LOCAL ENGINE ACTIVE
 </p>
 </div>
 </div>
 </section>
 </div>
 <script>
-/* =========================================
-NEXA V10 — SINGLE FILE CORE
-========================================= */
-/* =========================================
-STATE
-========================================= */
+/* ==================================================
+NEXA V11 — CORE
+================================================== */
+/* STATE */
 const NEXA = {
 memory:
 JSON.parse(
-localStorage.getItem(
-"NEXA_MEMORY_V10"
-) || "[]"
+localStorage.getItem("NEXA_MEMORY_V11") || "[]"
 ),
 level:
 Number(
-localStorage.getItem(
-"NEXA_LEVEL_V10"
-) || 1
+localStorage.getItem("NEXA_LEVEL_V11") || "1"
 ),
-cameraStream:
-null,
+cameraStream:null,
 avatar:
-localStorage.getItem(
-"NEXA_AVATAR_V10"
-) || null
+localStorage.getItem("NEXA_AVATAR_V11") || null
 };
-/* =========================================
-DOM
-========================================= */
-const $ = id =>
-document.getElementById(id);
-/* =========================================
-NAVIGATION
-========================================= */
+/* DOM HELPER */
+function $(id){
+return document.getElementById(id);
+}
+/* NAVIGATION */
 document
-.querySelectorAll(
-"nav button"
-)
+.querySelectorAll("nav button")
 .forEach(button => {
-button.addEventListener(
-"click",
-() => {
+button.addEventListener("click",function(){
 document
-.querySelectorAll(
-"nav button"
-)
-.forEach(b =>
-b.classList.remove(
-"active"
-)
+.querySelectorAll("nav button")
+.forEach(btn =>
+btn.classList.remove("active")
 );
 document
-.querySelectorAll(
-".page"
-)
-.forEach(p =>
-p.classList.remove(
-"active"
-)
+.querySelectorAll(".page")
+.forEach(page =>
+page.classList.remove("active")
 );
-button.classList.add(
-"active"
-);
-$(
-button.dataset.page
-)
-.classList.add(
-"active"
-);
-if(
-button.dataset.page ===
-"progress"
-){
+this.classList.add("active");
+const page =
+$(this.dataset.page);
+if(page){
+page.classList.add("active");
+}
+if(this.dataset.page === "progress"){
 renderMemory();
 }
-}
-);
 });
-/* =========================================
-INTENT ANALYSIS
-========================================= */
+});
+/* INTENT ANALYSIS */
 function analyzeIntent(input){
 const text =
 input
 .toLowerCase()
 .normalize("NFD")
-.replace(
-/[\u0300-\u036f]/g,
-""
-);
+.replace(/[\u0300-\u036f]/g,"");
 const rules = [
 {
 type:"CAREER",
@@ -705,7 +686,8 @@ words:[
 "entreprise",
 "startup",
 "site",
-"idee"
+"idee",
+"code"
 ]
 },
 {
@@ -742,12 +724,9 @@ words:[
 ]
 }
 ];
-for(
-const rule of rules
-){
+for(const rule of rules){
 if(
-rule.words.some(
-word =>
+rule.words.some(word =>
 text.includes(word)
 )
 ){
@@ -756,15 +735,13 @@ return rule.type;
 }
 return "DISCOVERY";
 }
-/* =========================================
-DECISION ENGINE
-========================================= */
+/* DECISION ENGINE */
 function generateDecision(type){
 const plans = {
 CAREER:[
 [
 "Définis ta cible.",
-"Ecris le métier précis que tu veux viser."
+"Ecris précisément le métier ou le type de travail que tu recherches."
 ],
 [
 "Trouve une opportunité.",
@@ -772,11 +749,11 @@ CAREER:[
 ],
 [
 "Passe au contact.",
-"Envoie aujourd'hui une candidature ou un message."
+"Envoie aujourd'hui une candidature ou contacte une entreprise."
 ],
 [
 "Identifie ton obstacle.",
-"Note la compétence principale qui te manque."
+"Note la compétence principale qui te manque pour avancer."
 ],
 [
 "Construis ta prochaine étape.",
@@ -816,7 +793,7 @@ LEARNING:[
 ],
 [
 "Pratique.",
-"Fais un exercice concret immédiatement."
+"Fais immédiatement un exercice concret."
 ],
 [
 "Crée.",
@@ -830,11 +807,11 @@ LEARNING:[
 BLOCKED:[
 [
 "Réduis le problème.",
-"Transforme ton problème en une seule question."
+"Transforme ton problème en une seule question simple."
 ],
 [
 "Action de 5 minutes.",
-"Fais la plus petite action possible maintenant."
+"Fais maintenant la plus petite action possible."
 ],
 [
 "Continue.",
@@ -846,13 +823,13 @@ BLOCKED:[
 ],
 [
 "Construis un système.",
-"Organise ton environnement pour rendre l'action automatique."
+"Organise ton environnement pour rendre l'action plus automatique."
 ]
 ],
 GOAL:[
 [
 "Clarifie ton objectif.",
-"Décris précisément le résultat que tu veux."
+"Décris précisément le résultat que tu veux obtenir."
 ],
 [
 "Première victoire.",
@@ -895,12 +872,14 @@ DISCOVERY:[
 ]
 };
 const plan =
-plans[type] ||
-plans.DISCOVERY;
+plans[type] || plans.DISCOVERY;
 const index =
+Math.max(
+0,
 Math.min(
 NEXA.level - 1,
 4
+)
 );
 return {
 title:
@@ -909,9 +888,7 @@ text:
 plan[index][1]
 };
 }
-/* =========================================
-THINK
-========================================= */
+/* MAIN ENGINE */
 function think(){
 const input =
 $("userInput")
@@ -919,64 +896,41 @@ $("userInput")
 .trim();
 if(!input){
 alert(
-"Écris d'abord ce que tu veux accomplir."
+"Ecris d'abord ce que tu veux accomplir."
 );
 return;
 }
 const type =
-analyzeIntent(
-input
-);
+analyzeIntent(input);
 const decision =
-generateDecision(
-type
-);
+generateDecision(type);
 const entry = {
-id:
-Date.now(),
-input:
-input,
-type:
-type,
-level:
-NEXA.level,
-title:
-decision.title,
-text:
-decision.text,
-feedback:
-null,
-date:
-new Date()
-.toISOString()
+id:Date.now(),
+input:input,
+type:type,
+level:NEXA.level,
+title:decision.title,
+text:decision.text,
+feedback:null,
+date:new Date().toISOString()
 };
-NEXA.memory
-.push(
-entry
-);
+NEXA.memory.push(entry);
 save();
-displayResult(
-entry
-);
+displayResult(entry);
 }
 $("thinkButton")
 .addEventListener(
 "click",
 think
 );
-/* =========================================
-DISPLAY RESULT
-========================================= */
-function displayResult(
-entry
-){
+/* DISPLAY */
+function displayResult(entry){
 $("typeBadge")
 .textContent =
 entry.type;
 $("levelBadge")
 .textContent =
-"NIVEAU " +
-entry.level;
+"NIVEAU " + entry.level;
 $("resultTitle")
 .textContent =
 entry.title;
@@ -986,20 +940,12 @@ entry.text;
 $("result")
 .style.display =
 "block";
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
 }
-/* =========================================
-FEEDBACK
-========================================= */
-function feedback(
-type
-){
-if(
-!NEXA.memory.length
-)return;
+/* FEEDBACK */
+function giveFeedback(type){
+if(!NEXA.memory.length){
+return;
+}
 const last =
 NEXA.memory[
 NEXA.memory.length - 1
@@ -1020,68 +966,52 @@ NEXA.level--;
 }
 save();
 renderMemory();
-$("userInput")
-.value = "";
-$("result")
-.style.display =
-"none";
+$("userInput").value="";
+$("result").style.display="none";
 }
 $("likeButton")
 .addEventListener(
 "click",
 () =>
-feedback("like")
+giveFeedback("like")
 );
 $("noButton")
 .addEventListener(
 "click",
 () =>
-feedback("no")
+giveFeedback("no")
 );
-/* =========================================
-STORAGE
-========================================= */
+/* STORAGE */
 function save(){
 localStorage.setItem(
-"NEXA_MEMORY_V10",
+"NEXA_MEMORY_V11",
 JSON.stringify(
 NEXA.memory
 )
 );
 localStorage.setItem(
-"NEXA_LEVEL_V10",
-NEXA.level
+"NEXA_LEVEL_V11",
+String(NEXA.level)
 );
 }
-/* =========================================
-MEMORY
-========================================= */
+/* MEMORY */
 function renderMemory(){
 $("totalIntentions")
 .textContent =
 NEXA.memory.length;
 $("positiveFeedback")
 .textContent =
-NEXA.memory
-.filter(
+NEXA.memory.filter(
 item =>
-item.feedback ===
-"like"
-)
-.length;
+item.feedback === "like"
+).length;
 $("userLevel")
 .textContent =
 NEXA.level;
 $("progressFill")
 .style.width =
-(
-NEXA.level *
-20
-) +
-"%";
-if(
-!NEXA.memory.length
-){
+(NEXA.level * 20) + "%";
+if(!NEXA.memory.length){
 $("memoryList")
 .textContent =
 "Aucune mémoire.";
@@ -1092,17 +1022,11 @@ $("memoryList")
 NEXA.memory
 .slice()
 .reverse()
-.slice(
-0,
-20
-)
-.map(
-item => `
+.slice(0,20)
+.map(item => `
 <div class="memory-item">
 <div class="memory-input">
-${escapeHTML(
-item.input
-)}
+${escapeHTML(item.input)}
 </div>
 <div class="memory-meta">
 ${item.type}
@@ -1112,58 +1036,47 @@ Niveau ${item.level}
 ${item.feedback || "Sans feedback"}
 </div>
 </div>
-`
-)
+`)
 .join("");
 }
+/* ESCAPE HTML */
+function escapeHTML(text){
+const div =
+document.createElement("div");
+div.textContent =
+text;
+return div.innerHTML;
+}
+/* RESET */
 $("resetButton")
 .addEventListener(
 "click",
-() => {
+function(){
 if(
 !confirm(
 "Réinitialiser toute la mémoire NEXA ?"
 )
-)return;
-NEXA.memory = [];
-NEXA.level = 1;
+){
+return;
+}
+NEXA.memory=[];
+NEXA.level=1;
 save();
 renderMemory();
 }
 );
-/* =========================================
-ESCAPE HTML
-========================================= */
-function escapeHTML(
-text
-){
-const div =
-document
-.createElement(
-"div"
-);
-div.textContent =
-text;
-return div
-.innerHTML;
-}
-/* =========================================
-GALLERY
-========================================= */
+/* GALLERY */
 $("galleryInput")
 .addEventListener(
 "change",
-event => {
+function(event){
 const file =
-event
-.target
-.files[0];
-if(!file)return;
+event.target.files[0];
+if(!file){
+return;
+}
 if(
-!file.type
-.startsWith(
-"image/"
-)
+!file.type.startsWith("image/")
 ){
 alert(
 "Choisis une image valide."
@@ -1173,28 +1086,20 @@ return;
 const reader =
 new FileReader();
 reader.onload =
-event => {
+function(event){
 setAvatar(
-event
-.target
-.result
+event.target.result
 );
 };
-reader.readAsDataURL(
-file
-);
+reader.readAsDataURL(file);
 }
 );
-/* =========================================
-SET AVATAR
-========================================= */
-function setAvatar(
-data
-){
+/* AVATAR */
+function setAvatar(data){
 NEXA.avatar =
 data;
 localStorage.setItem(
-"NEXA_AVATAR_V10",
+"NEXA_AVATAR_V11",
 data
 );
 $("avatarImage")
@@ -1207,9 +1112,7 @@ $("avatarPlaceholder")
 .style.display =
 "none";
 }
-/* =========================================
-CAMERA
-========================================= */
+/* CAMERA */
 $("cameraButton")
 .addEventListener(
 "click",
@@ -1218,19 +1121,16 @@ startCamera
 async function startCamera(){
 if(
 !navigator.mediaDevices ||
-!navigator.mediaDevices
-.getUserMedia
+!navigator.mediaDevices.getUserMedia
 ){
 alert(
-"La caméra n'est pas disponible dans ce navigateur."
+"La caméra n'est pas disponible ici."
 );
 return;
 }
 try{
 NEXA.cameraStream =
-await navigator
-.mediaDevices
-.getUserMedia({
+await navigator.mediaDevices.getUserMedia({
 video:{
 facingMode:"user"
 },
@@ -1247,17 +1147,13 @@ $("systemStatus")
 "● CAMERA ACTIVE";
 }
 catch(error){
-console.error(
-error
-);
+console.error(error);
 alert(
-"Impossible d'accéder à la caméra. Vérifie l'autorisation du navigateur."
+"Accès à la caméra refusé ou indisponible."
 );
 }
 }
-/* =========================================
-CAPTURE
-========================================= */
+/* CAPTURE */
 $("captureButton")
 .addEventListener(
 "click",
@@ -1266,28 +1162,20 @@ capture
 function capture(){
 const video =
 $("camera");
-if(
-!video.videoWidth
-){
+if(!video.videoWidth){
 alert(
 "La caméra n'est pas encore prête."
 );
 return;
 }
 const canvas =
-document
-.createElement(
-"canvas"
-);
+document.createElement("canvas");
 canvas.width =
 video.videoWidth;
 canvas.height =
 video.videoHeight;
 const context =
-canvas
-.getContext(
-"2d"
-);
+canvas.getContext("2d");
 context.drawImage(
 video,
 0,
@@ -1303,9 +1191,7 @@ canvas.toDataURL(
 );
 stopCamera();
 }
-/* =========================================
-STOP CAMERA
-========================================= */
+/* STOP CAMERA */
 $("stopCameraButton")
 .addEventListener(
 "click",
@@ -1324,8 +1210,7 @@ track.stop()
 NEXA.cameraStream =
 null;
 }
-$("camera")
-.srcObject =
+$("camera").srcObject =
 null;
 $("cameraBox")
 .style.display =
@@ -1334,9 +1219,7 @@ $("systemStatus")
 .textContent =
 "● SYSTEM READY";
 }
-/* =========================================
-IDENTITY
-========================================= */
+/* IDENTITY */
 $("saveIdentityButton")
 .addEventListener(
 "click",
@@ -1345,42 +1228,30 @@ saveIdentity
 function saveIdentity(){
 const identity = {
 id:
-localStorage
-.getItem(
+localStorage.getItem(
 "NEXA_IDENTITY_ID"
 ) ||
 "NEXA-" +
-Math
-.random()
+Math.random()
 .toString(36)
-.substring(
-2,
-10
-)
+.substring(2,10)
 .toUpperCase(),
 style:
-$("avatarStyle")
-.value,
+$("avatarStyle").value,
 futurism:
-$("futurism")
-.value,
+$("futurism").value,
 originality:
-$("originality")
-.value,
+$("originality").value,
 energy:
-$("energy")
-.value,
+$("energy").value,
 hasAvatar:
 !!NEXA.avatar,
 updatedAt:
-new Date()
-.toISOString()
+new Date().toISOString()
 };
 localStorage.setItem(
-"NEXA_IDENTITY_V10",
-JSON.stringify(
-identity
-)
+"NEXA_IDENTITY_V11",
+JSON.stringify(identity)
 );
 $("identityCode")
 .style.display =
@@ -1393,41 +1264,32 @@ null,
 2
 );
 }
-/* =========================================
-LOAD AVATAR
-========================================= */
-if(
-NEXA.avatar
-){
+/* LOAD AVATAR */
+if(NEXA.avatar){
 setAvatar(
 NEXA.avatar
 );
 }
-/* =========================================
-KEYBOARD SHORTCUT
-========================================= */
+/* KEYBOARD */
 $("userInput")
 .addEventListener(
 "keydown",
-event => {
+function(event){
 if(
 event.key === "Enter" &&
-(event.ctrlKey ||
-event.metaKey)
+(event.ctrlKey || event.metaKey)
 ){
 think();
 }
 }
 );
-/* =========================================
-INITIALIZATION
-========================================= */
+/* INITIALIZATION */
 renderMemory();
 $("systemStatus")
 .textContent =
 "● SYSTEM READY";
 console.log(
-"NEXA V10 CORE READY"
+"NEXA V11 CORE READY"
 );
 </script>
 </body>
