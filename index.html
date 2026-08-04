@@ -1,123 +1,171 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 >
 
-<meta
-    name="theme-color"
-    content="#050507"
->
+<meta name="theme-color" content="#050507">
 
-<title>NEXA — Your Next Possibility</title>
+<title>NEXA CORE</title>
 
 <style>
 
 /* =========================================================
-   NEXA V4 — UI EVOLUTION
-   Design System
+   NEXA V5 — CORE INTERFACE
 ========================================================= */
 
 :root {
 
-    --bg: #050507;
-    --surface: #101014;
-    --surface-2: #0c0c0f;
+--bg:#030305;
+--panel:rgba(15,15,22,.78);
+--panel2:rgba(10,10,15,.9);
 
-    --border: #24242b;
-    --border-soft: #29292f;
+--line:rgba(255,255,255,.12);
 
-    --text: #ffffff;
-    --text-soft: #aaa;
-    --text-muted: #777;
-    --text-dim: #555;
+--text:#ffffff;
+--muted:#777;
 
-    --black: #000;
-    --white: #fff;
+--cyan:#9fe8ff;
+--violet:#b69cff;
 
-    --success: #d9ffd9;
-    --warning: #fff3c4;
-    --danger: #ffd6d6;
+--radius:24px;
 
-    --s-1: 10px;
-    --s-2: 14px;
-    --s-3: 18px;
-    --s-4: 22px;
-    --s-5: 25px;
-    --s-6: 35px;
-    --s-7: 40px;
-    --s-8: 45px;
+}
 
-    --r-sm: 14px;
-    --r-lg: 22px;
-    --r-full: 50%;
+* {
 
-    --shadow:
-        0 0 30px rgba(255,255,255,0.15),
-        0 0 100px rgba(255,255,255,0.05);
+box-sizing:border-box;
 
-    --font:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "SF Pro Text",
-        sans-serif;
+margin:0;
 
-    --transition:
-        220ms cubic-bezier(.2,.8,.2,1);
+padding:0;
+
+-webkit-tap-highlight-color:transparent;
+
+}
+
+html {
+
+background:var(--bg);
+
+min-height:100%;
+
+}
+
+body {
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"SF Pro Display",
+sans-serif;
+
+background:
+
+radial-gradient(
+circle at 50% 20%,
+rgba(100,120,255,.09),
+transparent 35%
+),
+
+radial-gradient(
+circle at 20% 80%,
+rgba(0,200,255,.05),
+transparent 35%
+),
+
+var(--bg);
+
+color:var(--text);
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+}
+
+button,
+textarea,
+input {
+
+font-family:inherit;
 
 }
 
 
 /* =========================================================
-   RESET
+   BACKGROUND
 ========================================================= */
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-}
+.background {
 
+position:fixed;
 
-html {
-    min-height: 100%;
-    background: var(--bg);
-}
+inset:0;
 
+pointer-events:none;
 
-body {
+overflow:hidden;
 
-    font-family: var(--font);
-
-    background:
-        radial-gradient(
-            circle at 50% 20%,
-            rgba(255,255,255,.035),
-            transparent 35%
-        ),
-        var(--bg);
-
-    color: var(--text);
-
-    min-height: 100vh;
-
-    overflow-x: hidden;
-
-    -webkit-font-smoothing: antialiased;
+z-index:0;
 
 }
 
+.grid {
 
-button,
-textarea {
+position:absolute;
 
-    font-family: inherit;
+inset:-50%;
+
+background-image:
+
+linear-gradient(
+rgba(255,255,255,.025) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(255,255,255,.025) 1px,
+transparent 1px
+);
+
+background-size:40px 40px;
+
+transform:
+perspective(500px)
+rotateX(55deg);
+
+animation:
+gridMove 20s linear infinite;
+
+}
+
+@keyframes gridMove {
+
+from {
+
+transform:
+perspective(500px)
+rotateX(55deg)
+translateY(0);
+
+}
+
+to {
+
+transform:
+perspective(500px)
+rotateX(55deg)
+translateY(40px);
+
+}
 
 }
 
@@ -126,24 +174,29 @@ textarea {
    APP
 ========================================================= */
 
-.container {
+.app {
 
-    width: 100%;
+position:relative;
 
-    max-width: 600px;
+z-index:2;
 
-    margin: auto;
+width:100%;
 
-    min-height: 100vh;
+max-width:620px;
 
-    padding:
-        var(--s-5)
-        var(--s-3)
-        40px;
+margin:auto;
 
-    display: flex;
+min-height:100vh;
 
-    flex-direction: column;
+padding:
+
+22px
+18px
+35px;
+
+display:flex;
+
+flex-direction:column;
 
 }
 
@@ -154,55 +207,74 @@ textarea {
 
 header {
 
-    display: flex;
+display:flex;
 
-    justify-content: space-between;
+justify-content:space-between;
 
-    align-items: center;
+align-items:center;
 
 }
-
 
 .logo {
 
-    font-size: 22px;
+font-size:22px;
 
-    font-weight: 700;
+font-weight:700;
 
-    letter-spacing: 5px;
-
-}
-
-
-.status {
-
-    font-size: 10px;
-
-    color: var(--text-muted);
-
-    letter-spacing: 2px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
+letter-spacing:6px;
 
 }
 
+.core-status {
 
-.status-dot {
+font-size:9px;
 
-    width: 6px;
+letter-spacing:2px;
 
-    height: 6px;
+color:var(--muted);
 
-    border-radius: 50%;
+display:flex;
 
-    background: #777;
+align-items:center;
 
-    box-shadow:
-        0 0 8px rgba(255,255,255,.2);
+gap:7px;
+
+}
+
+.status-light {
+
+width:6px;
+
+height:6px;
+
+border-radius:50%;
+
+background:var(--cyan);
+
+box-shadow:
+
+0 0 8px var(--cyan),
+
+0 0 20px var(--cyan);
+
+animation:
+statusPulse 2s infinite;
+
+}
+
+@keyframes statusPulse {
+
+0%,100% {
+
+opacity:.4;
+
+}
+
+50% {
+
+opacity:1;
+
+}
 
 }
 
@@ -211,275 +283,360 @@ header {
    HERO
 ========================================================= */
 
-.hero {
+main {
 
-    flex: 1;
+flex:1;
 
-    display: flex;
+display:flex;
 
-    flex-direction: column;
+flex-direction:column;
 
-    justify-content: center;
+justify-content:center;
 
-    padding:
-        var(--s-7)
-        0;
+}
+
+.core-area {
+
+position:relative;
+
+height:230px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
 
 }
 
 
 /* =========================================================
-   ORB
+   CORE
 ========================================================= */
 
-.orb-wrapper {
+.core {
 
-    position: relative;
+position:relative;
 
-    width: 120px;
+width:120px;
 
-    height: 120px;
+height:120px;
 
-    margin:
-        0 auto
-        var(--s-8);
+border-radius:50%;
 
-    display: flex;
+background:
 
-    justify-content: center;
+radial-gradient(
+circle at 35% 30%,
+#ffffff,
+#b9c9ff 10%,
+#6b6dff 25%,
+#17172b 55%,
+#050507 75%
+);
 
-    align-items: center;
+box-shadow:
 
-}
+0 0 25px rgba(120,130,255,.6),
 
+0 0 70px rgba(100,100,255,.25),
 
-.orb-glow {
+inset 0 0 30px rgba(255,255,255,.2);
 
-    position: absolute;
+animation:
 
-    width: 110px;
+coreBreath 4s ease-in-out infinite;
 
-    height: 110px;
-
-    border-radius: var(--r-full);
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.08),
-            transparent 70%
-        );
-
-    filter: blur(10px);
-
-    animation:
-        glow 4s infinite ease-in-out;
+z-index:3;
 
 }
 
+.core::before {
 
-.orb {
+content:"";
 
-    position: relative;
+position:absolute;
 
-    width: 82px;
+inset:-22px;
 
-    height: 82px;
+border-radius:50%;
 
-    border-radius: var(--r-full);
+border:
 
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #ffffff,
-            #999 18%,
-            #444 42%,
-            #151515 68%,
-            #070707 100%
-        );
+1px solid
+rgba(150,200,255,.35);
 
-    box-shadow: var(--shadow);
+animation:
 
-    animation:
-        breathe 4s infinite ease-in-out;
-
-    transition:
-        transform .5s ease,
-        filter .5s ease;
+orbit 8s linear infinite;
 
 }
 
+.core::after {
 
-.orb::after {
+content:"";
 
-    content: "";
+position:absolute;
 
-    position: absolute;
+inset:-45px;
 
-    inset: 2px;
+border-radius:50%;
 
-    border-radius: inherit;
+border:
 
-    border:
-        1px solid
-        rgba(255,255,255,.12);
+1px solid
+rgba(160,120,255,.12);
 
-}
+animation:
 
-
-@keyframes breathe {
-
-    0%,
-    100% {
-
-        transform: scale(1);
-
-        opacity: .82;
-
-    }
-
-    50% {
-
-        transform: scale(1.08);
-
-        opacity: 1;
-
-    }
+orbitReverse 12s linear infinite;
 
 }
 
+@keyframes coreBreath {
 
-@keyframes glow {
+0%,100% {
 
-    0%,
-    100% {
+transform:scale(1);
 
-        transform: scale(.9);
+}
 
-        opacity: .35;
+50% {
 
-    }
+transform:scale(1.08);
 
-    50% {
+}
 
-        transform: scale(1.15);
+}
 
-        opacity: .7;
+@keyframes orbit {
 
-    }
+to {
+
+transform:rotate(360deg);
+
+}
+
+}
+
+@keyframes orbitReverse {
+
+to {
+
+transform:rotate(-360deg);
+
+}
 
 }
 
 
 /* =========================================================
-   ORB STATES
+   SCAN RINGS
 ========================================================= */
 
-body.state-like .orb {
+.scan-ring {
 
-    transform: scale(1.12);
+position:absolute;
 
-    filter:
-        brightness(1.15);
+border-radius:50%;
 
-}
+border:
 
-
-body.state-like .orb-glow {
-
-    animation:
-        pulseLike .8s ease;
+1px solid
+rgba(255,255,255,.08);
 
 }
 
+.ring1 {
 
-body.state-later .orb {
+width:170px;
 
-    transform: scale(.95);
+height:170px;
 
-    filter:
-        brightness(.8);
-
-}
-
-
-body.state-no .orb {
-
-    transform: scale(.88);
-
-    filter:
-        brightness(.65);
+animation:
+ringPulse 3s infinite;
 
 }
 
+.ring2 {
 
-@keyframes pulseLike {
+width:215px;
 
-    0% {
+height:215px;
 
-        transform: scale(1);
+animation:
+ringPulse 3s infinite 1s;
 
-        opacity: .3;
+}
 
-    }
+@keyframes ringPulse {
 
-    50% {
+0% {
 
-        transform: scale(1.4);
+transform:scale(.8);
 
-        opacity: .9;
+opacity:.2;
 
-    }
+}
 
-    100% {
+50% {
 
-        transform: scale(1);
+opacity:.7;
 
-        opacity: .3;
+}
 
-    }
+100% {
+
+transform:scale(1.1);
+
+opacity:0;
+
+}
 
 }
 
 
 /* =========================================================
-   TYPOGRAPHY
+   CORE LABEL
+========================================================= */
+
+.core-label {
+
+position:absolute;
+
+bottom:8px;
+
+font-size:9px;
+
+letter-spacing:4px;
+
+color:#777;
+
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.avatar-button {
+
+position:absolute;
+
+right:0;
+
+top:15px;
+
+width:62px;
+
+height:62px;
+
+border-radius:50%;
+
+border:
+
+1px solid
+var(--line);
+
+background:
+
+rgba(255,255,255,.04);
+
+overflow:hidden;
+
+cursor:pointer;
+
+box-shadow:
+
+0 0 20px rgba(0,0,0,.4);
+
+}
+
+.avatar-button img {
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+display:none;
+
+}
+
+.avatar-placeholder {
+
+width:100%;
+
+height:100%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+}
+
+.avatar-button.has-avatar {
+
+border-color:
+
+rgba(160,220,255,.5);
+
+box-shadow:
+
+0 0 20px rgba(100,200,255,.2);
+
+}
+
+.avatar-button.has-avatar
+.avatar-placeholder {
+
+display:none;
+
+}
+
+
+/* =========================================================
+   TEXT
 ========================================================= */
 
 .title {
 
-    text-align: center;
+text-align:center;
 
-    font-size: clamp(
-        29px,
-        8vw,
-        36px
-    );
+font-size:
 
-    font-weight: 600;
+clamp(
+28px,
+8vw,
+36px
+);
 
-    line-height: 1.15;
+font-weight:600;
 
-    letter-spacing: -.7px;
+line-height:1.15;
 
-    margin-bottom:
-        var(--s-2);
+letter-spacing:-.8px;
+
+margin-bottom:12px;
 
 }
 
-
 .subtitle {
 
-    text-align: center;
+text-align:center;
 
-    color: var(--text-muted);
+color:var(--muted);
 
-    font-size: 15px;
+font-size:15px;
 
-    line-height: 1.5;
+line-height:1.5;
 
-    margin-bottom:
-        var(--s-6);
+margin-bottom:28px;
 
 }
 
@@ -488,172 +645,250 @@ body.state-no .orb {
    INPUT
 ========================================================= */
 
-.input-box {
+.input-panel {
 
-    background:
-        rgba(16,16,20,.92);
+background:
 
-    border:
-        1px solid
-        var(--border);
+linear-gradient(
+145deg,
+rgba(20,20,28,.85),
+rgba(8,8,12,.9)
+);
 
-    border-radius:
-        var(--r-lg);
+border:
 
-    padding:
-        var(--s-3);
+1px solid
+var(--line);
 
-    transition:
-        border var(--transition),
-        box-shadow var(--transition),
-        transform var(--transition);
+border-radius:
 
-}
+var(--radius);
 
+padding:16px;
 
-.input-box:focus-within {
+box-shadow:
 
-    border-color:
-        #444;
-
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,.025),
-        0 20px 60px rgba(0,0,0,.25);
+0 20px 60px rgba(0,0,0,.3);
 
 }
-
 
 textarea {
 
-    width: 100%;
+width:100%;
 
-    height: 110px;
+height:105px;
 
-    resize: none;
+resize:none;
 
-    border: none;
+border:none;
 
-    outline: none;
+outline:none;
 
-    background:
-        transparent;
+background:transparent;
 
-    color:
-        var(--text);
+color:white;
 
-    font-size:
-        17px;
+font-size:17px;
 
-    line-height:
-        1.5;
+line-height:1.5;
 
 }
-
 
 textarea::placeholder {
 
-    color:
-        var(--text-dim);
+color:#555;
 
 }
 
 
 /* =========================================================
-   PRIMARY BUTTON
+   BUTTON
 ========================================================= */
 
-.discover {
+.primary {
 
-    width: 100%;
+width:100%;
 
-    margin-top:
-        var(--s-2);
+margin-top:12px;
 
-    padding:
-        var(--s-3);
+padding:17px;
 
-    border: none;
+border:none;
 
-    border-radius:
-        var(--r-sm);
+border-radius:16px;
 
-    background:
-        var(--white);
+background:white;
 
-    color:
-        var(--black);
+color:black;
 
-    font-size:
-        16px;
+font-size:16px;
 
-    font-weight:
-        600;
+font-weight:600;
 
-    cursor:
-        pointer;
+cursor:pointer;
 
-    transition:
-        transform var(--transition),
-        opacity var(--transition);
+transition:.2s;
 
 }
 
+.primary:active {
 
-.discover:active {
-
-    transform:
-        scale(.97);
-
-    opacity:
-        .85;
+transform:scale(.97);
 
 }
 
 
 /* =========================================================
-   PROGRESS BUTTON
+   AVATAR PANEL
 ========================================================= */
 
-.progress-button {
+.avatar-panel {
 
-    width: 100%;
+display:none;
 
-    margin-top:
-        var(--s-2);
+position:fixed;
 
-    padding:
-        var(--s-2);
+inset:0;
 
-    border-radius:
-        var(--r-sm);
+z-index:20;
 
-    border:
-        1px solid
-        var(--border-soft);
+background:
 
-    background:
-        var(--surface-2);
+rgba(0,0,0,.82);
 
-    color:
-        var(--text-soft);
+backdrop-filter:
+blur(20px);
 
-    font-size:
-        14px;
+align-items:center;
 
-    cursor:
-        pointer;
+justify-content:center;
 
-    transition:
-        background var(--transition),
-        border var(--transition);
+padding:20px;
 
 }
 
+.avatar-panel.open {
 
-.progress-button:active {
+display:flex;
 
-    background:
-        var(--surface);
+}
+
+.avatar-card {
+
+width:100%;
+
+max-width:400px;
+
+background:
+
+#0c0c12;
+
+border:
+
+1px solid var(--line);
+
+border-radius:28px;
+
+padding:25px;
+
+text-align:center;
+
+}
+
+.avatar-card h2 {
+
+font-size:24px;
+
+margin-bottom:8px;
+
+}
+
+.avatar-card p {
+
+color:#777;
+
+font-size:14px;
+
+margin-bottom:22px;
+
+}
+
+.avatar-preview {
+
+width:150px;
+
+height:150px;
+
+margin:0 auto 20px;
+
+border-radius:50%;
+
+overflow:hidden;
+
+border:
+
+1px solid
+rgba(160,220,255,.4);
+
+box-shadow:
+
+0 0 40px rgba(100,200,255,.15);
+
+}
+
+.avatar-preview img {
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.avatar-options {
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:10px;
+
+}
+
+.avatar-option {
+
+padding:15px;
+
+border-radius:14px;
+
+border:
+
+1px solid var(--line);
+
+background:#111118;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+.close-avatar {
+
+margin-top:10px;
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+background:white;
+
+color:black;
 
 }
 
@@ -662,438 +897,259 @@ textarea::placeholder {
    RESULT
 ========================================================= */
 
-.result,
-.progress-view {
+.result {
 
-    display:
-        none;
+display:none;
 
-    animation:
-        appear .45s ease;
+animation:appear .4s ease;
 
 }
-
 
 @keyframes appear {
 
-    from {
+from {
 
-        opacity: 0;
+opacity:0;
 
-        transform:
-            translateY(18px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
+transform:translateY(20px);
 
 }
 
+to {
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
 
 .result-label {
 
-    color:
-        var(--text-muted);
+font-size:10px;
 
-    font-size:
-        10px;
+letter-spacing:3px;
 
-    letter-spacing:
-        3px;
+color:#777;
 
-    margin-bottom:
-        var(--s-2);
+margin-bottom:12px;
 
 }
-
 
 .result h2 {
 
-    font-size:
-        28px;
+font-size:28px;
 
-    line-height:
-        1.2;
+line-height:1.2;
 
-    letter-spacing:
-        -.4px;
-
-    margin-bottom:
-        var(--s-4);
+margin-bottom:18px;
 
 }
-
-
-/* =========================================================
-   RESULT CARD
-========================================================= */
 
 .result-card {
 
-    position:
-        relative;
+padding:22px;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(16,16,20,.98),
-            rgba(10,10,13,.98)
-        );
+border-radius:24px;
 
-    border:
-        1px solid
-        var(--border);
+border:
 
-    border-radius:
-        var(--r-lg);
+1px solid var(--line);
 
-    padding:
-        var(--s-4);
+background:
 
-    margin-bottom:
-        var(--s-4);
+rgba(15,15,22,.8);
 
-    overflow:
-        hidden;
+margin-bottom:18px;
 
 }
-
-
-.result-card::before {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    top:
-        0;
-
-    left:
-        0;
-
-    width:
-        100%;
-
-    height:
-        1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.15),
-            transparent
-        );
-
-}
-
 
 .result-card p {
 
-    color:
-        var(--text-soft);
+font-size:16px;
 
-    line-height:
-        1.65;
+line-height:1.65;
 
-    font-size:
-        16px;
+color:#aaa;
 
 }
-
-
-/* =========================================================
-   ACTIONS
-========================================================= */
 
 .actions {
 
-    display:
-        grid;
+display:grid;
 
-    grid-template-columns:
-        1fr 1fr;
+grid-template-columns:1fr 1fr;
 
-    gap:
-        var(--s-1);
+gap:10px;
 
 }
-
 
 .action {
 
-    min-height:
-        54px;
+padding:16px 10px;
 
-    padding:
-        var(--s-2);
+border-radius:15px;
 
-    border-radius:
-        var(--r-sm);
+border:
 
-    border:
-        1px solid
-        var(--border-soft);
+1px solid var(--line);
 
-    background:
-        var(--surface-2);
+background:#0d0d12;
 
-    color:
-        var(--text);
+color:white;
 
-    font-size:
-        14px;
-
-    cursor:
-        pointer;
-
-    transition:
-        transform var(--transition),
-        background var(--transition),
-        border var(--transition);
+cursor:pointer;
 
 }
-
-
-.action:active {
-
-    transform:
-        scale(.96);
-
-}
-
 
 .action.full {
 
-    grid-column:
-        span 2;
+grid-column:span 2;
 
 }
 
 
 /* =========================================================
-   META
+   PROGRESS
 ========================================================= */
 
-.progress {
+.progress-view {
 
-    margin-top:
-        var(--s-4);
+display:none;
 
-    text-align:
-        center;
-
-    color:
-        var(--text-dim);
-
-    font-size:
-        10px;
-
-    letter-spacing:
-        1.5px;
+animation:appear .4s ease;
 
 }
-
-
-.feedback-message {
-
-    text-align:
-        center;
-
-    min-height:
-        20px;
-
-    margin-top:
-        var(--s-2);
-
-    color:
-        var(--text-muted);
-
-    font-size:
-        12px;
-
-}
-
-
-/* =========================================================
-   PROGRESS VIEW
-========================================================= */
-
-.progress-view h2 {
-
-    font-size:
-        30px;
-
-    margin-bottom:
-        var(--s-4);
-
-}
-
 
 .progress-card {
 
-    background:
-        var(--surface);
+padding:22px;
 
-    border:
-        1px solid
-        var(--border);
+border-radius:24px;
 
-    border-radius:
-        var(--r-lg);
+border:
 
-    padding:
-        var(--s-3);
+1px solid var(--line);
 
-    margin-bottom:
-        var(--s-4);
+background:var(--panel);
 
 }
-
 
 .stat {
 
-    padding:
-        var(--s-3)
-        0;
+padding:16px 0;
 
-    border-bottom:
-        1px solid
-        var(--border);
+border-bottom:
+
+1px solid var(--line);
 
 }
-
-
-.stat:first-child {
-
-    padding-top:
-        var(--s-2);
-
-}
-
 
 .stat:last-child {
 
-    border-bottom:
-        none;
+border-bottom:none;
 
 }
-
 
 .stat-label {
 
-    color:
-        var(--text-muted);
+font-size:9px;
 
-    font-size:
-        10px;
+letter-spacing:2px;
 
-    letter-spacing:
-        2px;
+color:#777;
 
 }
-
 
 .stat-value {
 
-    margin-top:
-        6px;
+margin-top:7px;
 
-    font-size:
-        17px;
-
-    line-height:
-        1.4;
+font-size:16px;
 
 }
-
-
-/* =========================================================
-   LEVEL BAR
-========================================================= */
 
 .level-bar {
 
-    height:
-        5px;
+height:5px;
 
-    width:
-        100%;
+background:#222;
 
-    margin-top:
-        10px;
+border-radius:5px;
 
-    border-radius:
-        10px;
+margin-top:10px;
 
-    background:
-        #202025;
-
-    overflow:
-        hidden;
+overflow:hidden;
 
 }
 
-
 .level-fill {
 
-    height:
-        100%;
+height:100%;
 
-    width:
-        20%;
+width:20%;
 
-    background:
-        #fff;
+background:
 
-    border-radius:
-        inherit;
+linear-gradient(
+90deg,
+var(--cyan),
+var(--violet)
+);
 
-    transition:
-        width .5s ease;
+transition:.5s;
+
+}
+
+.back {
+
+width:100%;
+
+margin-top:15px;
+
+padding:15px;
+
+border-radius:15px;
+
+border:none;
+
+background:white;
+
+color:black;
 
 }
 
 
 /* =========================================================
-   BACK BUTTON
+   MENU
 ========================================================= */
 
-.back-button {
+.menu {
 
-    width:
-        100%;
+display:flex;
 
-    padding:
-        var(--s-2);
+justify-content:center;
 
-    border-radius:
-        var(--r-sm);
+gap:25px;
 
-    border:
-        1px solid
-        var(--border-soft);
+margin-top:22px;
 
-    background:
-        var(--white);
+}
 
-    color:
-        var(--black);
+.menu button {
 
-    font-size:
-        15px;
+background:none;
 
-    cursor:
-        pointer;
+border:none;
+
+color:#555;
+
+font-size:11px;
+
+cursor:pointer;
+
+letter-spacing:1px;
 
 }
 
@@ -1104,20 +1160,15 @@ textarea::placeholder {
 
 footer {
 
-    text-align:
-        center;
+text-align:center;
 
-    color:
-        #444;
+font-size:9px;
 
-    font-size:
-        10px;
+letter-spacing:2px;
 
-    letter-spacing:
-        1px;
+color:#333;
 
-    padding-top:
-        var(--s-4);
+padding-top:20px;
 
 }
 
@@ -1126,84 +1177,130 @@ footer {
    MOBILE
 ========================================================= */
 
-@media (
-    max-width: 380px
-) {
+@media(max-width:380px){
 
-    .container {
+.core-area {
 
-        padding:
-            20px
-            14px
-            30px;
+height:200px;
 
-    }
+}
 
-    .hero {
+.core {
 
-        padding:
-            30px
-            0;
+width:100px;
 
-    }
+height:100px;
 
-    .title {
+}
 
-        font-size:
-            28px;
+.ring1 {
 
-    }
+width:145px;
 
-    .result h2 {
+height:145px;
 
-        font-size:
-            25px;
+}
 
-    }
+.ring2 {
+
+width:180px;
+
+height:180px;
+
+}
+
+.avatar-button {
+
+width:55px;
+
+height:55px;
+
+}
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
-<div class="container">
+
+<div class="background">
+
+<div class="grid"></div>
+
+</div>
+
+
+<div class="app">
 
 
 <header>
 
 <div class="logo">
+
 NEXA
+
 </div>
 
-<div class="status">
+<div class="core-status">
 
-<span class="status-dot"></span>
+<span class="status-light"></span>
 
-FOR NOW
+CORE ONLINE
 
 </div>
 
 </header>
 
 
-<main class="hero">
+<main>
 
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+<!-- HOME -->
 
 <div id="home">
 
 
-<div class="orb-wrapper">
+<div class="core-area">
 
-<div class="orb-glow"></div>
 
-<div class="orb"></div>
+<div class="scan-ring ring1"></div>
+
+<div class="scan-ring ring2"></div>
+
+
+<div class="core"></div>
+
+
+<div class="core-label">
+
+NEXA CORE
+
+</div>
+
+
+<button
+class="avatar-button"
+id="avatarButton"
+onclick="openAvatar()"
+>
+
+<div class="avatar-placeholder">
+
+👤
+
+</div>
+
+<img
+id="avatarImage"
+alt="Avatar"
+/>
+
+</button>
+
 
 </div>
 
@@ -1211,6 +1308,7 @@ FOR NOW
 <h1 class="title">
 
 Qu'est-ce qui pourrait<br>
+
 être intéressant pour toi ?
 
 </h1>
@@ -1218,28 +1316,30 @@ Qu'est-ce qui pourrait<br>
 
 <p class="subtitle">
 
-Dis-moi simplement ce que tu as en tête.
+NEXA transforme ce que tu as en tête<br>
+
+en une prochaine possibilité.
 
 </p>
 
 
-<div class="input-box">
+<div class="input-panel">
 
 
 <textarea
 id="userInput"
-placeholder="Je veux apprendre quelque chose...
+placeholder="Je veux apprendre...
 Je cherche une idée...
-Je ne sais pas quoi faire..."
+Je veux changer quelque chose..."
 ></textarea>
 
 
 <button
-class="discover"
+class="primary"
 onclick="discover()"
 >
 
-Découvrir
+✦ DÉCOUVRIR
 
 </button>
 
@@ -1247,22 +1347,27 @@ Découvrir
 </div>
 
 
-<button
-class="progress-button"
-onclick="showProgress()"
->
+<div class="menu">
 
-📊 Ma progression
+<button onclick="showProgress()">
+
+PROGRESSION
 
 </button>
+
+<button onclick="openAvatar()">
+
+MON AVATAR
+
+</button>
+
+</div>
 
 
 </div>
 
 
-<!-- =====================================================
-     RESULT
-===================================================== -->
+<!-- RESULT -->
 
 <div
 id="result"
@@ -1272,21 +1377,17 @@ class="result"
 
 <div class="result-label">
 
-NEXA A TROUVÉ ÇA POUR TOI
+NEXA CORE — ANALYSE TERMINÉE
 
 </div>
 
 
-<h2
-id="resultTitle"
-></h2>
+<h2 id="resultTitle"></h2>
 
 
 <div class="result-card">
 
-<p
-id="resultText"
-></p>
+<p id="resultText"></p>
 
 </div>
 
@@ -1327,24 +1428,10 @@ onclick="feedback('no')"
 </div>
 
 
-<div
-class="progress"
-id="progressText"
-></div>
-
-
-<div
-class="feedback-message"
-id="feedbackMessage"
-></div>
-
-
 </div>
 
 
-<!-- =====================================================
-     PROGRESS
-===================================================== -->
+<!-- PROGRESS -->
 
 <div
 id="progressView"
@@ -1354,7 +1441,7 @@ class="progress-view"
 
 <div class="result-label">
 
-TON PARCOURS NEXA
+NEXA CORE — PROFIL
 
 </div>
 
@@ -1372,14 +1459,18 @@ Ta progression
 <div class="stat">
 
 <div class="stat-label">
+
 DIRECTION
+
 </div>
 
 <div
 class="stat-value"
 id="statCategory"
 >
+
 Aucune
+
 </div>
 
 </div>
@@ -1388,15 +1479,20 @@ Aucune
 <div class="stat">
 
 <div class="stat-label">
-NIVEAU
+
+NIVEAU NEXA
+
 </div>
 
 <div
 class="stat-value"
 id="statLevel"
 >
+
 Niveau 1
+
 </div>
+
 
 <div class="level-bar">
 
@@ -1413,14 +1509,18 @@ id="levelFill"
 <div class="stat">
 
 <div class="stat-label">
-❤️ INTÉRÊTS
+
+INTÉRÊTS
+
 </div>
 
 <div
 class="stat-value"
 id="statLikes"
 >
+
 0
+
 </div>
 
 </div>
@@ -1429,30 +1529,18 @@ id="statLikes"
 <div class="stat">
 
 <div class="stat-label">
-🔥 ACTIONS POSITIVES
+
+ACTIONS POSITIVES
+
 </div>
 
 <div
 class="stat-value"
 id="statActions"
 >
+
 0
-</div>
 
-</div>
-
-
-<div class="stat">
-
-<div class="stat-label">
-DERNIÈRE PISTE
-</div>
-
-<div
-class="stat-value"
-id="statLast"
->
-Aucune
 </div>
 
 </div>
@@ -1462,11 +1550,11 @@ Aucune
 
 
 <button
-class="back-button"
+class="back"
 onclick="goHome()"
 >
 
-Retour
+Retour au NEXA CORE
 
 </button>
 
@@ -1479,9 +1567,108 @@ Retour
 
 <footer>
 
-NEXA — YOUR NEXT POSSIBILITY
+NEXA CORE — YOUR NEXT POSSIBILITY
 
 </footer>
+
+
+</div>
+
+
+<!-- =====================================================
+     AVATAR MODAL
+===================================================== -->
+
+<div
+class="avatar-panel"
+id="avatarPanel"
+>
+
+
+<div class="avatar-card">
+
+
+<h2>
+
+Créer mon avatar
+
+</h2>
+
+
+<p>
+
+Ajoute une photo pour créer ton identité visuelle NEXA.
+
+</p>
+
+
+<div class="avatar-preview">
+
+
+<img
+id="avatarPreview"
+alt="Prévisualisation"
+/>
+
+</div>
+
+
+<div class="avatar-options">
+
+
+<button
+class="avatar-option"
+onclick="chooseCamera()"
+>
+
+📷 Caméra
+
+</button>
+
+
+<button
+class="avatar-option"
+onclick="choosePhoto()"
+>
+
+🖼️ Galerie
+
+</button>
+
+
+</div>
+
+
+<button
+class="close-avatar"
+onclick="closeAvatar()"
+>
+
+Fermer
+
+</button>
+
+
+<input
+type="file"
+id="cameraInput"
+accept="image/*"
+capture="user"
+style="display:none"
+onchange="handleAvatar(event)"
+>
+
+
+<input
+type="file"
+id="photoInput"
+accept="image/*"
+style="display:none"
+onchange="handleAvatar(event)"
+>
+
+
+</div>
 
 
 </div>
@@ -1490,249 +1677,302 @@ NEXA — YOUR NEXT POSSIBILITY
 <script>
 
 /* =========================================================
-   NEXA V4 — ENGINE
+   NEXA V5 ENGINE
 ========================================================= */
 
 
-/* =========================================================
-   MEMORY
-========================================================= */
+/* MEMORY */
 
 let memory =
+
 JSON.parse(
 localStorage.getItem("nexaMemory")
 ) || [];
 
 
-/* =========================================================
-   SESSION
-========================================================= */
+/* SESSION */
 
 let session =
+
 JSON.parse(
 localStorage.getItem("nexaSession")
 ) || {
 
-    category: null,
+category:null,
 
-    level: 1,
+level:1,
 
-    likes: 0,
+likes:0,
 
-    later: 0,
+later:0,
 
-    no: 0,
+no:0,
 
-    positiveActions: 0,
+positiveActions:0,
 
-    lastAction: "",
+lastAction:"",
 
-    nextMode: "normal"
-
-};
-
-
-/* =========================================================
-   KEYWORDS
-========================================================= */
-
-const keywords = {
-
-
-emploi: [
-
-"emploi",
-"travail",
-"job",
-"métier",
-"carrière",
-"embauche",
-"recrutement",
-"salarié",
-"poste"
-
-],
-
-
-argent: [
-
-"argent",
-"revenu",
-"gagner",
-"riche",
-"salaire",
-"finance",
-"économiser",
-"épargne"
-
-],
-
-
-business: [
-
-"business",
-"entreprise",
-"entreprendre",
-"commerce",
-"client",
-"vendre",
-"vente",
-"entrepreneur"
-
-],
-
-
-projet: [
-
-"projet",
-"application",
-"app",
-"site",
-"créer",
-"construire",
-"développer",
-"programmation",
-"coder"
-
-],
-
-
-apprentissage: [
-
-"apprendre",
-"étudier",
-"formation",
-"compétence",
-"connaître",
-"comprendre",
-"cours"
-
-],
-
-
-blocage: [
-
-"bloqué",
-"blocage",
-"procrastination",
-"procrastiner",
-"peur",
-"stress",
-"difficile",
-"perdu",
-"hésite",
-"hésitation"
-
-]
+nextMode:"normal"
 
 };
 
 
 /* =========================================================
-   DETECT CATEGORY
+   AVATAR
 ========================================================= */
 
-function detectCategory(input) {
+let savedAvatar =
+
+localStorage.getItem(
+"nexaAvatar"
+);
 
 
-const lower =
+function openAvatar(){
+
+document
+.getElementById("avatarPanel")
+.classList
+.add("open");
+
+if(savedAvatar){
+
+document
+.getElementById("avatarPreview")
+.src =
+savedAvatar;
+
+}
+
+}
+
+
+function closeAvatar(){
+
+document
+.getElementById("avatarPanel")
+.classList
+.remove("open");
+
+}
+
+
+function chooseCamera(){
+
+document
+.getElementById("cameraInput")
+.click();
+
+}
+
+
+function choosePhoto(){
+
+document
+.getElementById("photoInput")
+.click();
+
+}
+
+
+function handleAvatar(event){
+
+const file =
+event.target.files[0];
+
+if(!file){
+
+return;
+
+}
+
+const reader =
+new FileReader();
+
+
+reader.onload =
+function(e){
+
+savedAvatar =
+e.target.result;
+
+
+localStorage.setItem(
+
+"nexaAvatar",
+
+savedAvatar
+
+);
+
+
+document
+.getElementById("avatarImage")
+.src =
+savedAvatar;
+
+
+document
+.getElementById("avatarImage")
+.style
+.display =
+"block";
+
+
+document
+.getElementById("avatarButton")
+.classList
+.add("has-avatar");
+
+
+document
+.getElementById("avatarPreview")
+.src =
+savedAvatar;
+
+};
+
+
+reader.readAsDataURL(file);
+
+}
+
+
+/* LOAD AVATAR */
+
+if(savedAvatar){
+
+document
+.getElementById("avatarImage")
+.src =
+savedAvatar;
+
+document
+.getElementById("avatarImage")
+.style
+.display =
+"block";
+
+document
+.getElementById("avatarButton")
+.classList
+.add("has-avatar");
+
+}
+
+
+/* =========================================================
+   CATEGORY DETECTION
+========================================================= */
+
+function detectCategory(input){
+
+const text =
 input.toLowerCase();
 
 
-let scores = {
+if(
 
+text.includes("travail") ||
+text.includes("emploi") ||
+text.includes("job") ||
+text.includes("métier")
 
-emploi: 0,
+){
 
-argent: 0,
-
-business: 0,
-
-projet: 0,
-
-apprentissage: 0,
-
-blocage: 0
-
-};
-
-
-for (
-const category in keywords
-) {
-
-
-keywords[category]
-.forEach(word => {
-
-
-if (
-lower.includes(word)
-) {
-
-scores[category]++;
+return "emploi";
 
 }
 
 
-});
+if(
 
+text.includes("argent") ||
+text.includes("revenu") ||
+text.includes("salaire") ||
+text.includes("gagner")
 
-}
+){
 
-
-let best =
-"general";
-
-
-let score =
-0;
-
-
-for (
-const category in scores
-) {
-
-
-if (
-scores[category] > score
-) {
-
-
-score =
-scores[category];
-
-
-best =
-category;
-
-
-}
+return "argent";
 
 }
 
 
-return best;
+if(
+
+text.includes("business") ||
+text.includes("entreprise") ||
+text.includes("commerce")
+
+){
+
+return "business";
+
+}
+
+
+if(
+
+text.includes("projet") ||
+text.includes("application") ||
+text.includes("app") ||
+text.includes("site") ||
+text.includes("coder")
+
+){
+
+return "projet";
+
+}
+
+
+if(
+
+text.includes("apprendre") ||
+text.includes("formation") ||
+text.includes("étudier") ||
+text.includes("compétence")
+
+){
+
+return "apprentissage";
+
+}
+
+
+if(
+
+text.includes("bloqué") ||
+text.includes("procrastination") ||
+text.includes("peur") ||
+text.includes("stress")
+
+){
+
+return "blocage";
+
+}
+
+
+return "general";
 
 }
 
 
 /* =========================================================
-   ACTION LIBRARY
+   ACTIONS
 ========================================================= */
 
-const actions = {
+const actionLibrary = {
 
+emploi:[
 
-emploi: {
-
-normal: [
-
-"Trouve aujourd'hui une seule offre qui correspond réellement à ton profil.",
+"Découvre une seule offre d'emploi qui correspond réellement à ta situation actuelle.",
 
 "Choisis une compétence demandée dans cette offre et découvre comment commencer à l'apprendre gratuitement.",
 
-"Identifie une personne qui exerce ce métier et découvre comment elle a commencé.",
+"Trouve une personne qui exerce ce métier et découvre comment elle a commencé.",
 
 "Prépare une première démarche concrète pour te rapprocher de ce métier.",
 
@@ -1740,261 +1980,89 @@ normal: [
 
 ],
 
-light: [
-
-"Regarde simplement une seule offre d'emploi intéressante, sans obligation de postuler.",
-
-"Découvre pendant cinq minutes une compétence demandée dans un métier qui t'intéresse.",
-
-"Lis simplement le parcours d'une personne qui exerce un métier qui t'attire."
-
-],
-
-alternative: [
-
-"Au lieu de chercher un emploi, explore une compétence qui pourrait améliorer ta situation.",
-
-"Découvre un métier différent qui pourrait correspondre à tes capacités actuelles.",
-
-"Parle à une personne de ton entourage pour découvrir une possibilité professionnelle que tu n'avais pas envisagée."
-
-]
-
-},
-
-
-argent: {
-
-normal: [
+argent:[
 
 "Identifie une seule façon réaliste d'améliorer tes revenus avec ce que tu sais déjà faire.",
 
-"Trouve une compétence simple qui pourrait augmenter ta valeur sur le marché du travail.",
+"Découvre une compétence qui pourrait augmenter ta valeur sur le marché du travail.",
 
-"Explore une seule possibilité de revenu et vérifie si elle correspond à ta situation.",
+"Explore une possibilité de revenu et vérifie si elle correspond réellement à ta situation.",
 
-"Choisis une idée et cherche une première personne qui pourrait être intéressée.",
+"Choisis une idée et trouve une personne qui pourrait être intéressée.",
 
 "Fais une première action réelle pour tester cette possibilité."
 
 ],
 
-light: [
+business:[
 
-"Note simplement une seule idée qui pourrait améliorer tes revenus.",
+"Décris ton idée de business en une seule phrase.",
 
-"Regarde pendant cinq minutes une possibilité de revenu qui t'intrigue.",
+"Trouve une personne qui pourrait réellement avoir besoin de ce que tu veux proposer.",
 
-"Découvre une compétence qui pourrait un jour améliorer ta situation financière."
-
-],
-
-alternative: [
-
-"Au lieu de chercher à gagner plus immédiatement, explore une compétence qui pourrait augmenter ta valeur.",
-
-"Découvre une autre manière d'améliorer ta situation financière sans partir de ton idée actuelle.",
-
-"Identifie une dépense que tu pourrais réduire cette semaine."
-
-]
-
-},
-
-
-business: {
-
-normal: [
-
-"Décris ton idée de business en une seule phrase simple.",
-
-"Trouve une seule personne qui pourrait avoir besoin de ce que tu veux proposer.",
-
-"Pose-lui une question simple pour comprendre son vrai problème.",
+"Pose-lui une question simple pour comprendre son problème.",
 
 "Utilise sa réponse pour améliorer ton idée.",
 
-"Teste ton idée auprès d'une deuxième personne avant de construire davantage."
+"Teste ton idée auprès d'une deuxième personne."
 
 ],
 
-light: [
-
-"Écris simplement ton idée de business en une phrase, sans chercher à la rendre parfaite.",
-
-"Imagine une seule personne qui pourrait être intéressée par ton idée.",
-
-"Observe un problème autour de toi qui pourrait devenir une opportunité."
-
-],
-
-alternative: [
-
-"Au lieu de construire ton idée, cherche d'abord un problème réel que quelqu'un aimerait résoudre.",
-
-"Parle à une personne et demande-lui quel problème lui fait perdre le plus de temps.",
-
-"Explore une autre façon de transformer ton idée en quelque chose d'utile."
-
-]
-
-},
-
-
-projet: {
-
-normal: [
+projet:[
 
 "Définis en une seule phrase ce que ton projet doit permettre de faire.",
 
-"Choisis une seule fonctionnalité essentielle et imagine comment elle fonctionnerait.",
+"Choisis une seule fonctionnalité essentielle.",
 
-"Montre ton idée à une personne et demande-lui ce qu'elle en pense.",
+"Imagine comment cette fonctionnalité fonctionnerait.",
 
-"Utilise son retour pour améliorer une seule partie de ton projet.",
+"Montre ton idée à une personne et demande son avis.",
 
-"Construis une première version très simple de cette fonctionnalité."
-
-],
-
-light: [
-
-"Écris simplement en une phrase ce que ton projet pourrait apporter à quelqu'un.",
-
-"Imagine une seule personne qui pourrait utiliser ton projet.",
-
-"Regarde pendant quelques minutes un projet similaire au tien pour découvrir une idée."
+"Construis une première version très simple."
 
 ],
 
-alternative: [
+apprentissage:[
 
-"Au lieu de construire ton projet, découvre d'abord si quelqu'un a réellement besoin de cette solution.",
+"Choisis une seule notion liée à ce que tu veux apprendre.",
 
-"Pose une question à une personne qui pourrait être concernée par ton projet.",
+"Trouve une explication simple de cette notion.",
 
-"Explore une autre manière de résoudre le même problème."
+"Reformule ce que tu as appris avec tes propres mots.",
 
-]
+"Applique cette connaissance à un exemple concret.",
 
-},
-
-
-apprentissage: {
-
-normal: [
-
-"Choisis une seule notion liée à ce que tu veux apprendre et découvre-la pendant dix minutes.",
-
-"Trouve une explication simple de cette notion et reformule-la avec tes propres mots.",
-
-"Applique cette connaissance à un petit exemple concret.",
-
-"Teste ce que tu as appris dans une situation réelle.",
-
-"Explique cette notion à quelqu'un d'autre pour vérifier que tu la maîtrises."
+"Explique cette notion à quelqu'un d'autre."
 
 ],
 
-light: [
-
-"Découvre simplement une information nouvelle sur le sujet qui t'intéresse.",
-
-"Regarde une courte explication sur ce sujet, sans chercher à tout comprendre.",
-
-"Lis une seule page ou regarde une courte vidéo sur ce sujet."
-
-],
-
-alternative: [
-
-"Explore une autre compétence qui pourrait t'intéresser davantage.",
-
-"Découvre une compétence proche mais différente de celle que tu avais choisie.",
-
-"Essaie d'apprendre quelque chose uniquement par curiosité."
-
-]
-
-},
-
-
-blocage: {
-
-normal: [
+blocage:[
 
 "Identifie la seule chose qui te bloque le plus aujourd'hui.",
 
-"Transforme ce blocage en une action tellement petite que tu peux la faire en moins de cinq minutes.",
+"Transforme ce blocage en une action de moins de cinq minutes.",
 
-"Fais cette action maintenant, sans chercher à la perfectionner.",
+"Fais cette action maintenant.",
 
-"Observe ce qui t'a empêché d'avancer et réduis encore la difficulté.",
+"Observe ce qui t'a empêché d'avancer.",
 
-"Répète cette petite action une fois de plus aujourd'hui."
-
-],
-
-light: [
-
-"Écris simplement ce qui te bloque, sans chercher immédiatement une solution.",
-
-"Choisis une action qui prend moins d'une minute.",
-
-"Respire, puis identifie une seule chose que tu pourrais rendre légèrement plus facile."
+"Répète cette petite action une nouvelle fois."
 
 ],
 
-alternative: [
-
-"Au lieu de résoudre le problème maintenant, cherche ce qui pourrait rendre la situation légèrement plus facile.",
-
-"Demande à quelqu'un de confiance comment il verrait ton problème.",
-
-"Change complètement d'approche et commence par une autre petite action."
-
-]
-
-},
-
-
-general: {
-
-normal: [
+general:[
 
 "Choisis une seule chose liée à ce que tu viens d'écrire et découvre quelque chose de nouveau à son sujet.",
 
-"Trouve une seule possibilité concrète qui pourrait être intéressante pour toi.",
+"Trouve une possibilité concrète qui pourrait être intéressante pour toi.",
 
 "Choisis celle qui te donne le plus envie d'en savoir plus.",
 
-"Fais une petite action pour vérifier si cette possibilité te correspond réellement.",
+"Fais une petite action pour vérifier si cette possibilité te correspond.",
 
-"Décide si cette piste mérite d'être poursuivie ou abandonnée."
-
-],
-
-light: [
-
-"Découvre simplement une petite chose nouvelle liée à ce que tu viens d'écrire.",
-
-"Prends cinq minutes pour explorer une possibilité qui t'intrigue.",
-
-"Note une seule chose que tu aimerais comprendre davantage."
-
-],
-
-alternative: [
-
-"Explore une autre direction liée à ce que tu viens d'écrire.",
-
-"Choisis une possibilité complètement différente et découvre si elle pourrait t'intéresser.",
-
-"Demande à quelqu'un comment il interpréterait ta situation."
+"Décide si cette piste mérite d'être poursuivie."
 
 ]
-
-}
 
 };
 
@@ -2003,29 +2071,9 @@ alternative: [
    TITLES
 ========================================================= */
 
-function getTitle(category, mode) {
+function getTitle(category){
 
-
-if (
-mode === "light"
-) {
-
-return "On peut commencer plus simplement.";
-
-}
-
-
-if (
-mode === "alternative"
-) {
-
-return "Essayons une autre direction.";
-
-}
-
-
-const titles = {
-
+const titles={
 
 emploi:
 "Explore une possibilité qui pourrait améliorer ta situation.",
@@ -2050,12 +2098,7 @@ general:
 
 };
 
-
-return (
-titles[category]
-||
-titles.general
-);
+return titles[category] || titles.general;
 
 }
 
@@ -2064,109 +2107,59 @@ titles.general
    DISCOVER
 ========================================================= */
 
-function discover() {
-
+function discover(){
 
 const input =
+
 document
 .getElementById("userInput")
 .value
 .trim();
 
 
-if (!input) {
-
+if(!input){
 
 alert(
 "Dis-moi simplement ce que tu as en tête."
 );
-
 
 return;
 
 }
 
 
-/* Detect */
-
-let category =
+const category =
 detectCategory(input);
 
 
-/* New direction */
-
-if (
+if(
 session.category !== category
-) {
-
+){
 
 session.category =
 category;
 
-
 session.level =
 1;
-
-
-session.likes =
-0;
-
-
-session.later =
-0;
-
-
-session.no =
-0;
-
-
-session.positiveActions =
-0;
-
-
-session.nextMode =
-"normal";
-
 
 }
 
 
-/* Mode */
-
-let mode =
-session.nextMode
-||
-"normal";
-
-
-/* Actions */
-
-let list =
-actions[category]
-||
-actions.general;
-
-
-let actionList =
-list[mode]
-||
-list.normal;
-
-
-/* Level */
-
 let index =
+
 Math.min(
+
 session.level - 1,
-actionList.length - 1
+
+4
+
 );
 
 
-let action =
-actionList[index];
+const action =
 
+actionLibrary[category][index];
 
-/* Save current */
 
 session.lastAction =
 action;
@@ -2174,35 +2167,19 @@ action;
 
 memory.push({
 
+text:input,
 
-text:
-input,
+category:category,
 
+level:session.level,
 
-category:
-category,
+action:action,
 
-
-level:
-session.level,
-
-
-mode:
-mode,
-
-
-action:
-action,
-
-
-feedback:
-null,
-
+feedback:null,
 
 date:
 new Date()
 .toISOString()
-
 
 });
 
@@ -2225,43 +2202,25 @@ JSON.stringify(session)
 );
 
 
-/* UI */
-
 document
 .getElementById("resultTitle")
 .innerText =
-getTitle(
-category,
-mode
-);
+
+getTitle(category);
 
 
 document
 .getElementById("resultText")
 .innerText =
+
 action;
-
-
-document
-.getElementById("progressText")
-.innerText =
-
-"NIVEAU " +
-session.level +
-" • " +
-category.toUpperCase();
-
-
-document
-.getElementById("feedbackMessage")
-.innerText =
-"";
 
 
 document
 .getElementById("home")
 .style
 .display =
+
 "none";
 
 
@@ -2269,6 +2228,7 @@ document
 .getElementById("progressView")
 .style
 .display =
+
 "none";
 
 
@@ -2276,18 +2236,17 @@ document
 .getElementById("result")
 .style
 .display =
+
 "block";
 
 
 window.scrollTo({
 
-top: 0,
+top:0,
 
-behavior:
-"smooth"
+behavior:"smooth"
 
 });
-
 
 }
 
@@ -2296,16 +2255,16 @@ behavior:
    FEEDBACK
 ========================================================= */
 
-function feedback(type) {
-
+function feedback(type){
 
 const last =
+
 memory[
-memory.length - 1
+memory.length-1
 ];
 
 
-if (!last) {
+if(!last){
 
 return;
 
@@ -2316,114 +2275,47 @@ last.feedback =
 type;
 
 
-/* =========================================
-   LIKE
-========================================= */
-
-if (
-type === "like"
-) {
-
+if(type==="like"){
 
 session.likes++;
 
-
 session.positiveActions++;
 
-
 session.level =
+
 Math.min(
-session.level + 1,
+
+session.level+1,
+
 5
+
 );
-
-
-session.nextMode =
-"normal";
-
-
-document.body
-.className =
-"state-like";
-
-
-document
-.getElementById("feedbackMessage")
-.innerText =
-"Très bien. On avance.";
-
 
 }
 
 
-/* =========================================
-   LATER
-========================================= */
-
-if (
-type === "later"
-) {
-
+if(type==="later"){
 
 session.later++;
 
-
-session.nextMode =
-"light";
-
-
-document.body
-.className =
-"state-later";
-
-
-document
-.getElementById("feedbackMessage")
-.innerText =
-"On peut avancer plus doucement.";
-
-
 }
 
 
-/* =========================================
-   NO
-========================================= */
-
-if (
-type === "no"
-) {
-
+if(type==="no"){
 
 session.no++;
 
+session.level =
 
-session.nextMode =
-"alternative";
+Math.max(
 
+session.level-1,
 
-document.body
-.className =
-"state-no";
+1
 
-
-document
-.getElementById("feedbackMessage")
-.innerText =
-"Compris. Essayons une autre direction.";
-
+);
 
 }
-
-
-/* Save */
-
-last.nextLevel =
-session.level;
-
-
-last.nextMode =
-session.nextMode;
 
 
 localStorage.setItem(
@@ -2444,16 +2336,11 @@ JSON.stringify(session)
 );
 
 
-/* Return home */
-
-setTimeout(
-function() {
-
-
 document
 .getElementById("result")
 .style
 .display =
+
 "none";
 
 
@@ -2461,33 +2348,16 @@ document
 .getElementById("home")
 .style
 .display =
+
 "block";
 
 
 document
 .getElementById("userInput")
 .value =
+
 "";
 
-
-document.body
-.className =
-"";
-
-
-window.scrollTo({
-
-top: 0,
-
-behavior:
-"smooth"
-
-});
-
-
-},
-350
-);
 
 }
 
@@ -2496,13 +2366,13 @@ behavior:
    PROGRESS
 ========================================================= */
 
-function showProgress() {
-
+function showProgress(){
 
 document
 .getElementById("home")
 .style
 .display =
+
 "none";
 
 
@@ -2510,6 +2380,7 @@ document
 .getElementById("result")
 .style
 .display =
+
 "none";
 
 
@@ -2517,6 +2388,7 @@ document
 .getElementById("progressView")
 .style
 .display =
+
 "block";
 
 
@@ -2528,7 +2400,7 @@ session.category
 ?
 session.category.toUpperCase()
 :
-"Aucune";
+"AUCUNE";
 
 
 document
@@ -2554,58 +2426,26 @@ session.positiveActions;
 
 
 document
-.getElementById("statLast")
-.innerText =
-
-session.lastAction
-?
-session.lastAction
-:
-"Aucune";
-
-
-let percentage =
-
-(
-session.level /
-5
-)
-*
-100;
-
-
-document
 .getElementById("levelFill")
 .style
 .width =
 
-percentage +
+(
+session.level * 20
+)
++
 "%";
-
-
-window.scrollTo({
-
-top: 0,
-
-behavior:
-"smooth"
-
-);
 
 }
 
 
-/* =========================================================
-   HOME
-========================================================= */
-
-function goHome() {
-
+function goHome(){
 
 document
 .getElementById("progressView")
 .style
 .display =
+
 "none";
 
 
@@ -2613,6 +2453,7 @@ document
 .getElementById("result")
 .style
 .display =
+
 "none";
 
 
@@ -2620,61 +2461,43 @@ document
 .getElementById("home")
 .style
 .display =
+
 "block";
-
-
-window.scrollTo({
-
-top: 0,
-
-behavior:
-"smooth"
-
-);
 
 }
 
 
 /* =========================================================
-   ENTER KEY
+   ENTER
 ========================================================= */
 
 document
 .getElementById("userInput")
 .addEventListener(
+
 "keydown",
-function(event) {
 
+function(e){
 
-if (
-event.key === "Enter"
-&&
-!event.shiftKey
-) {
+if(
 
+e.key==="Enter" &&
+!e.shiftKey
 
-event.preventDefault();
+){
 
+e.preventDefault();
 
 discover();
 
-
 }
 
 }
+
 );
-
-
-/* =========================================================
-   INITIAL STATE
-========================================================= */
-
-document.body
-.className =
-"";
-
 
 </script>
 
 </body>
+
 </html>
