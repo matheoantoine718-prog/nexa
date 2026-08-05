@@ -712,6 +712,38 @@ DISCOVERY:[
 };
 
 
+// ADAPTATION NEXA
+
+if(profile.blocked >= 3 && type==="BLOCKED"){
+
+return [
+"Mode simplification activé.",
+"Réduis ton problème à une action de moins de 5 minutes."
+];
+
+}
+
+
+if(profile.project >= 3 && type==="PROJECT"){
+
+return [
+"Mode constructeur activé.",
+"Crée une petite version aujourd'hui et teste-la."
+];
+
+}
+
+
+if(profile.learning >= 3 && type==="LEARNING"){
+
+return [
+"Mode apprentissage activé.",
+"Apprends une notion puis applique-la immédiatement."
+];
+
+}
+
+
 return data[type] || data.DISCOVERY;
 
 
