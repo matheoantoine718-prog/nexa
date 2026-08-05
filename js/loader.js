@@ -259,8 +259,14 @@ CORE
     */
 console.log("=== NEXA LOADER START ===");
 console.log(modules);
-    loadAll();
-    alert("Loader terminé");
+    loadAll()
+.then(()=>{
 
+    alert("NEXA LOADER COMPLET");
 
-})();
+})
+.catch(error=>{
+
+    console.error(error);
+
+});
