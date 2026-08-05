@@ -257,7 +257,8 @@ CORE
     DÉMARRAGE
     =================================
     */
-
+console.log("=== NEXA LOADER START ===");
+console.log(modules);
     loadAll();
 
 
