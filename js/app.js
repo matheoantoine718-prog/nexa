@@ -194,3 +194,67 @@ const NEXA_APP = {
 
 };
 console.log("NEXA APP ONLINE");
+window.addEventListener("load", () => {
+
+    const button =
+        document.getElementById("activate");
+
+    const input =
+        document.getElementById("input");
+
+
+    if(!button || !input){
+
+        console.error(
+            "Interface NEXA introuvable"
+        );
+
+        return;
+
+    }
+
+
+    button.onclick = () => {
+
+
+        const result =
+            NEXA_APP.process(
+                input.value
+            );
+
+
+        console.log(
+            "RESULTAT NEXA :",
+            result
+        );
+
+
+        if(result.success){
+
+
+            document.getElementById("type")
+            .textContent =
+            result.intent.type;
+
+
+            document.getElementById("title")
+            .textContent =
+            result.decision.title;
+
+
+            document.getElementById("text")
+            .textContent =
+            result.decision.action;
+
+
+            document.getElementById("result")
+            .style.display =
+            "block";
+
+
+        }
+
+    };
+
+
+});
