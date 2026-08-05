@@ -260,6 +260,7 @@ CORE
 console.log("=== NEXA LOADER START ===");
 console.log(modules);
     loadAll();
+    alert("Loader terminé");
 
 
 })();
