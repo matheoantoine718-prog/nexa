@@ -656,27 +656,55 @@ renderMemory();
 });
 /* INTENT ANALYSIS */
 function analyzeIntent(input){
-const text =
-input
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"");
-const rules = [
-{
-type:"CAREER",
-words:[
-"travail",
-"emploi",
-"job",
-"metier",
-"argent",
-"salaire",
-"embauche",
-"formation",
-"cv"
-]
-},
-{
+
+const text=input.toLowerCase();
+
+if(
+text.includes("travail") ||
+text.includes("emploi") ||
+text.includes("job") ||
+text.includes("cv")
+){
+return "CAREER";
+}
+
+if(
+text.includes("projet") ||
+text.includes("application") ||
+text.includes("app") ||
+text.includes("code")
+){
+return "PROJECT";
+}
+
+if(
+text.includes("apprendre") ||
+text.includes("formation") ||
+text.includes("cours")
+){
+return "LEARNING";
+}
+
+if(
+text.includes("bloque") ||
+text.includes("peur") ||
+text.includes("stress") ||
+text.includes("perdu")
+){
+return "BLOCKED";
+}
+
+if(
+text.includes("objectif") ||
+text.includes("changer") ||
+text.includes("progresser")
+){
+return "GOAL";
+}
+
+return "DISCOVERY";
+
+}
 type:"PROJECT",
 words:[
 "projet",
