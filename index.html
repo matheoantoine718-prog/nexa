@@ -1,672 +1,551 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXA — Decision Intelligence</title>
+
+<title>NEXA V1</title>
+
 <style>
+
 *{
-  box-sizing:border-box;
+box-sizing:border-box;
 }
-:root{
-  --bg:#08090d;
-  --panel:#11131a;
-  --panel2:#171a23;
-  --border:#292e3d;
-  --text:#f4f5f7;
-  --muted:#8e94a3;
-  --accent:#8b7cff;
-  --accent2:#5ce1e6;
-  --danger:#ff5d73;
-  --success:#54e39a;
-}
+
 body{
-  margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 50% 0%,#211d42 0%,#0d0e14 35%,#08090d 70%);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
+
+margin:0;
+background:#08090d;
+color:white;
+font-family:Arial,sans-serif;
+
 }
-button,
-textarea,
-input,
-select{
-  font:inherit;
-}
-button{
-  cursor:pointer;
-}
+
 .app{
-  width:100%;
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
+
+max-width:900px;
+margin:auto;
+padding:20px;
+
 }
-/* HEADER */
+
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin-bottom:25px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+
 }
+
 .logo{
-  font-size:30px;
-  font-weight:900;
-  letter-spacing:6px;
+
+font-size:32px;
+font-weight:900;
+letter-spacing:6px;
+
 }
+
 .status{
-  color:var(--accent2);
-  font-size:12px;
-  margin-top:5px;
+
+color:#5ce1e6;
+font-size:12px;
+
 }
-.system-status{
-  font-size:12px;
-  color:var(--success);
-}
-/* NAVIGATION */
+
+
 nav{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:25px;
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:20px;
+
 }
+
+
 nav button{
-  padding:11px 16px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:var(--muted);
-  transition:.2s;
+
+background:#151822;
+color:#aaa;
+border:1px solid #292e3d;
+padding:12px 16px;
+border-radius:12px;
+
 }
-nav button:hover,
+
+
 nav button.active{
-  color:white;
-  border-color:var(--accent);
-  background:#1b1b2b;
+
+color:white;
+border-color:#8b7cff;
+
 }
-/* PAGES */
+
+
 .page{
-  display:none;
+
+display:none;
+
 }
+
+
 .page.active{
-  display:block;
+
+display:block;
+
 }
-/* CARDS */
+
+
 .card{
-  background:rgba(17,19,26,.94);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:25px;
-  margin-bottom:18px;
-  box-shadow:0 15px 50px rgba(0,0,0,.25);
+
+background:#11131a;
+border:1px solid #292e3d;
+border-radius:20px;
+padding:25px;
+margin-bottom:20px;
+
 }
+
+
 h1{
-  margin-top:0;
-  font-size:32px;
+
+font-size:30px;
+
 }
-h2{
-  margin-top:0;
-}
+
+
 .subtitle{
-  color:var(--muted);
-  line-height:1.6;
+
+color:#9298a8;
+line-height:1.6;
+
 }
-/* INPUT */
+
+
 textarea{
-  width:100%;
-  min-height:150px;
-  padding:18px;
-  resize:vertical;
-  background:#0b0d12;
-  border:1px solid var(--border);
-  border-radius:16px;
-  color:white;
-  outline:none;
+
+width:100%;
+height:140px;
+background:#08090d;
+border:1px solid #292e3d;
+border-radius:15px;
+padding:15px;
+color:white;
+resize:none;
+
 }
-textarea:focus{
-  border-color:var(--accent);
+
+
+button.primary{
+
+width:100%;
+margin-top:15px;
+padding:15px;
+border:0;
+border-radius:15px;
+background:#8b7cff;
+color:white;
+font-weight:bold;
+
 }
-/* BUTTONS */
-.primary{
-  width:100%;
-  margin-top:12px;
-  padding:15px;
-  border:0;
-  border-radius:14px;
-  background:linear-gradient(135deg,var(--accent),#6356ff);
-  color:white;
-  font-weight:800;
-}
-.secondary{
-  padding:12px 16px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:white;
-}
-.primary:hover,
-.secondary:hover{
-  opacity:.9;
-}
-/* RESULT */
+
+
 .result{
-  display:none;
-  margin-top:20px;
-  padding:22px;
-  border-radius:18px;
-  background:linear-gradient(145deg,#171927,#101118);
-  border:1px solid #303448;
+
+display:none;
+margin-top:20px;
+padding:20px;
+background:#171a23;
+border-radius:15px;
+
 }
-.badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
+
+
 .badge{
-  padding:7px 10px;
-  border-radius:20px;
-  background:#222638;
-  color:#b9c0d0;
-  font-size:11px;
+
+display:inline-block;
+background:#252a3b;
+padding:6px 10px;
+border-radius:20px;
+font-size:12px;
+margin-right:5px;
+
 }
-.result h3{
-  font-size:24px;
-  margin:15px 0 10px;
-}
-.result p{
-  color:#c5c9d4;
-  line-height:1.6;
-}
-.feedback{
-  display:flex;
-  gap:10px;
-  margin-top:20px;
-}
-.feedback button{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:white;
-}
-/* PROGRESS */
+
+
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+
 }
+
+
 .stat{
-  padding:18px;
-  border-radius:16px;
-  background:var(--panel2);
-  border:1px solid var(--border);
+
+background:#171a23;
+padding:15px;
+border-radius:15px;
+
 }
+
+
 .stat strong{
-  display:block;
-  margin-top:5px;
-  font-size:28px;
+
+display:block;
+font-size:25px;
+margin-top:10px;
+
 }
-.progress{
-  height:10px;
-  margin-top:20px;
-  background:#222530;
-  border-radius:20px;
-  overflow:hidden;
+
+
+.memory{
+
+margin-top:20px;
+
 }
-.progress-fill{
-  height:100%;
-  width:20%;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  transition:.4s;
+
+
+.memory div{
+
+padding:12px 0;
+border-bottom:1px solid #292e3d;
+
 }
-/* MEMORY */
-.memory-item{
-  padding:15px 0;
-  border-bottom:1px solid var(--border);
-}
-.memory-item:last-child{
-  border-bottom:0;
-}
-.memory-input{
-  font-weight:bold;
-}
-.memory-meta{
-  margin-top:6px;
-  color:var(--muted);
-  font-size:12px;
-}
-/* IDENTITY */
-.avatar-area{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
-.avatar-preview{
-  min-height:300px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  background:#090a0f;
-  border:1px dashed var(--border);
-  border-radius:20px;
-}
-.avatar-preview img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:none;
-}
-.placeholder{
-  padding:20px;
-  color:var(--muted);
-  text-align:center;
-}
-.controls{
-  display:grid;
-  gap:15px;
-}
-.control{
-  display:grid;
-  gap:7px;
-}
-.control label{
-  color:var(--muted);
-  font-size:13px;
-}
-input[type="file"]{
-  width:100%;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--panel2);
-  color:white;
-}
-input[type="range"]{
-  width:100%;
-}
-/* CAMERA */
-.camera-box{
-  display:none;
-  margin-top:15px;
-}
-video{
-  width:100%;
-  max-height:450px;
-  border-radius:18px;
-  background:black;
-  object-fit:cover;
-}
-.camera-actions{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-}
-.camera-actions button{
-  flex:1;
-}
-/* IDENTITY CODE */
-.identity-code{
-  display:none;
-  margin-top:20px;
-  padding:15px;
-  border-radius:12px;
-  background:#08090d;
-  color:#aeb5c6;
-  font-size:12px;
-  white-space:pre-wrap;
-  word-break:break-word;
-}
-/* AI */
-.ai-status{
-  padding:18px;
-  border-radius:14px;
-  background:var(--panel2);
-  border:1px solid var(--border);
-}
-.ai-status strong{
-  color:var(--accent2);
-}
-/* MOBILE */
+
+
 @media(max-width:700px){
-  .app{
-    padding:12px;
-  }
-  header{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-  .avatar-area{
-    grid-template-columns:1fr;
-  }
-  .stats{
-    grid-template-columns:1fr;
-  }
-  .feedback{
-    flex-direction:column;
-  }
-  h1{
-    font-size:27px;
-  }
+
+.stats{
+
+grid-template-columns:1fr;
+
 }
+
+}
+
 </style>
+
 </head>
+
+
 <body>
+
+
 <div class="app">
+
+
 <header>
+
 <div>
-<div class="logo">NEXA</div>
+
+<div class="logo">
+NEXA
+</div>
+
 <div class="status">
-DECISION INTELLIGENCE • LOCAL MODE
+DECISION INTELLIGENCE
 </div>
+
 </div>
-<div id="systemStatus" class="system-status">
-● SYSTEM READY
+
+
+<div>
+● READY
 </div>
+
+
 </header>
+
+
+
 <nav>
+
 <button class="active" data-page="home">
 NEXA
 </button>
-<button data-page="identity">
-IDENTITY
-</button>
+
 <button data-page="progress">
 PROGRESSION
 </button>
+
 <button data-page="ai">
 AI CORE
 </button>
+
 </nav>
-<!-- HOME -->
+
+
+
+
+
 <section id="home" class="page active">
+
+
 <div class="card">
+
+
 <h1>
-Transforme une intention en action.
+Transforme une idée en action
 </h1>
+
+
 <p class="subtitle">
-Explique ce que tu veux accomplir.
-NEXA analyse ton intention et te propose
-une seule prochaine action concrète.
+
+Décris ton objectif.
+NEXA choisira la prochaine action utile.
+
 </p>
-<textarea
-id="userInput"
-placeholder="Exemple : Je veux créer mon application mais je ne sais pas par où commencer..."
-></textarea>
-<button id="thinkButton" class="primary">
+
+
+
+<textarea id="input"
+placeholder="Exemple : Je veux créer une application...">
+</textarea>
+
+
+
+<button id="activate" class="primary">
+
 ACTIVER NEXA
+
 </button>
+
+
+
 <div id="result" class="result">
-<div class="badges">
-<span id="typeBadge" class="badge">
-DISCOVERY
+
+
+<span id="type" class="badge">
+TYPE
 </span>
-<span id="levelBadge" class="badge">
-NIVEAU 1
-</span>
-</div>
-<h3 id="resultTitle">
-Ta prochaine action
-</h3>
-<p id="resultText"></p>
-<div class="feedback">
-<button id="likeButton">
-✓ ACTION UTILE
-</button>
-<button id="noButton">
-↻ À REVOIR
-</button>
-</div>
-</div>
-</div>
-</section>
-<!-- IDENTITY -->
-<section id="identity" class="page">
-<div class="card">
-<h1>
-IDENTITY CONSTRUCT
-</h1>
-<p class="subtitle">
-Construis ton identité numérique NEXA.
-Tes données sont conservées localement
-dans ton navigateur.
+
+
+<h2 id="title">
+
+Résultat
+
+</h2>
+
+
+<p id="text">
+
+Ta prochaine action apparaîtra ici.
+
 </p>
-<div class="avatar-area">
-<div class="avatar-preview">
-<img id="avatarImage" alt="Avatar">
-<div id="avatarPlaceholder" class="placeholder">
-Aucun avatar sélectionné
+
+
 </div>
+
+
+
 </div>
-<div class="controls">
-<div class="control">
-<label>
-PHOTO DE LA GALERIE
-</label>
-<input
-id="galleryInput"
-type="file"
-accept="image/jpeg,image/png,image/webp"
->
-</div>
-<button
-id="cameraButton"
-class="secondary"
->
-ACTIVER LA CAMÉRA
-</button>
-<div id="cameraBox" class="camera-box">
-<video
-id="camera"
-autoplay
-playsinline
-muted
-></video>
-<div class="camera-actions">
-<button
-id="captureButton"
-class="primary"
->
-CAPTURER
-</button>
-<button
-id="stopCameraButton"
-class="secondary"
->
-ARRÊTER
-</button>
-</div>
-</div>
-<div class="control">
-<label>
-STYLE
-</label>
-<select id="avatarStyle">
-<option>NEXA_ORIGINAL</option>
-<option>FUTURISTIC</option>
-<option>CYBER</option>
-<option>DIGITAL</option>
-<option>ANIME</option>
-<option>MINIMAL</option>
-<option>REALISTIC</option>
-</select>
-</div>
-<div class="control">
-<label>
-FUTURISME
-</label>
-<input
-id="futurism"
-type="range"
-min="0"
-max="100"
-value="50"
->
-</div>
-<div class="control">
-<label>
-ORIGINALITÉ
-</label>
-<input
-id="originality"
-type="range"
-min="0"
-max="100"
-value="50"
->
-</div>
-<div class="control">
-<label>
-ÉNERGIE
-</label>
-<input
-id="energy"
-type="range"
-min="0"
-max="100"
-value="50"
->
-</div>
-<button
-id="saveIdentityButton"
-class="primary"
->
-SAUVEGARDER L'IDENTITÉ
-</button>
-</div>
-</div>
-<div id="identityCode" class="identity-code"></div>
-</div>
+
+
 </section>
-<!-- PROGRESSION -->
+
+
+
+
+
 <section id="progress" class="page">
+
+
 <div class="card">
+
+
 <h1>
-PROGRESSION
+Progression
 </h1>
+
+
 <div class="stats">
+
+
 <div class="stat">
+
 Intentions
-<strong id="totalIntentions">0</strong>
+
+<strong id="count">
+
+0
+
+</strong>
+
 </div>
+
+
 <div class="stat">
-Actions utiles
-<strong id="positiveFeedback">0</strong>
-</div>
-<div class="stat">
+
 Niveau
-<strong id="userLevel">1</strong>
+
+<strong id="level">
+
+1
+
+</strong>
+
 </div>
+
+
+<div class="stat">
+
+Actions utiles
+
+<strong id="good">
+
+0
+
+</strong>
+
 </div>
-<div class="progress">
-<div
-id="progressFill"
-class="progress-fill"
-></div>
+
+
+
 </div>
+
+
 </div>
+
+
+
 <div class="card">
+
+
 <h2>
 Mémoire NEXA
 </h2>
-<div id="memoryList">
+
+
+<div id="memory" class="memory">
+
 Aucune mémoire.
+
 </div>
-<br>
-<button
-id="resetButton"
-class="secondary"
->
-RÉINITIALISER
-</button>
+
+
 </div>
+
+
 </section>
-<!-- AI CORE -->
+
+
+
+
+
 <section id="ai" class="page">
+
+
 <div class="card">
+
+
 <h1>
-NEXA AI CORE
+AI CORE
 </h1>
+
+
 <p class="subtitle">
-Le moteur décisionnel local est actif.
-La connexion à une véritable IA générative
-sera ajoutée dans une prochaine étape.
+
+Module IA prêt pour évolution future.
+
 </p>
-<div class="ai-status">
-<strong>
-STATUT
-</strong>
-<p id="aiStatus">
-● LOCAL ENGINE ACTIVE
-</p>
+
+
 </div>
-</div>
+
+
 </section>
-</div>
 <script>
-/* ==================================================
-NEXA V11 — CORE
-================================================== */
-/* STATE */
-const NEXA = {
-memory:
+
+/* =========================
+NEXA CORE ENGINE
+========================= */
+
+
+const memory =
 JSON.parse(
-localStorage.getItem("NEXA_MEMORY_V11") || "[]"
-),
-level:
-Number(
-localStorage.getItem("NEXA_LEVEL_V11") || "1"
-),
-cameraStream:null,
-avatar:
-localStorage.getItem("NEXA_AVATAR_V11") || null
-};
-/* DOM HELPER */
-function $(id){
-return document.getElementById(id);
-}
-/* NAVIGATION */
-document
-.querySelectorAll("nav button")
-.forEach(button => {
-button.addEventListener("click",function(){
-document
-.querySelectorAll("nav button")
-.forEach(btn =>
-btn.classList.remove("active")
+localStorage.getItem("NEXA_MEMORY") || "[]"
 );
+
+
+let level =
+Number(
+localStorage.getItem("NEXA_LEVEL") || 1
+);
+
+
+
+/* =========================
+NAVIGATION
+========================= */
+
+
+document
+.querySelectorAll("nav button")
+.forEach(button=>{
+
+button.onclick=function(){
+
+document
+.querySelectorAll("nav button")
+.forEach(b=>{
+b.classList.remove("active");
+});
+
+
 document
 .querySelectorAll(".page")
-.forEach(page =>
-page.classList.remove("active")
-);
-this.classList.add("active");
-const page =
-$(this.dataset.page);
-if(page){
-page.classList.add("active");
-}
-if(this.dataset.page === "progress"){
-renderMemory();
-}
+.forEach(p=>{
+p.classList.remove("active");
 });
-});
-/* INTENT ANALYSIS */
-function analyzeIntent(input){
 
-const text=input.toLowerCase();
+
+this.classList.add("active");
+
+
+document
+.getElementById(this.dataset.page)
+.classList.add("active");
+
+
+if(this.dataset.page==="progress"){
+
+renderMemory();
+
+}
+
+};
+
+});
+
+
+
+
+/* =========================
+ANALYSE
+========================= */
+
+
+function analyze(text){
+
+text =
+text
+.toLowerCase();
+
 
 if(
 text.includes("travail") ||
 text.includes("emploi") ||
-text.includes("job") ||
-text.includes("cv")
+text.includes("job")
 ){
+
 return "CAREER";
+
 }
+
 
 if(
 text.includes("projet") ||
@@ -674,1449 +553,292 @@ text.includes("application") ||
 text.includes("app") ||
 text.includes("code")
 ){
+
 return "PROJECT";
+
 }
+
 
 if(
 text.includes("apprendre") ||
 text.includes("formation") ||
 text.includes("cours")
 ){
+
 return "LEARNING";
+
 }
 
+
 if(
+text.includes("bloqué") ||
 text.includes("bloque") ||
-text.includes("peur") ||
-text.includes("stress") ||
-text.includes("perdu")
+text.includes("perdu") ||
+text.includes("stress")
 ){
+
 return "BLOCKED";
+
 }
+
 
 if(
 text.includes("objectif") ||
-text.includes("changer") ||
+text.includes("réussir") ||
 text.includes("progresser")
 ){
+
 return "GOAL";
+
 }
+
 
 return "DISCOVERY";
 
 }
-type:"PROJECT",
-words:[
-"projet",
-"application",
-"app",
-"business",
-"entreprise",
-"startup",
-"site",
-"idee",
-"code"
-]
-},
-{
-type:"LEARNING",
-words:[
-"apprendre",
-"etudier",
-"cours",
-"competence",
-"comprendre"
-]
-},
-{
-type:"BLOCKED",
-words:[
-"bloque",
-"blocage",
-"procrastine",
-"peur",
-"stress",
-"n'arrive",
-"ne sais pas",
-"impossible"
-]
-},
-{
-type:"GOAL",
-words:[
-"objectif",
-"reussir",
-"changer",
-"ameliorer",
-"progresser"
-]
-}
-];
-for(const rule of rules){
-if(
-rule.words.some(word =>
-text.includes(word)
-)
-){
-return rule.type;
-}
-}
-return "DISCOVERY";
-}
-/* DECISION ENGINE */
-/* ==================================================
-NEXA INTELLIGENCE ENGINE V2
-================================================== */
-/* NORMALISATION */
-function normalizeText(text){
-return text
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"")
-.trim();
-}
-/* INTENT ANALYSIS */
-/* ==================================================
-NEXA INTELLIGENCE ENGINE V2
-================================================== */
-/* NORMALISATION */
-function normalizeText(text){
-return text
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"")
-.trim();
-}
-/* INTENT ANALYSIS */
-function analyzeIntent(input){
-const text =
-normalizeText(input);
-/* CATEGORY */
-const categories = {
+
+
+
+/* =========================
+DECISION
+========================= */
+
+
+function decision(type){
+
+
+const data={
+
+
 CAREER:[
-"travail",
-"emploi",
-"job",
-"metier",
-"carriere",
-"cv",
-"candidature",
-"embauche",
-"recrutement",
-"salaire",
-"formation"
+
+"Définis ton objectif professionnel.",
+"Écris le métier précis que tu recherches."
+
 ],
+
+
 PROJECT:[
-"projet",
-"application",
-"app",
-"business",
-"entreprise",
-"startup",
-"site",
-"logiciel",
-"code",
-"programmation",
-"idee"
-],
-LEARNING:[
-"apprendre",
-"etudier",
-"cours",
-"competence",
-"comprendre",
-"formation",
-"apprentissage"
-],
-MONEY:[
-"argent",
-"revenu",
-"gagner",
-"economiser",
-"budget",
-"finance",
-"investir"
-],
-BLOCKED:[
-"bloque",
-"blocage",
-"procrastine",
-"peur",
-"stress",
-"impossible",
-"n'arrive pas",
-"ne sais pas",
-"perdu",
-"confus"
-],
-GOAL:[
-"objectif",
-"reussir",
-"changer",
-"ameliorer",
-"progresser",
-"developper",
-"atteindre"
-]
-};
-let detectedType="DISCOVERY";
-let highestScore=0;
-for(
-const category in categories
-){
-let score=0;
-categories[category]
-.forEach(word => {
-if(
-text.includes(word)
-){
-score++;
-}
-});
-if(
-score > highestScore
-){
-highestScore=score;
-detectedType=
-category;
-}
-}
-/* URGENCY */
-const urgencyWords=[
-"urgent",
-"maintenant",
-"aujourd'hui",
-"vite",
-"immediatement",
-"rapidement"
-];
-const urgency =
-urgencyWords.some(
-word =>
-text.includes(word)
-)
-?
-"HIGH"
-:
-"NORMAL";
-/* BLOCKED STATE */
-const blockedWords=[
-"je ne sais pas",
-"je sais pas",
-"je suis bloque",
-"je suis perdu",
-"je n'arrive pas",
-"impossible",
-"je comprends pas"
-];
-const blocked =
-blockedWords.some(
-word =>
-text.includes(word)
-);
-/* COMPLEXITY */
-let complexity="LOW";
-if(
-text.length > 120
-){
-complexity="HIGH";
-}
-else if(
-text.length > 50
-){
-complexity="MEDIUM";
-}
-/* RETURN ANALYSIS */
-return {
-type:detectedType,
-urgency:urgency,
-blocked:blocked,
-complexity:complexity,
-length:text.length
-};
-}
-/* DECISION ENGINE */
-function generateDecision(analysis){
-const type =
-analysis.type;
-/* BLOCKED OVERRIDE */
-if(
-analysis.blocked
-){
-return {
-title:"Réduis le problème.",
-text:
-"Ne cherche pas encore la solution complète. Écris maintenant une seule chose : « Quelle est la prochaine action de moins de 5 minutes que je peux faire ? »",
-action:
-"Clarifier",
-priority:
-"IMMEDIATE"
-};
-}
-/* URGENCY OVERRIDE */
-if(
-analysis.urgency === "HIGH"
-){
-return {
-title:"Passe à l'action maintenant.",
-text:
-"Ne planifie pas davantage. Choisis une seule action directement liée à ton objectif et commence-la immédiatement pendant 5 minutes.",
-action:
-"Agir",
-priority:
-"HIGH"
-};
-}
-/* PERSONALIZED PLANS */
-const plans={
-CAREER:[
-[
-"Définis ta cible.",
-"Écris le métier précis que tu veux obtenir."
-],
-[
-"Trouve une opportunité.",
-"Identifie une seule offre réellement accessible pour toi."
-],
-[
-"Passe au contact.",
-"Envoie aujourd'hui une candidature ou un message."
-],
-[
-"Améliore ton profil.",
-"Identifie la compétence qui augmenterait le plus tes chances."
-],
-[
-"Construis ton système.",
-"Organise une routine quotidienne de recherche et de candidature."
-]
-],
-PROJECT:[
-[
+
 "Clarifie ton idée.",
-"Résume ton projet en une phrase simple."
+"Décris ton application en une phrase."
+
 ],
-[
-"Choisis le cœur.",
-"Définis la seule fonctionnalité indispensable."
-],
-[
-"Construis.",
-"Crée aujourd'hui la version la plus simple possible."
-],
-[
-"Teste.",
-"Montre ton prototype à une vraie personne."
-],
-[
-"Optimise.",
-"Améliore une seule chose à partir du feedback obtenu."
-]
-],
+
+
 LEARNING:[
-[
+
 "Choisis une compétence.",
-"Définis exactement ce que tu veux savoir faire."
+"Apprends une seule chose aujourd'hui."
+
 ],
-[
-"Commence petit.",
-"Choisis une seule ressource et apprends les bases."
-],
-[
-"Pratique.",
-"Fais immédiatement un exercice concret."
-],
-[
-"Produis.",
-"Crée quelque chose qui démontre ta compétence."
-],
-[
-"Approfondis.",
-"Travaille maintenant sur un problème plus difficile."
-]
-],
-MONEY:[
-[
-"Clarifie ton objectif financier.",
-"Définis le montant que tu veux gagner ou économiser."
-],
-[
-"Observe.",
-"Note aujourd'hui où part ton argent."
-],
-[
-"Réduis une fuite.",
-"Identifie une seule dépense que tu peux réduire."
-],
-[
-"Crée une source.",
-"Explore une manière réaliste d'augmenter tes revenus."
-],
-[
-"Construis un système.",
-"Automatise ton épargne ou ton suivi financier."
-]
-],
-GOAL:[
-[
-"Clarifie ton objectif.",
-"Décris précisément le résultat que tu veux obtenir."
-],
-[
-"Réduis l'objectif.",
-"Choisis le plus petit résultat mesurable."
-],
-[
-"Agis.",
-"Fais aujourd'hui une action qui produit un résultat."
-],
-[
-"Mesure.",
-"Vérifie ce qui a réellement progressé."
-],
-[
-"Structure.",
-"Transforme ton objectif en système régulier."
-]
-],
-DISCOVERY:[
-[
-"Explore.",
-"Écris précisément ce qui t'intéresse."
-],
-[
-"Teste.",
-"Fais une petite expérience concrète."
-],
-[
-"Observe.",
-"Regarde ce qui fonctionne réellement."
-],
-[
-"Approfondis.",
-"Développe la piste qui semble la plus prometteuse."
-],
-[
-"Décide.",
-"Choisis une direction et avance."
-]
-]
-};
-const plan =
-plans[type] ||
-plans.DISCOVERY;
-const index =
-Math.max(
-0,
-Math.min(
-NEXA.level - 1,
-4
-)
-);
-const selected =
-plan[index];
-return {
-title:selected[0],
-text:selected[1],
-action:selected[0],
-priority:"NORMAL"
-};
-}
-/* ==================================================
-NEXA THINK V2
-================================================== */
-function think(){
-const input =
-$("userInput")
-.value
-.trim();
-if(!input){
-alert(
-"Écris d'abord ce que tu veux accomplir."
-);
-return;
-}
-/* ANALYZE */
-const analysis =
-analyzeIntent(input);
-/* DECISION */
-const decision =
-generateDecision(
-analysis
-);
-/* ENTRY */
-const entry={
-id:Date.now(),
-input:input,
-type:analysis.type,
-urgency:analysis.urgency,
-blocked:analysis.blocked,
-complexity:analysis.complexity,
-level:NEXA.level,
-title:decision.title,
-text:decision.text,
-action:decision.action,
-priority:decision.priority,
-feedback:null,
-date:new Date().toISOString()
-};
-/* MEMORY */
-NEXA.memory.push(entry);
-/* SAVE */
-save();
-/* DISPLAY */
-displayResult(entry);
-/* DEBUG */
-console.log(
-"NEXA ANALYSIS",
-analysis
-);
-console.log(
-"NEXA DECISION",
-decision
-);
-}
-const text =
-normalizeText(input);
-/* CATEGORY */
-const categories = {
-CAREER:[
-"travail",
-"emploi",
-"job",
-"metier",
-"carriere",
-"cv",
-"candidature",
-"embauche",
-"recrutement",
-"salaire",
-"formation"
-],
-PROJECT:[
-"projet",
-"application",
-"app",
-"business",
-"entreprise",
-"startup",
-"site",
-"logiciel",
-"code",
-"programmation",
-"idee"
-],
-LEARNING:[
-"apprendre",
-"etudier",
-"cours",
-"competence",
-"comprendre",
-"formation",
-"apprentissage"
-],
-MONEY:[
-"argent",
-"revenu",
-"gagner",
-"economiser",
-"budget",
-"finance",
-"investir"
-],
+
+
 BLOCKED:[
-"bloque",
-"blocage",
-"procrastine",
-"peur",
-"stress",
-"impossible",
-"n'arrive pas",
-"ne sais pas",
-"perdu",
-"confus"
-],
-GOAL:[
-"objectif",
-"reussir",
-"changer",
-"ameliorer",
-"progresser",
-"developper",
-"atteindre"
-]
-};
-let detectedType="DISCOVERY";
-let highestScore=0;
-for(
-const category in categories
-){
-let score=0;
-categories[category]
-.forEach(word => {
-if(
-text.includes(word)
-){
-score++;
-}
-});
-if(
-score > highestScore
-){
-highestScore=score;
-detectedType=
-category;
-}
-}
-/* URGENCY */
-const urgencyWords=[
-"urgent",
-"maintenant",
-"aujourd'hui",
-"vite",
-"immediatement",
-"rapidement"
-];
-const urgency =
-urgencyWords.some(
-word =>
-text.includes(word)
-)
-?
-"HIGH"
-:
-"NORMAL";
-/* BLOCKED STATE */
-const blockedWords=[
-"je ne sais pas",
-"je sais pas",
-"je suis bloque",
-"je suis perdu",
-"je n'arrive pas",
-"impossible",
-"je comprends pas"
-];
-const blocked =
-blockedWords.some(
-word =>
-text.includes(word)
-);
-/* COMPLEXITY */
-let complexity="LOW";
-if(
-text.length > 120
-){
-complexity="HIGH";
-}
-else if(
-text.length > 50
-){
-complexity="MEDIUM";
-}
-/* RETURN ANALYSIS */
-return {
-type:detectedType,
-urgency:urgency,
-blocked:blocked,
-complexity:complexity,
-length:text.length
-};
-}
-/* DECISION ENGINE */
-function generateDecision(analysis){
-const type =
-analysis.type;
-/* BLOCKED OVERRIDE */
-if(
-analysis.blocked
-){
-return {
-title:"Réduis le problème.",
-text:
-"Ne cherche pas encore la solution complète. Écris maintenant une seule chose : « Quelle est la prochaine action de moins de 5 minutes que je peux faire ? »",
-action:
-"Clarifier",
-priority:
-"IMMEDIATE"
-};
-}
-/* URGENCY OVERRIDE */
-if(
-analysis.urgency === "HIGH"
-){
-return {
-title:"Passe à l'action maintenant.",
-text:
-"Ne planifie pas davantage. Choisis une seule action directement liée à ton objectif et commence-la immédiatement pendant 5 minutes.",
-action:
-"Agir",
-priority:
-"HIGH"
-};
-}
-/* PERSONALIZED PLANS */
-const plans={
-CAREER:[
-[
-"Définis ta cible.",
-"Écris le métier précis que tu veux obtenir."
-],
-[
-"Trouve une opportunité.",
-"Identifie une seule offre réellement accessible pour toi."
-],
-[
-"Passe au contact.",
-"Envoie aujourd'hui une candidature ou un message."
-],
-[
-"Améliore ton profil.",
-"Identifie la compétence qui augmenterait le plus tes chances."
-],
-[
-"Construis ton système.",
-"Organise une routine quotidienne de recherche et de candidature."
-]
-],
-PROJECT:[
-[
-"Clarifie ton idée.",
-"Résume ton projet en une phrase simple."
-],
-[
-"Choisis le cœur.",
-"Définis la seule fonctionnalité indispensable."
-],
-[
-"Construis.",
-"Crée aujourd'hui la version la plus simple possible."
-],
-[
-"Teste.",
-"Montre ton prototype à une vraie personne."
-],
-[
-"Optimise.",
-"Améliore une seule chose à partir du feedback obtenu."
-]
-],
-LEARNING:[
-[
-"Choisis une compétence.",
-"Définis exactement ce que tu veux savoir faire."
-],
-[
-"Commence petit.",
-"Choisis une seule ressource et apprends les bases."
-],
-[
-"Pratique.",
-"Fais immédiatement un exercice concret."
-],
-[
-"Produis.",
-"Crée quelque chose qui démontre ta compétence."
-],
-[
-"Approfondis.",
-"Travaille maintenant sur un problème plus difficile."
-]
-],
-MONEY:[
-[
-"Clarifie ton objectif financier.",
-"Définis le montant que tu veux gagner ou économiser."
-],
-[
-"Observe.",
-"Note aujourd'hui où part ton argent."
-],
-[
-"Réduis une fuite.",
-"Identifie une seule dépense que tu peux réduire."
-],
-[
-"Crée une source.",
-"Explore une manière réaliste d'augmenter tes revenus."
-],
-[
-"Construis un système.",
-"Automatise ton épargne ou ton suivi financier."
-]
-],
-GOAL:[
-[
-"Clarifie ton objectif.",
-"Décris précisément le résultat que tu veux obtenir."
-],
-[
-"Réduis l'objectif.",
-"Choisis le plus petit résultat mesurable."
-],
-[
-"Agis.",
-"Fais aujourd'hui une action qui produit un résultat."
-],
-[
-"Mesure.",
-"Vérifie ce qui a réellement progressé."
-],
-[
-"Structure.",
-"Transforme ton objectif en système régulier."
-]
-],
-DISCOVERY:[
-[
-"Explore.",
-"Écris précisément ce qui t'intéresse."
-],
-[
-"Teste.",
-"Fais une petite expérience concrète."
-],
-[
-"Observe.",
-"Regarde ce qui fonctionne réellement."
-],
-[
-"Approfondis.",
-"Développe la piste qui semble la plus prometteuse."
-],
-[
-"Décide.",
-"Choisis une direction et avance."
-]
-]
-};
-const plan =
-plans[type] ||
-plans.DISCOVERY;
-const index =
-Math.max(
-0,
-Math.min(
-NEXA.level - 1,
-4
-)
-);
-const selected =
-plan[index];
-return {
-title:selected[0],
-text:selected[1],
-action:selected[0],
-priority:"NORMAL"
-};
-}
-/* ==================================================
-NEXA THINK V2
-================================================== */
-function think(){
-const input =
-$("userInput")
-.value
-.trim();
-if(!input){
-alert(
-"Écris d'abord ce que tu veux accomplir."
-);
-return;
-}
-/* ANALYZE */
-const analysis =
-analyzeIntent(input);
-/* DECISION */
-const decision =
-generateDecision(
-analysis
-);
-/* ENTRY */
-const entry={
-id:Date.now(),
-input:input,
-type:analysis.type,
-urgency:analysis.urgency,
-blocked:analysis.blocked,
-complexity:analysis.complexity,
-level:NEXA.level,
-title:decision.title,
-text:decision.text,
-action:decision.action,
-priority:decision.priority,
-feedback:null,
-date:new Date().toISOString()
-};
-/* MEMORY */
-NEXA.memory.push(entry);
-/* SAVE */
-save();
-/* DISPLAY */
-displayResult(entry);
-/* DEBUG */
-console.log(
-"NEXA ANALYSIS",
-analysis
-);
-console.log(
-"NEXA DECISION",
-decision
-);
-}
-const plans = {
-CAREER:[
-[
-"Définis ta cible.",
-"Ecris précisément le métier ou le type de travail que tu recherches."
-],
-[
-"Trouve une opportunité.",
-"Recherche une seule offre qui correspond réellement à ton profil."
-],
-[
-"Passe au contact.",
-"Envoie aujourd'hui une candidature ou contacte une entreprise."
-],
-[
-"Identifie ton obstacle.",
-"Note la compétence principale qui te manque pour avancer."
-],
-[
-"Construis ta prochaine étape.",
-"Choisis une action concrète qui améliore ta situation aujourd'hui."
-]
-],
-PROJECT:[
-[
-"Clarifie ton idée.",
-"Résume ton projet en une seule phrase."
-],
-[
-"Choisis une fonction.",
-"Décide quelle est la fonctionnalité la plus importante."
-],
-[
-"Construis le prototype.",
-"Crée la version la plus simple possible."
-],
-[
-"Montre-le.",
-"Fais tester ton projet par une vraie personne."
-],
-[
-"Améliore.",
-"Utilise le feedback pour effectuer une amélioration précise."
-]
-],
-LEARNING:[
-[
-"Choisis une compétence.",
-"Définis une seule compétence que tu veux apprendre."
-],
-[
-"Trouve une ressource.",
-"Choisis une seule source fiable pour commencer."
-],
-[
-"Pratique.",
-"Fais immédiatement un exercice concret."
-],
-[
-"Crée.",
-"Utilise ce que tu viens d'apprendre pour produire quelque chose."
-],
-[
-"Approfondis.",
-"Passe à un niveau plus difficile."
-]
-],
-BLOCKED:[
-[
+
 "Réduis le problème.",
-"Transforme ton problème en une seule question simple."
+"Choisis une action réalisable en 5 minutes."
+
 ],
-[
-"Action de 5 minutes.",
-"Fais maintenant la plus petite action possible."
-],
-[
-"Continue.",
-"Ajoute une deuxième micro-action."
-],
-[
-"Répète.",
-"Transforme cette action en habitude."
-],
-[
-"Construis un système.",
-"Organise ton environnement pour rendre l'action plus automatique."
-]
-],
+
+
 GOAL:[
-[
-"Clarifie ton objectif.",
-"Décris précisément le résultat que tu veux obtenir."
+
+"Passe à l'action.",
+"Choisis une étape concrète maintenant."
+
 ],
-[
-"Première victoire.",
-"Choisis le plus petit résultat mesurable."
-],
-[
-"Agis.",
-"Fais une action qui rapproche directement de ton objectif."
-],
-[
-"Mesure.",
-"Vérifie ce qui a réellement avancé."
-],
-[
-"Structure.",
-"Transforme ton objectif en système quotidien."
-]
-],
+
+
 DISCOVERY:[
-[
+
 "Explore.",
-"Choisis une idée qui t'intéresse et écris pourquoi."
-],
-[
-"Teste.",
-"Fais une petite expérience concrète."
-],
-[
-"Observe.",
-"Regarde ce qui fonctionne réellement."
-],
-[
-"Approfondis.",
-"Développe la piste qui semble la plus prometteuse."
-],
-[
-"Décide.",
-"Choisis une direction et avance."
+"Teste une nouvelle piste."
+
 ]
-]
+
+
 };
-const plan =
-plans[type] || plans.DISCOVERY;
-const index =
-Math.max(
-0,
-Math.min(
-NEXA.level - 1,
-4
-)
-);
-return {
-title:
-plan[index][0],
-text:
-plan[index][1]
-};
+
+
+return data[type] || data.DISCOVERY;
+
+
 }
-/* MAIN ENGINE */
-function think(){
+
+
+
+
+/* =========================
+ACTIVATION NEXA
+========================= */
+
+
+document
+.getElementById("activate")
+.onclick=function(){
+
+
 const input =
-$("userInput")
+document
+.getElementById("input")
 .value
 .trim();
+
+
+
 if(!input){
-alert(
-"Ecris d'abord ce que tu veux accomplir."
-);
+
+alert("Écris une intention.");
+
 return;
+
 }
+
+
+
 const type =
-analyzeIntent(input);
-const decision =
-generateDecision(type);
-const entry = {
-id:Date.now(),
-input:input,
+analyze(input);
+
+
+
+const result =
+decision(type);
+
+
+
+const entry={
+
+text:input,
+
 type:type,
-level:NEXA.level,
-title:decision.title,
-text:decision.text,
-feedback:null,
+
+title:result[0],
+
+answer:result[1],
+
+level:level,
+
 date:new Date().toISOString()
+
 };
-NEXA.memory.push(entry);
-save();
-displayResult(entry);
-}
-$("thinkButton")
-.addEventListener(
-"click",
-think
+
+
+
+memory.push(entry);
+
+
+
+localStorage.setItem(
+"NEXA_MEMORY",
+JSON.stringify(memory)
 );
-/* DISPLAY */
-function displayResult(entry){
-$("typeBadge")
-.textContent =
-entry.type;
-$("levelBadge")
-.textContent =
-"NIVEAU " + entry.level;
-$("resultTitle")
-.textContent =
-entry.title;
-$("resultText")
-.textContent =
-entry.text;
-$("result")
-.style.display =
-"block";
-}
-/* FEEDBACK */
-function giveFeedback(type){
-if(!NEXA.memory.length){
-return;
-}
-const last =
-NEXA.memory[
-NEXA.memory.length - 1
-];
-last.feedback =
-type;
-if(
-type === "like" &&
-NEXA.level < 5
-){
-NEXA.level++;
-}
-if(
-type === "no" &&
-NEXA.level > 1
-){
-NEXA.level--;
-}
-save();
+
+
+
+document
+.getElementById("type")
+.textContent=type;
+
+
+document
+.getElementById("title")
+.textContent=result[0];
+
+
+document
+.getElementById("text")
+.textContent=result[1];
+
+
+document
+.getElementById("result")
+.style.display="block";
+
+
 renderMemory();
-$("userInput").value="";
-$("result").style.display="none";
-}
-$("likeButton")
-.addEventListener(
-"click",
-() =>
-giveFeedback("like")
-);
-$("noButton")
-.addEventListener(
-"click",
-() =>
-giveFeedback("no")
-);
-/* STORAGE */
-function save(){
-localStorage.setItem(
-"NEXA_MEMORY_V11",
-JSON.stringify(
-NEXA.memory
-)
-);
-localStorage.setItem(
-"NEXA_LEVEL_V11",
-String(NEXA.level)
-);
-}
-/* MEMORY */
+
+
+};
+
+
+
+
+/* =========================
+MEMOIRE
+========================= */
+
+
 function renderMemory(){
-$("totalIntentions")
-.textContent =
-NEXA.memory.length;
-$("positiveFeedback")
-.textContent =
-NEXA.memory.filter(
-item =>
-item.feedback === "like"
-).length;
-$("userLevel")
-.textContent =
-NEXA.level;
-$("progressFill")
-.style.width =
-(NEXA.level * 20) + "%";
-if(!NEXA.memory.length){
-$("memoryList")
-.textContent =
+
+
+document
+.getElementById("count")
+.textContent=
+memory.length;
+
+
+document
+.getElementById("level")
+.textContent=
+level;
+
+
+document
+.getElementById("good")
+.textContent=
+0;
+
+
+
+if(memory.length===0){
+
+document
+.getElementById("memory")
+.textContent=
 "Aucune mémoire.";
+
 return;
+
 }
-$("memoryList")
-.innerHTML =
-NEXA.memory
+
+
+
+document
+.getElementById("memory")
+.innerHTML=
+memory
 .slice()
 .reverse()
-.slice(0,20)
-.map(item => `
-<div class="memory-item">
-<div class="memory-input">
-${escapeHTML(item.input)}
+.map(item=>`
+
+<div>
+
+<b>${item.type}</b><br>
+
+${item.text}
+
 </div>
-<div class="memory-meta">
-${item.type}
-•
-Niveau ${item.level}
-•
-${item.feedback || "Sans feedback"}
-</div>
-</div>
+
 `)
 .join("");
+
 }
-/* ESCAPE HTML */
-function escapeHTML(text){
-const div =
-document.createElement("div");
-div.textContent =
-text;
-return div.innerHTML;
-}
-/* RESET */
-$("resetButton")
-.addEventListener(
-"click",
-function(){
-if(
-!confirm(
-"Réinitialiser toute la mémoire NEXA ?"
-)
-){
-return;
-}
-NEXA.memory=[];
-NEXA.level=1;
-save();
+
+
+
 renderMemory();
-}
-);
-/* GALLERY */
-$("galleryInput")
-.addEventListener(
-"change",
-function(event){
-const file =
-event.target.files[0];
-if(!file){
-return;
-}
-if(
-!file.type.startsWith("image/")
-){
-alert(
-"Choisis une image valide."
-);
-return;
-}
-const reader =
-new FileReader();
-reader.onload =
-function(event){
-setAvatar(
-event.target.result
-);
-};
-reader.readAsDataURL(file);
-}
-);
-/* AVATAR */
-function setAvatar(data){
-NEXA.avatar =
-data;
-localStorage.setItem(
-"NEXA_AVATAR_V11",
-data
-);
-$("avatarImage")
-.src =
-data;
-$("avatarImage")
-.style.display =
-"block";
-$("avatarPlaceholder")
-.style.display =
-"none";
-}
-/* CAMERA */
-$("cameraButton")
-.addEventListener(
-"click",
-startCamera
-);
-async function startCamera(){
-if(
-!navigator.mediaDevices ||
-!navigator.mediaDevices.getUserMedia
-){
-alert(
-"La caméra n'est pas disponible ici."
-);
-return;
-}
-try{
-NEXA.cameraStream =
-await navigator.mediaDevices.getUserMedia({
-video:{
-facingMode:"user"
-},
-audio:false
-});
-$("camera")
-.srcObject =
-NEXA.cameraStream;
-$("cameraBox")
-.style.display =
-"block";
-$("systemStatus")
-.textContent =
-"● CAMERA ACTIVE";
-}
-catch(error){
-console.error(error);
-alert(
-"Accès à la caméra refusé ou indisponible."
-);
-}
-}
-/* CAPTURE */
-$("captureButton")
-.addEventListener(
-"click",
-capture
-);
-function capture(){
-const video =
-$("camera");
-if(!video.videoWidth){
-alert(
-"La caméra n'est pas encore prête."
-);
-return;
-}
-const canvas =
-document.createElement("canvas");
-canvas.width =
-video.videoWidth;
-canvas.height =
-video.videoHeight;
-const context =
-canvas.getContext("2d");
-context.drawImage(
-video,
-0,
-0,
-canvas.width,
-canvas.height
-);
-setAvatar(
-canvas.toDataURL(
-"image/jpeg",
-0.9
-)
-);
-stopCamera();
-}
-/* STOP CAMERA */
-$("stopCameraButton")
-.addEventListener(
-"click",
-stopCamera
-);
-function stopCamera(){
-if(
-NEXA.cameraStream
-){
-NEXA.cameraStream
-.getTracks()
-.forEach(
-track =>
-track.stop()
-);
-NEXA.cameraStream =
-null;
-}
-$("camera").srcObject =
-null;
-$("cameraBox")
-.style.display =
-"none";
-$("systemStatus")
-.textContent =
-"● SYSTEM READY";
-}
-/* IDENTITY */
-$("saveIdentityButton")
-.addEventListener(
-"click",
-saveIdentity
-);
-function saveIdentity(){
-const identity = {
-id:
-localStorage.getItem(
-"NEXA_IDENTITY_ID"
-) ||
-"NEXA-" +
-Math.random()
-.toString(36)
-.substring(2,10)
-.toUpperCase(),
-style:
-$("avatarStyle").value,
-futurism:
-$("futurism").value,
-originality:
-$("originality").value,
-energy:
-$("energy").value,
-hasAvatar:
-!!NEXA.avatar,
-updatedAt:
-new Date().toISOString()
-};
-localStorage.setItem(
-"NEXA_IDENTITY_V11",
-JSON.stringify(identity)
-);
-$("identityCode")
-.style.display =
-"block";
-$("identityCode")
-.textContent =
-JSON.stringify(
-identity,
-null,
-2
-);
-}
-/* LOAD AVATAR */
-if(NEXA.avatar){
-setAvatar(
-NEXA.avatar
-);
-}
-/* KEYBOARD */
-$("userInput")
-.addEventListener(
-"keydown",
-function(event){
-if(
-event.key === "Enter" &&
-(event.ctrlKey || event.metaKey)
-){
-think();
-}
-}
-);
-/* INITIALIZATION */
-renderMemory();
-$("systemStatus")
-.textContent =
-"● SYSTEM READY";
+
+
+
 console.log(
-"NEXA V11 CORE READY"
+"NEXA CORE ACTIVE"
 );
+
+
 </script>
+</div>
+
 </body>
+
 </html>
