@@ -131,24 +131,27 @@ const userContext =
         Création du contexte
         */
 
-        const context = {
+ const context = {
 
-            input:
-                cleanInput,
+    input:
+        cleanInput,
 
-            intent:
-                intent,
+    intent:
+        intent,
 
-            level:
-                level,
+    level:
+        level,
 
-            recentMemory:
-                recentMemory,
+    userContext:
+        userContext,
 
-            decision:
-                decision
+    recentMemory:
+        recentMemory,
 
-        };
+    decision:
+        decision
+
+};
 
 
         /*
