@@ -23,24 +23,32 @@ avant les modules qui les utilisent.
         =========================
         */
 
-        "js/core/intent.js",
+       /*
+=========================
+MEMORY
+=========================
+*/
 
-        "js/core/decisions.js",
+"js/memory/memory.js",
 
-        "js/core/progression.js",
-
-        "js/core/brain.js",
+"js/memory/feedback.js",
 
 
-        /*
-        =========================
-        MEMORY
-        =========================
-        */
+/*
+=========================
+CORE
+=========================
+*/
 
-        "js/memory/memory.js",
+"js/core/intent.js",
 
-        "js/memory/feedback.js",
+"js/core/decisions.js",
+
+"js/core/progression.js",
+
+"js/core/context.js",
+
+"js/core/brain.js",
 
 
         /*
