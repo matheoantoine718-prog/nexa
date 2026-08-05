@@ -204,7 +204,9 @@ const NEXA_BRAIN = {
         const memory =
             NEXA_MEMORY
             .getAll();
-
+const userContext =
+    NEXA_CONTEXT
+    .analyze();
 
         return {
 
