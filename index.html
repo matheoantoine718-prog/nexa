@@ -475,7 +475,21 @@ let level =
 Number(
 localStorage.getItem("NEXA_LEVEL") || 1
 );
+// NEXA USER PROFILE
 
+let profile =
+JSON.parse(
+localStorage.getItem("NEXA_PROFILE") ||
+JSON.stringify({
+uses:0,
+career:0,
+project:0,
+learning:0,
+blocked:0,
+goal:0,
+discovery:0
+})
+);
 
 
 /* =========================
@@ -726,7 +740,21 @@ date:new Date().toISOString()
 
 
 memory.push(entry);
+// UPDATE INTELLIGENCE
 
+profile.uses++;
+
+if(type==="CAREER") profile.career++;
+if(type==="PROJECT") profile.project++;
+if(type==="LEARNING") profile.learning++;
+if(type==="BLOCKED") profile.blocked++;
+if(type==="GOAL") profile.goal++;
+if(type==="DISCOVERY") profile.discovery++;
+
+localStorage.setItem(
+"NEXA_PROFILE",
+JSON.stringify(profile)
+);
 
 
 localStorage.setItem(
