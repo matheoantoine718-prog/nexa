@@ -618,7 +618,73 @@ DECISION
 ========================= */
 
 
-function decision(type){
+function decision(type, input){
+
+input = input.toLowerCase();
+
+
+if(
+input.includes("bloqué") ||
+input.includes("bloque") ||
+input.includes("perdu")
+){
+
+return [
+"On simplifie.",
+"Choisis une action de 5 minutes maximum maintenant."
+];
+
+}
+
+
+if(
+input.includes("application") ||
+input.includes("app") ||
+input.includes("projet")
+){
+
+return [
+"Construis une première version.",
+"Définis une seule fonctionnalité et commence un prototype simple."
+];
+
+}
+
+
+if(
+input.includes("travail") ||
+input.includes("emploi") ||
+input.includes("job")
+){
+
+return [
+"Avance professionnellement.",
+"Trouve une opportunité précise et fais une démarche aujourd'hui."
+];
+
+}
+
+
+if(
+input.includes("apprendre") ||
+input.includes("formation") ||
+input.includes("cours")
+){
+
+return [
+"Apprends par la pratique.",
+"Choisis une notion et réalise un exercice concret."
+];
+
+}
+
+
+return [
+"Explore ton idée.",
+"Transforme ta pensée en une petite action réalisable."
+];
+
+}
 // ADAPTATION PROFIL NEXA
 
 if(profile.blocked >= 3){
@@ -786,7 +852,7 @@ analyze(input);
 
 
 const result =
-decision(type);
+decision(type, input);
 
 
 
