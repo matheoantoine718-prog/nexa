@@ -80,12 +80,13 @@ CORE
 
         "js/identity/mediapipe-detector.js",
 
-        "js/identity/identity-manager.js",
+       "js/identity/identity-manager.js",
 
-        "js/identity/identity-state.js"
+"js/identity/identity-state.js",
 
-    ];
+"js/app.js"
 
+];
 
     /*
     =================================
