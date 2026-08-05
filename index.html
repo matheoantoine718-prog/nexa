@@ -619,7 +619,44 @@ DECISION
 
 
 function decision(type){
+// ADAPTATION PROFIL NEXA
 
+if(profile.blocked >= 3){
+
+return [
+"Mode simplification activé.",
+"Réduis ton objectif à une action de moins de 5 minutes."
+];
+
+}
+
+
+if(profile.project >= 3){
+
+if(type==="PROJECT"){
+
+return [
+"Mode constructeur activé.",
+"Construis une petite version aujourd'hui et teste-la."
+];
+
+}
+
+}
+
+
+if(profile.learning >= 3){
+
+if(type==="LEARNING"){
+
+return [
+"Mode apprentissage activé.",
+"Apprends puis crée immédiatement un petit exercice."
+];
+
+}
+
+}
 
 const data={
 
