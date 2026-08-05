@@ -193,3 +193,4 @@ const NEXA_APP = {
     }
 
 };
+console.log("NEXA APP ONLINE");
