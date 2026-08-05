@@ -130,8 +130,7 @@ const userContext =
         /*
         Création du contexte
         */
-
- const context = {
+const context = {
 
     input:
         cleanInput,
@@ -152,6 +151,7 @@ const userContext =
         decision
 
 };
+
 
 
         /*
