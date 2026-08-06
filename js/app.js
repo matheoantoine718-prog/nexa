@@ -5,9 +5,9 @@ MODULE : APP
 Rôle :
 Orchestrateur principal de NEXA.
 
-Ce module connecte :
-
 Interface
+    ↓
+App
     ↓
 Brain
     ↓
@@ -20,212 +20,253 @@ Memory
 Feedback
     ↓
 Progression
-
-Ce fichier ne contient pas le design.
-Ce fichier ne contient pas la caméra.
-Ce fichier ne contient pas l'IA.
-
-Il coordonne les modules.
 */
 
+
 const NEXA_APP = {
+
 
     version: "10.0.0",
 
     status: "READY",
 
-    process(input) {
 
-        /*
-        1. Vérification
-        */
 
-        if (
+    process(input){
+
+
+        if(
             !input ||
             !input.trim()
-        ) {
+        ){
 
             return {
 
-                success: false,
+                success:false,
 
-                error:
-                    "EMPTY_INPUT"
+                error:"EMPTY_INPUT"
 
             };
 
         }
 
 
+
         /*
-        2. Analyse de l'intention
+        Utilisation du cerveau central
         */
 
-        const intent =
-            NEXA_INTENT.analyze(
+        const result =
+
+            NEXA_BRAIN.think(
+
                 input
-            );
-
-
-        /*
-        3. Récupération du niveau
-        */
-
-        const level =
-            NEXA_PROGRESSION
-            .getLevel();
-
-
-        /*
-        4. Génération de la décision
-        */
-
-        const decision =
-            NEXA_DECISIONS.generate(
-
-                intent.type,
-
-                level
 
             );
 
 
+
+        if(
+            !result.success
+        ){
+
+            return result;
+
+        }
+
+
+
         /*
-        5. Création de l'entrée mémoire
+        Sauvegarde mémoire
         */
 
-        const memoryEntry = {
+        const entry = {
+
 
             input:
                 input.trim(),
 
+
             type:
-                intent.type,
+                result.output.type,
+
 
             level:
-                level,
+                result.output.level,
+
 
             title:
-                decision.title,
+                result.output.title,
+
 
             action:
-                decision.action
+                result.output.action
+
 
         };
 
 
-        /*
-        6. Sauvegarde
-        */
 
         const saved =
+
             NEXA_MEMORY.add(
 
-                memoryEntry
+                entry
 
             );
 
 
-        /*
-        7. Résultat final
-        */
 
         return {
 
-            success: true,
+
+            success:true,
+
+
+            intent:
+                result.context.intent,
+
+
+            decision:
+                result.output,
+
 
             entry:
                 saved,
 
-            intent:
-                intent,
-
-            decision:
-                decision,
 
             level:
-                level
+                result.output.level
+
 
         };
+
 
     },
 
 
+
+
     feedback(
-
-        feedbackType,
-
-        entryId = null
-
-    ) {
+        type,
+        id=null
+    ){
 
         return NEXA_FEEDBACK.submit(
 
-            feedbackType,
+            type,
 
-            entryId
+            id
 
         );
 
     },
 
 
-    getState() {
+
+
+    getState(){
+
 
         return {
+
 
             version:
                 this.version,
 
+
             status:
                 this.status,
 
+
             level:
-                NEXA_PROGRESSION
-                .getLevel(),
+                NEXA_PROGRESSION.getLevel(),
+
 
             memory:
-                NEXA_MEMORY
-                .getStats()
+                NEXA_MEMORY.getStats()
+
 
         };
 
+
     }
 
+
 };
-console.log("NEXA APP ONLINE");
-console.log("TEST INTERFACE");
+
+
+
+
 
 console.log(
-document.getElementById("activate")
+"NEXA APP ONLINE"
 );
-window.addEventListener("NEXA_READY", () => {
+
+
+
+
+
+/*
+=================================
+CONNEXION INTERFACE
+=================================
+*/
+
+
+function connectNEXAInterface(){
+
+
 
     const button =
-        document.getElementById("activate");
+
+        document.getElementById(
+            "activate"
+        );
+
 
     const input =
-        document.getElementById("input");
+
+        document.getElementById(
+            "input"
+        );
 
 
-    if(!button || !input){
+
+    if(
+        !button ||
+        !input
+    ){
 
         console.error(
-            "Interface NEXA introuvable"
+            "NEXA : Interface introuvable"
         );
+
 
         return;
 
     }
 
 
-    button.onclick = () => {
+
+    console.log(
+        "NEXA : Interface connectée"
+    );
+
+
+
+    button.onclick = function(){
+
 
 
         const result =
+
             NEXA_APP.process(
+
                 input.value
+
             );
+
 
 
         console.log(
@@ -234,32 +275,101 @@ window.addEventListener("NEXA_READY", () => {
         );
 
 
-        if(result.success){
+
+        if(
+            result.success
+        ){
 
 
-            document.getElementById("type")
+            document
+            .getElementById("type")
             .textContent =
             result.intent.type;
 
 
-            document.getElementById("title")
+
+            document
+            .getElementById("title")
             .textContent =
             result.decision.title;
 
 
-            document.getElementById("text")
+
+            document
+            .getElementById("text")
             .textContent =
             result.decision.action;
 
 
-            document.getElementById("result")
+
+            document
+            .getElementById("result")
             .style.display =
             "block";
 
 
         }
 
+
+
     };
 
 
-});
+
+}
+
+
+
+
+/*
+=================================
+DÉMARRAGE
+=================================
+*/
+
+
+window.addEventListener(
+
+    "NEXA_READY",
+
+    ()=>{
+
+
+        console.log(
+            "NEXA READY REÇU"
+        );
+
+
+        connectNEXAInterface();
+
+
+    }
+
+);
+
+
+
+
+
+/*
+Sécurité :
+si NEXA_READY est déjà passé
+*/
+
+setTimeout(()=>{
+
+
+    if(
+        !document
+        .getElementById("activate")
+    ){
+
+        return;
+
+    }
+
+
+    connectNEXAInterface();
+
+
+},2000);
