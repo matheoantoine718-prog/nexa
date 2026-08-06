@@ -194,7 +194,7 @@ const NEXA_APP = {
 
 };
 console.log("NEXA APP ONLINE");
-window.addEventListener("load", () => {
+window.addEventListener("NEXA_READY", () => {
 
     const button =
         document.getElementById("activate");
