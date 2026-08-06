@@ -194,6 +194,11 @@ const NEXA_APP = {
 
 };
 console.log("NEXA APP ONLINE");
+console.log("TEST INTERFACE");
+
+console.log(
+document.getElementById("activate")
+);
 window.addEventListener("NEXA_READY", () => {
 
     const button =
